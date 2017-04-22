@@ -18,7 +18,7 @@
 * along with LSD-SLAM. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "Undistorter.h"
+#include "undistorter.h"
 
 #include <sstream>
 #include <fstream>
@@ -36,27 +36,16 @@ Undistorter::~Undistorter()
 
 Undistorter* Undistorter::getUndistorterForFile(const char* configFilename)
 {
-	std::string completeFileName = configFilename;
+	//std::string completeFileName = configFilename;
 
-	printf("Reading Calibration from file %s",completeFileName.c_str());
+	printf("Reading Calibration from file %s", configFilename);
 
 
-	std::ifstream f(completeFileName.c_str());
-	if (!f.good())
-	{
+	std::ifstream f(configFilename);
+	if (!f.good()){
+		printf(" ... not found! Cannot operate without calibration, shutting down...\n");
 		f.close();
-
-		completeFileName = packagePath+"calib/"+configFilename;
-		printf(" ... not found!\n Trying %s", completeFileName.c_str());
-
-		f.open(completeFileName.c_str());
-
-		if (!f.good())
-		{
-			printf(" ... not found. Cannot operate without calibration, shutting down.\n");
-			f.close();
-			return 0;
-		}
+		return 0;
 	}
 
 	printf(" ... found!\n");
@@ -67,21 +56,17 @@ Undistorter* Undistorter::getUndistorterForFile(const char* configFilename)
 	std::getline(f,l2);	
 	f.close();
 
-
-
 	//float ic[10];
 	//if(std::sscanf(l1.c_str(), "%f %f %f %f %f %f %f %f %f %f", &ic[0], &ic[1], &ic[2], &ic[3], &ic[4], &ic[5], &ic[6], &ic[7], &ic[8], &ic[9]) == 10)
-	if (l2 == "<opencv_storage>")
-	{
+	if (l2 == "<opencv_storage>"){
 		printf("found OpenCV camera model, building rectifier.\n");
-		Undistorter* u = new UndistorterOpenCV(completeFileName.c_str());
+		Undistorter* u = new UndistorterOpenCV(configFilename);
 		if(!u->isValid()) return 0;
 		return u;
 	}
-	else
-	{
+	else{
 		printf("found ATAN camera model, building rectifier.\n");
-		Undistorter* u = new UndistorterPTAM(completeFileName.c_str());
+		Undistorter* u = new UndistorterPTAM(configFilename);
 		if(!u->isValid()) return 0;
 		return u;
 	}

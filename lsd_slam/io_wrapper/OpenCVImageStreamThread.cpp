@@ -121,11 +121,12 @@ void OpenCVImageStreamThread::operator()()
 		if (undistorter != 0)
 		{
 			assert(undistorter->isValid());
-			undistorter->undistort(frame, bufferItem.data);
+			Mat m = cvarrToMat(frame, true);
+			undistorter->undistort(m, bufferItem.data);
 		}
 		else
 		{
-			bufferItem.data = frame;
+			bufferItem.data = cvarrToMat(frame, true);
 		}
 		//bufferItem.data = cv::Mat(frame, true);
 		imageBuffer->pushBack(bufferItem);

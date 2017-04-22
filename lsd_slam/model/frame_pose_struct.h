@@ -62,6 +62,7 @@ public:
 	void applyPoseGraphOptResult();
 	Sim3 getCamToWorld(int recursionDepth = 0);
 	void invalidateCache();
+
 private:
 	int cacheValidFor;
 	static int cacheValidCounter;

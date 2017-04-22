@@ -1,0 +1,3 @@
+[submodule "thirdparty/g2o/source"]
+	path = thirdparty/g2o/source
+	url = https://github.com/RainerKuemmerle/g2o

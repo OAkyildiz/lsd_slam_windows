@@ -20,6 +20,8 @@
 
 #include "slam_system.h"
 
+#include "opencv2/opencv.hpp"
+
 #include "model/frame.h"
 #include "tracking/se3_tracker.h"
 #include "tracking/sim3_tracker.h"
@@ -48,8 +50,6 @@
 #ifdef ANDROID
 #include <android/log.h>
 #endif
-
-#include "opencv2/opencv.hpp"
 
 using namespace lsd_slam;
 
@@ -931,7 +931,6 @@ void SlamSystem::trackFrame(uchar* image, unsigned int frameID, bool blockUntilM
 	SE3 frameToReference_initialEstimate = se3FromSim3(
 			trackingReferencePose->getCamToWorld().inverse() * keyFrameGraph->allFramePoses.back()->getCamToWorld());
 	poseConsistencyMutex.unlock_shared();
-
 
 
 	std::chrono::high_resolution_clock::time_point tv_start, tv_end;

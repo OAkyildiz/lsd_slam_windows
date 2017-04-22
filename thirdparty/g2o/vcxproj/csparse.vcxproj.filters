@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_add.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_amd.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_chol.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_cholsol.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_compress.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_counts.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_cumsum.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_dfs.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_dmperm.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_droptol.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_dropzeros.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_dupl.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_entry.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_ereach.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_etree.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_fkeep.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_gaxpy.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_happly.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_house.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_ipvec.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_leaf.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_load.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_lsolve.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_ltsolve.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_lu.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_lusol.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_malloc.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_maxtrans.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_multiply.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_norm.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_permute.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_pinv.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_post.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_print.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_pvec.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_qr.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_qrsol.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_randperm.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_reach.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_scatter.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_scc.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_schol.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_spsolve.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_sqr.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_symperm.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_tdfs.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_transpose.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_updown.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_usolve.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_util.c" />
+    <ClCompile Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_utsolve.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="E:\dev\g2o\source\EXTERNAL\csparse\cs_api.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{8019253C-DBB9-4C02-A678-FC92D9D5B181}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{FB3682BD-EB0D-4A85-882D-8AD40B741EB9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

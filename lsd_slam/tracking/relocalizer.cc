@@ -26,12 +26,10 @@
 namespace lsd_slam
 {
 
-
 Relocalizer::Relocalizer(int w, int h, Eigen::Matrix3f K)
 {
-	for(int i=0;i<RELOCALIZE_THREADS;i++)
+	for (int i=0; i<RELOCALIZE_THREADS; i++)
 		running[i] = false;
-
 
 	this->w = w;
 	this->h = h;
@@ -46,34 +44,36 @@ Relocalizer::Relocalizer(int w, int h, Eigen::Matrix3f K)
 	resultFrameID = 0;
 	resultFrameToKeyframe = SE3();
 }
+
 Relocalizer::~Relocalizer()
 {
 	stop();
 }
+
 void Relocalizer::stop()
 {
 	continueRunning = false;
 	exMutex.lock();
 	newCurrentFrameSignal.notify_all();
 	exMutex.unlock();
-	for(int i=0;i<RELOCALIZE_THREADS;i++)
+
+	for (int i=0; i < RELOCALIZE_THREADS; i++)
 	{
 		relocThreads[i].join();
 		running[i] = false;
 	}
 	isRunning = false;
 
-
 	KFForReloc.clear();
 	CurrentRelocFrame.reset();
 }
-
 
 void Relocalizer::updateCurrentFrame(std::shared_ptr<Frame> currentFrame)
 {
 	boost::unique_lock<boost::mutex> lock(exMutex);
 
-	if(hasResult) return;
+	if (hasResult) 
+		return;
 
 	this->CurrentRelocFrame = currentFrame;
 	int doneLast = KFForReloc.size() - (maxRelocIDX-nextRelocIDX);
@@ -86,17 +86,18 @@ void Relocalizer::updateCurrentFrame(std::shared_ptr<Frame> currentFrame)
 			currentFrame->id(), nextRelocIDX, maxRelocIDX);
 
 	if (displayDepthMap)
-		Util::displayImage( "DebugWindow DEPTH", cv::Mat(currentFrame->height(), currentFrame->width(), CV_32F, currentFrame->image())*(1/255.0f), false );
+		Util::displayImage("DebugWindow DEPTH", cv::Mat(currentFrame->height(), currentFrame->width(), CV_32F, currentFrame->image()) * (1/255.0f), false);
 
 	int pressedKey = Util::waitKey(1);
 	handleKey(pressedKey);
 }
+
 void Relocalizer::start(std::vector<Frame*> &allKeyframesList)
 {
 	// make KFForReloc List
 
 	KFForReloc.clear();
-	for(unsigned int k=0;k < allKeyframesList.size(); k++)
+	for (unsigned int k=0; k < allKeyframesList.size(); k++)
 	{
 		// insert
 		KFForReloc.push_back(allKeyframesList[k]);
@@ -115,7 +116,7 @@ void Relocalizer::start(std::vector<Frame*> &allKeyframesList)
 	isRunning = true;
 
 	// start threads
-	for(int i=0;i<RELOCALIZE_THREADS;i++)
+	for (int i=0; i<RELOCALIZE_THREADS; i++)
 	{
 		relocThreads[i] = boost::thread(&Relocalizer::threadLoop, this, i);
 		running[i] = true;
@@ -129,6 +130,7 @@ bool Relocalizer::waitResult(int milliseconds)
 	resultReadySignal.timed_wait(lock, boost::posix_time::milliseconds(milliseconds));
 	return hasResult;
 }
+
 void Relocalizer::getResult(Frame* &out_keyframe, std::shared_ptr<Frame> &frame, int &out_successfulFrameID, SE3 &out_frameToKeyframe)
 {
 	boost::unique_lock<boost::mutex> lock(exMutex);
@@ -148,22 +150,24 @@ void Relocalizer::getResult(Frame* &out_keyframe, std::shared_ptr<Frame> &frame,
 	}
 }
 
-
 void Relocalizer::threadLoop(int idx)
 {
-	if(!multiThreading && idx != 0) return;
+	if(!multiThreading && idx != 0)
+		return;
 
-	SE3Tracker* tracker = new SE3Tracker(w,h,K);
+	SE3Tracker* tracker = new SE3Tracker(w, h, K);
 
 	boost::unique_lock<boost::mutex> lock(exMutex);
-	while(continueRunning)
+	while (continueRunning)
 	{
 		// if got something: do it (unlock in the meantime)
-		if(nextRelocIDX < maxRelocIDX && CurrentRelocFrame)
+		if (nextRelocIDX < maxRelocIDX && CurrentRelocFrame)
 		{
 			Frame* todo = KFForReloc[nextRelocIDX%KFForReloc.size()];
 			nextRelocIDX++;
-			if(todo->neighbors.size() <= 2) continue;
+
+			if(todo->neighbors.size() <= 2)
+				continue;
 
 			std::shared_ptr<Frame> myRelocFrame = CurrentRelocFrame;
 
@@ -173,8 +177,8 @@ void Relocalizer::threadLoop(int idx)
 			SE3 todoToFrame = tracker->trackFrameOnPermaref(todo, myRelocFrame.get(), SE3());
 
 			// try neighbours
-			float todoGoodVal = tracker->pointUsage * tracker->lastGoodCount / (tracker->lastGoodCount+tracker->lastBadCount);
-			if(todoGoodVal > relocalizationTH)
+			float todoGoodVal = tracker->pointUsage * tracker->lastGoodCount / (tracker->lastGoodCount + tracker->lastBadCount);
+			if (todoGoodVal > relocalizationTH)
 			{
 				int numGoodNeighbours = 0;
 				int numBadNeighbours = 0;
@@ -183,18 +187,18 @@ void Relocalizer::threadLoop(int idx)
 				float bestNeighbourUsage = tracker->pointUsage;
 				Frame* bestKF = todo;
 				SE3 bestKFToFrame = todoToFrame;
-				for(Frame* nkf : todo->neighbors)
+				for (Frame* nkf : todo->neighbors)
 				{
 					SE3 nkfToFrame_init = se3FromSim3((nkf->getScaledCamToWorld().inverse() * todo->getScaledCamToWorld() * sim3FromSE3(todoToFrame.inverse(), 1))).inverse();
 					SE3 nkfToFrame = tracker->trackFrameOnPermaref(nkf, myRelocFrame.get(), nkfToFrame_init);
 
-					float goodVal = tracker->pointUsage * tracker->lastGoodCount / (tracker->lastGoodCount+tracker->lastBadCount);
-					if(goodVal > relocalizationTH*0.8 && (nkfToFrame * nkfToFrame_init.inverse()).log().norm() < 0.1)
+					float goodVal = tracker->pointUsage * tracker->lastGoodCount / (tracker->lastGoodCount + tracker->lastBadCount);
+					if (goodVal > relocalizationTH * 0.8 && (nkfToFrame * nkfToFrame_init.inverse()).log().norm() < 0.1)
 						numGoodNeighbours++;
 					else
 						numBadNeighbours++;
 
-					if(goodVal > bestNeightbourGoodVal)
+					if (goodVal > bestNeightbourGoodVal)
 					{
 						bestNeightbourGoodVal = goodVal;
 						bestKF = nkf;
@@ -203,9 +207,9 @@ void Relocalizer::threadLoop(int idx)
 					}
 				}
 
-				if(numGoodNeighbours > numBadNeighbours || numGoodNeighbours >= 5)
+				if (numGoodNeighbours > numBadNeighbours || numGoodNeighbours >= 5)
 				{
-					if(enablePrintDebugInfo && printRelocalizationInfo)
+					if (enablePrintDebugInfo && printRelocalizationInfo)
 						printf("RELOCALIZED! frame %d on %d (bestNeighbour %d): good %2.1f%%, usage %2.1f%%, GoodNeighbours %d / %d\n",
 								myRelocFrame->id(), todo->id(), bestKF->id(),
 								100*bestNeightbourGoodVal, 100*bestNeighbourUsage,
@@ -224,7 +228,7 @@ void Relocalizer::threadLoop(int idx)
 				}
 				else
 				{
-					if(enablePrintDebugInfo && printRelocalizationInfo)
+					if (enablePrintDebugInfo && printRelocalizationInfo)
 						printf("FAILED RELOCALIZE! frame %d on %d (bestNeighbour %d): good %2.1f%%, usage %2.1f%%, GoodNeighbours %d / %d\n",
 								myRelocFrame->id(), todo->id(), bestKF->id(),
 								100*bestNeightbourGoodVal, 100*bestNeighbourUsage,
@@ -242,4 +246,5 @@ void Relocalizer::threadLoop(int idx)
 
 	delete tracker;
 }
+
 }

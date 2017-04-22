@@ -25,10 +25,13 @@
 namespace of2 {
 	class FabMap;
 }
+
+#ifndef __OPENCV_FEATURES_2D_HPP__
 namespace cv {
 	class FeatureDetector;
 	class BOWImgDescriptorExtractor;
 }
+#endif
 
 
 namespace lsd_slam
