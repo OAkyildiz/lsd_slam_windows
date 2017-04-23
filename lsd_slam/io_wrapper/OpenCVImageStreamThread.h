@@ -20,9 +20,9 @@
 
 #pragma once
 
-#include "io_wrapper/notify_buffer.h"
-#include "io_wrapper/timestamped_object.h"
-#include "io_wrapper/input_image_stream.h"
+#include "io_wrapper\notify_buffer.h"
+#include "io_wrapper\timestamped_object.h"
+#include "io_wrapper\input_image_stream.h"
 
 
 //#include <sensor_msgs/image_encodings.h>
@@ -30,12 +30,14 @@
 //#include <sensor_msgs/CameraInfo.h>
 //#include <geometry_msgs/PoseStamped.h>
 
-#include "util/undistorter.h"
-#include <cv.h>
-#include <highgui.h>
+#include "util/Undistorter.h"
+#include "opencv2/opencv.hpp"
+#include <opencv2/highgui/highgui.hpp>
 
 namespace lsd_slam
 {
+
+
 
 /**
  * Image stream provider using ROS messages.
@@ -53,7 +55,7 @@ public:
 	
 	void setCalibration(std::string file);
 
-	void setCameraCapture(CvCapture* cap);
+	void setCameraCapture(cv::VideoCapture* cap);
 	/**
 	 * Thread main function.
 	 */
@@ -75,7 +77,7 @@ private:
 
 	int lastSEQ;
 
-	CvCapture* capture;
+	cv::VideoCapture* capture;
 };
 
 }

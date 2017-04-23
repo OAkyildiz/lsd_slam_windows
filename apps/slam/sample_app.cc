@@ -1,157 +1,75 @@
 #include <iostream>
-
-#include <opencv2/core.hpp>
-#include <opencv2/highgui.hpp>
+#include <opencv2/opencv.hpp>
+#include <opencv2/imgcodecs.hpp>
 #include <opencv2/imgproc.hpp>
+#include <opencv2/highgui/highgui.hpp>
 
 #include "live_slam_wrapper.h"
 
 #include "util/settings.h"
 #include "util/global_funcs.h"
 
-//#include "util/undistorter.h"
-//#include "io_wrapper/OpenCVImageStreamThread.h"
-#include "VideoInputImageStream.h"
+#include "util/Undistorter.h"
+#include "io_wrapper/OpenCVImageStreamThread.h"
 #include "slam_system.h"
 #include "DebugOutput3DWrapper.h"
-
-//#include "videoInput.h"
 
 using namespace std;
 using namespace lsd_slam;
 char key;
+//PATH=C:\projects\uni\dissertation\Libraries\g2o\install\bin;C:\projects\uni\dissertation\Libraries\opencv\x86\vc12\bin;%PATH%
+int main() {
+	cvNamedWindow("Camera_Output_Undist", 1); //Create window
 
+    //TODO: dynamic path, instead of constant
+    std::string calib_fn = "E:/workspaces/lsd_slam_windows/data/out_camera_data.xml";
+	//CvCapture* capture = cvCaptureFromCAM(CV_CAP_ANY); //Capture using any camera connected to your system
+	cv::VideoCapture* capture= new cv::VideoCapture(0); // open the default camera
+	if (!capture->isOpened())  // check if we succeeded
+	  return -1;
+	OpenCVImageStreamThread* inputStream = new OpenCVImageStreamThread();
+    inputStream->setCalibration(calib_fn);
 
-// print symbolic names of available video capture devices
-void PrintDeviceNames(const std::vector<Device> deviceList)
-{
-	printf("Available video capture devices:\n");
-	for (int i = 0; i < deviceList.size(); ++i)
-	{
-		const Device& device = deviceList[i];
-		printf("%ws \"%ws\"\n", device.symbolicName.c_str(), device.friendlyName.c_str());
-	}
-}
+	inputStream->setCameraCapture(capture);
+	inputStream->run();
 
+	Output3DWrapper* outputWrapper = new DebugOutput3DWrapper(inputStream->width(), inputStream->height());
+	LiveSLAMWrapper slamNode(inputStream, outputWrapper);
+	
+	cv::Mat mymat;
+	*capture >> mymat;//Create image frames from capture
+	cv::Mat tracker_display = cv::Mat::ones(640, 480, CV_8UC3);
+	cv::circle(mymat, cv::Point(100, 100), 20, cv::Scalar(255, 1, 0),5);
+	cv::imshow("Camera_Output_Undist", mymat);
 
-DeviceSettings FindCompatibleMediaType(Device dev, int stream, int width, int height)
-{
-	if (stream < 0 || stream > dev.listStream.size())
-		throw new std::exception("Stream not available");
+	slamNode.Loop();
 
-	const std::vector<MediaType>& listMediaType = dev.listStream[stream].listMediaType;
-	for (int k = 0; k < listMediaType.size(); ++k)
-	{
-		const MediaType& mt = listMediaType[k];
+	//Undistorter* undistorter = Undistorter::getUndistorterForFile("out_camera_data.xml");
 
-		// search for compatible media type
-		if (mt.width == width && mt.height == height)
-		{
-			DeviceSettings ds;
-			ds.indexStream = stream;
-			ds.indexMediaType = k;
-			ds.symbolicLink = dev.symbolicName;
-			return ds;
-		}
-	}
-}
+	//while (1){ //Create infinte loop for live streaming
+	//	IplImage* frame = cvQueryFrame(capture); //Create image frames from capture
+	//	TimestampedMat bufferItem;
+	//	bufferItem.timestamp = Timestamp::now();
+	//	
+	//	cv::Mat mymat = cv::Mat(frame, true);
 
+	//	
+	//	undistorter->undistort(frame, mymat);
+	//    
+	//	cvShowImage("Camera_Output", frame); //Show image frames on created window
+	//	cv::imshow("Camera_Output_Undist", mymat);
+	//	key = cvWaitKey(0); //Capture Keyboard stroke
+	//	if (char(key) == 27){
+	//		break; //If you hit ESC key loop will break.
+	//	}
+	//}
 
-Device FindDevice(const std::wstring symbolicName, const std::vector<Device>& deviceList)
-{
-	for (int i = 0; i < deviceList.size(); ++i)
-	{
-		const Device& dev = deviceList[i];
-		if (symbolicName.empty() || dev.symbolicName == symbolicName)
-			return dev;
-	}
-	//printf("String Mismatch: Throwing Exception"); //pre-exception console test
-	throw new std::exception("Device not found");
-}
+	if (inputStream != nullptr)
+		delete inputStream;
+	if (outputWrapper != nullptr)
+		delete outputWrapper;
 
-
-std::wstring InitializeVideoInput()
-{
-	videoInput& vInput = videoInput::getInstance();
-	vInput.setVerbose(false);
-
-	std::vector<Device> deviceList;
-	vInput.getListOfDevices(deviceList);
-
-	if (deviceList.empty()) {
-		throw std::exception("No video capture device available.");
-	}
-	else{
-		PrintDeviceNames(deviceList);
-
-	}
-
-	Device dev = FindDevice(L"", deviceList);
-
-	DeviceSettings deviceSettings = FindCompatibleMediaType(dev, 0, 640, 480);
-
-	CaptureSettings captureSettings;
-	captureSettings.pIStopCallback = 0;
-	captureSettings.videoFormat = CaptureVideoFormat::RGB32;
-	captureSettings.readMode = ReadMode::SYNC;
-
-	vInput.setupDevice(deviceSettings, captureSettings);
-
-	return dev.symbolicName;
-}
-
-
-void VideoTest()
-{
-	std::wstring symbolicLink = InitializeVideoInput();
-	videoInput& vInput = videoInput::getInstance();
-
-	cvNamedWindow("VideoTest", CV_WINDOW_AUTOSIZE);
-
-	IplImage* frame = cvCreateImage(cvSize(640, 480), 8, 4);
-
-	ReadSetting readSetting = {};
-	readSetting.symbolicLink = symbolicLink;
-	readSetting.pPixels = reinterpret_cast<unsigned char *>(frame->imageData);
-
-	while (1)
-	{
-		vInput.readPixels(readSetting);
-
-		cvShowImage("VideoTest", frame);
-
-		char c = cvWaitKey(33);
-		if (c == 27)
-			break;
-	}
-
-	cvDestroyWindow("VideoTest");
-	cvReleaseImage(&frame);
-
-	vInput.closeAllDevices();
-}
-
-
-int main(int argc, char** argv) {
-
-	std::wstring symbolicLink = InitializeVideoInput();
-	videoInput& vInput = videoInput::getInstance();
-
-	//TODO: Make the path dynamic.
-	std::string calib_fn = "E:\\workspaces\\lsd_slam_windows\\data\\out_camera_data.xml";
-
-	VideoInputImageStream inputStream(symbolicLink);
-	inputStream.setCalibration(calib_fn);
-	inputStream.run();
-
-	{
-		DebugOutput3DWrapper outputWrapper(inputStream.width(), inputStream.height());
-		LiveSLAMWrapper slamNode(&inputStream, &outputWrapper);
-
-		slamNode.Loop();
-	}
-
-	vInput.closeAllDevices();
-
+	//cvReleaseCapture(&capture);  the camera will be deinitialized automatically in VideoCapture destructor
+	cvDestroyWindow("Camera_Output"); //Destroy Window
 	return 0;
 }

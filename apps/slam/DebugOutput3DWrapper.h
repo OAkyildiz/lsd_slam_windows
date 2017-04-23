@@ -20,7 +20,7 @@
 
 #pragma once
 
-#include "lsd_slam/io_wrapper/output_3d_wrapper.h"
+#include "lsd_slam\io_wrapper\output_3d_wrapper.h"
 #include <vector>
 #include <opencv2/core/core.hpp>
 
@@ -54,7 +54,7 @@ struct KeyFrameMessage
 
 	// data as InputPointDense(float idepth, float idepth_var, uchar color[4]), width x height
 	// may be empty, in that case no associated pointcloud is ever shown.
-	//InputPointDense pointcloud;
+	vector<InputPointDense> pointcloud;
 
 };
 

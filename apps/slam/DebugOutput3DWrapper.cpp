@@ -19,8 +19,8 @@
 */
 
 #include "DebugOutput3DWrapper.h"
-#include "lsd_slam/util/sophus_util.h"
-#include "lsd_slam/util/settings.h"
+#include "lsd_slam\util\sophus_util.h"
+#include "lsd_slam\util\settings.h"
 
 //#include "lsd_slam_viewer/keyframeGraphMsg.h"
 //#include "lsd_slam_viewer/keyframeMsg.h"
@@ -30,17 +30,17 @@
 #include "sophus/sim3.hpp"
 #include "lsd_slam/global_mapping/g2o_type_sim3_sophus.h"
 
-#include <opencv2/core.hpp>
-#include <opencv2/highgui.hpp>
+#include <opencv2/core/core.hpp>
+#include <opencv2/imgcodecs.hpp>
 #include <opencv2/imgproc.hpp>
-
+#include <opencv2/highgui/highgui.hpp>
 namespace lsd_slam
 {
 
 
 DebugOutput3DWrapper::DebugOutput3DWrapper(int width, int height)
 {
-	cv::namedWindow("Tracking_output", 1); //Create window
+	cvNamedWindow("Tracking_output", 1); //Create window
 	this->width = width;
 	this->height = height;
 

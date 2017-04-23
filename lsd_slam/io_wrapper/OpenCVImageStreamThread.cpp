@@ -62,7 +62,7 @@ OpenCVImageStreamThread::~OpenCVImageStreamThread()
 	delete imageBuffer;
 }
 
-void OpenCVImageStreamThread::setCameraCapture(CvCapture* cap)
+void OpenCVImageStreamThread::setCameraCapture(cv::VideoCapture* cap)
 {
 	capture = cap;
 }
@@ -108,7 +108,7 @@ void OpenCVImageStreamThread::operator()()
 		assert("no calibration");
 		return;
 	}
-	if (!capture)
+	if (!capture->isOpened())
 	{
 		assert("NO valid camera capture pointer");
 		return;
@@ -117,16 +117,16 @@ void OpenCVImageStreamThread::operator()()
 	{
 		TimestampedMat bufferItem;
 		bufferItem.timestamp = Timestamp::now();
-		IplImage* frame = cvQueryFrame(capture);
+		cv::Mat mt;
+		*capture >> mt; //get image
 		if (undistorter != 0)
 		{
 			assert(undistorter->isValid());
-			Mat m = cvarrToMat(frame, true);
-			undistorter->undistort(m, bufferItem.data);
+			undistorter->undistort(mt, bufferItem.data);
 		}
 		else
 		{
-			bufferItem.data = cvarrToMat(frame, true);
+			bufferItem.data = mt;
 		}
 		//bufferItem.data = cv::Mat(frame, true);
 		imageBuffer->pushBack(bufferItem);
