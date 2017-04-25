@@ -159,6 +159,9 @@
     <ClInclude Include="util\undistorter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="msgs\KeyFrameMessage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

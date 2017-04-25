@@ -41,6 +41,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "videoInput", "thirdparty\vi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "calibration", "apps\calibration\calibration.vcxproj", "{6B297FA8-D9C8-4DC1-9B9C-82EF0E3F3397}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ros_lib", "ros_lib\ros_lib.vcxproj", "{918E633D-51BD-44A6-B8CB-571C3329B3B7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -83,6 +85,10 @@ Global
 		{6B297FA8-D9C8-4DC1-9B9C-82EF0E3F3397}.Debug|x64.Build.0 = Debug|x64
 		{6B297FA8-D9C8-4DC1-9B9C-82EF0E3F3397}.Release|x64.ActiveCfg = Release|x64
 		{6B297FA8-D9C8-4DC1-9B9C-82EF0E3F3397}.Release|x64.Build.0 = Release|x64
+		{918E633D-51BD-44A6-B8CB-571C3329B3B7}.Debug|x64.ActiveCfg = Debug|x64
+		{918E633D-51BD-44A6-B8CB-571C3329B3B7}.Debug|x64.Build.0 = Debug|x64
+		{918E633D-51BD-44A6-B8CB-571C3329B3B7}.Release|x64.ActiveCfg = Release|x64
+		{918E633D-51BD-44A6-B8CB-571C3329B3B7}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,5 +104,6 @@ Global
 		{05852768-DE82-4B3D-96F2-8919F6181F46} = {714A7FFD-3605-491E-86B2-91B88DF06B6B}
 		{E45BDB9F-9880-4970-9F99-68443EC0DE7D} = {A654C9A2-97D6-40E5-84D3-9229363D9194}
 		{6B297FA8-D9C8-4DC1-9B9C-82EF0E3F3397} = {714A7FFD-3605-491E-86B2-91B88DF06B6B}
+		{918E633D-51BD-44A6-B8CB-571C3329B3B7} = {A654C9A2-97D6-40E5-84D3-9229363D9194}
 	EndGlobalSection
 EndGlobal

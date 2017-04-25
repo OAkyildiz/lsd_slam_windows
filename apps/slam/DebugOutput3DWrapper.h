@@ -31,6 +31,13 @@ namespace lsd_slam
 class Frame;
 class KeyFrameGraph;
 
+struct InputPointDense
+{
+	float idepth;
+	float idepth_var;
+	unsigned char color[4];
+};
+
 struct KeyFrameMessage
 {
 	int id;
@@ -54,17 +61,11 @@ struct KeyFrameMessage
 
 	// data as InputPointDense(float idepth, float idepth_var, uchar color[4]), width x height
 	// may be empty, in that case no associated pointcloud is ever shown.
-	vector<InputPointDense> pointcloud;
+	std::vector<InputPointDense> pointcloud;
 
 };
 
 
-struct InputPointDense
-{
-	float idepth;
-	float idepth_var;
-	unsigned char color[4];
-};
 
 struct GraphConstraint
 {

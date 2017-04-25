@@ -1,0 +1,1029 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="duration.cpp" />
+    <ClCompile Include="time.cpp" />
+    <ClCompile Include="WindowsSocket.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="actionlib\TestActionFeedback.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib\TestActionGoal.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib\TestActionResult.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib\TestFeedback.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib\TestGoal.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib\TestRequestAction.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib\TestRequestActionFeedback.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib\TestRequestActionGoal.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib\TestRequestActionResult.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib\TestRequestFeedback.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib\TestRequestGoal.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib\TestRequestResult.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib\TestResult.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib\TwoIntsAction.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib\TwoIntsActionFeedback.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib\TwoIntsActionGoal.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib\TwoIntsActionResult.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib\TwoIntsFeedback.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib\TwoIntsGoal.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib\TwoIntsResult.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib_msgs\GoalID.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib_msgs\GoalStatus.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib_msgs\GoalStatusArray.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib_tutorials\AveragingAction.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib_tutorials\AveragingActionFeedback.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib_tutorials\AveragingActionGoal.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib_tutorials\AveragingActionResult.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib_tutorials\AveragingFeedback.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib_tutorials\AveragingGoal.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib_tutorials\AveragingResult.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib_tutorials\FibonacciAction.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib_tutorials\FibonacciActionFeedback.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib_tutorials\FibonacciActionGoal.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib_tutorials\FibonacciActionResult.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib_tutorials\FibonacciFeedback.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib_tutorials\FibonacciGoal.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actionlib_tutorials\FibonacciResult.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bond\Constants.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bond\Status.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\FollowJointTrajectoryAction.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\FollowJointTrajectoryActionFeedback.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\FollowJointTrajectoryActionGoal.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\FollowJointTrajectoryActionResult.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\FollowJointTrajectoryFeedback.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\FollowJointTrajectoryGoal.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\FollowJointTrajectoryResult.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\GripperCommand.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\GripperCommandAction.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\GripperCommandActionFeedback.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\GripperCommandActionGoal.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\GripperCommandActionResult.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\GripperCommandFeedback.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\GripperCommandGoal.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\GripperCommandResult.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\JointControllerState.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\JointTolerance.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\JointTrajectoryAction.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\JointTrajectoryActionFeedback.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\JointTrajectoryActionGoal.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\JointTrajectoryActionResult.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\JointTrajectoryControllerState.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\JointTrajectoryFeedback.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\JointTrajectoryGoal.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\JointTrajectoryResult.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\PidState.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\PointHeadAction.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\PointHeadActionFeedback.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\PointHeadActionGoal.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\PointHeadActionResult.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\PointHeadFeedback.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\PointHeadGoal.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\PointHeadResult.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\QueryCalibrationState.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\QueryTrajectoryState.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\SingleJointPositionAction.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\SingleJointPositionActionFeedback.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\SingleJointPositionActionGoal.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\SingleJointPositionActionResult.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\SingleJointPositionFeedback.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\SingleJointPositionGoal.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="control_msgs\SingleJointPositionResult.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="diagnostic_msgs\AddDiagnostics.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="diagnostic_msgs\DiagnosticArray.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="diagnostic_msgs\DiagnosticStatus.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="diagnostic_msgs\KeyValue.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="diagnostic_msgs\SelfTest.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dynamic_reconfigure\BoolParameter.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dynamic_reconfigure\Config.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dynamic_reconfigure\ConfigDescription.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dynamic_reconfigure\DoubleParameter.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dynamic_reconfigure\Group.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dynamic_reconfigure\GroupState.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dynamic_reconfigure\IntParameter.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dynamic_reconfigure\ParamDescription.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dynamic_reconfigure\Reconfigure.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dynamic_reconfigure\SensorLevels.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dynamic_reconfigure\StrParameter.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gazebo_msgs\ApplyBodyWrench.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gazebo_msgs\ApplyJointEffort.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gazebo_msgs\BodyRequest.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gazebo_msgs\ContactsState.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gazebo_msgs\ContactState.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gazebo_msgs\DeleteModel.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gazebo_msgs\GetJointProperties.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gazebo_msgs\GetLinkProperties.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gazebo_msgs\GetLinkState.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gazebo_msgs\GetModelProperties.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gazebo_msgs\GetModelState.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gazebo_msgs\GetPhysicsProperties.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gazebo_msgs\GetWorldProperties.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gazebo_msgs\JointRequest.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gazebo_msgs\LinkState.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gazebo_msgs\LinkStates.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gazebo_msgs\ModelState.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gazebo_msgs\ModelStates.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gazebo_msgs\ODEJointProperties.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gazebo_msgs\ODEPhysics.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gazebo_msgs\SetJointProperties.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gazebo_msgs\SetJointTrajectory.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gazebo_msgs\SetLinkProperties.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gazebo_msgs\SetLinkState.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gazebo_msgs\SetModelConfiguration.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gazebo_msgs\SetModelState.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gazebo_msgs\SetPhysicsProperties.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gazebo_msgs\SpawnModel.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gazebo_msgs\WorldState.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry_msgs\Accel.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry_msgs\AccelStamped.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry_msgs\AccelWithCovariance.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry_msgs\AccelWithCovarianceStamped.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry_msgs\Inertia.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry_msgs\InertiaStamped.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry_msgs\Point.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry_msgs\Point32.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry_msgs\PointStamped.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry_msgs\Polygon.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry_msgs\PolygonStamped.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry_msgs\Pose.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry_msgs\Pose2D.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry_msgs\PoseArray.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry_msgs\PoseStamped.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry_msgs\PoseWithCovariance.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry_msgs\PoseWithCovarianceStamped.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry_msgs\Quaternion.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry_msgs\QuaternionStamped.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry_msgs\Transform.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry_msgs\TransformStamped.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry_msgs\Twist.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry_msgs\TwistStamped.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry_msgs\TwistWithCovariance.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry_msgs\TwistWithCovarianceStamped.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry_msgs\Vector3.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry_msgs\Vector3Stamped.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry_msgs\Wrench.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry_msgs\WrenchStamped.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="laser_assembler\AssembleScans.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="laser_assembler\AssembleScans2.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="map_msgs\GetMapROI.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="map_msgs\GetPointMap.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="map_msgs\GetPointMapROI.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="map_msgs\OccupancyGridUpdate.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="map_msgs\PointCloud2Update.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="map_msgs\ProjectedMap.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="map_msgs\ProjectedMapInfo.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="map_msgs\ProjectedMapsInfo.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="map_msgs\SaveMap.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="map_msgs\SetMapProjections.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="nav_msgs\GetMap.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="nav_msgs\GetMapAction.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="nav_msgs\GetMapActionFeedback.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="nav_msgs\GetMapActionGoal.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="nav_msgs\GetMapActionResult.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="nav_msgs\GetMapFeedback.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="nav_msgs\GetMapGoal.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="nav_msgs\GetMapResult.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="nav_msgs\GetPlan.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="nav_msgs\GridCells.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="nav_msgs\MapMetaData.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="nav_msgs\OccupancyGrid.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="nav_msgs\Odometry.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="nav_msgs\Path.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="nav_msgs\SetMap.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="nodelet\NodeletList.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="nodelet\NodeletLoad.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="nodelet\NodeletUnload.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pcl_msgs\ModelCoefficients.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pcl_msgs\PointIndices.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pcl_msgs\PolygonMesh.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pcl_msgs\Vertices.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="polled_camera\GetPolledImage.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="roscpp\Empty.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="roscpp\GetLoggers.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="roscpp\Logger.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="roscpp\SetLoggerLevel.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="roscpp_tutorials\TwoInts.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rosgraph_msgs\Clock.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rosgraph_msgs\Log.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rosgraph_msgs\TopicStatistics.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rospy_tutorials\AddTwoInts.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rospy_tutorials\BadTwoInts.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rospy_tutorials\Floats.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rospy_tutorials\HeaderString.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rosserial_msgs\Log.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rosserial_msgs\RequestMessageInfo.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rosserial_msgs\RequestParam.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rosserial_msgs\RequestServiceInfo.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rosserial_msgs\TopicInfo.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ros\duration.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ros\msg.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ros\node_handle.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ros\publisher.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ros\service_client.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ros\service_server.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ros\subscriber.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ros\time.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sensor_msgs\BatteryState.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sensor_msgs\CameraInfo.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sensor_msgs\ChannelFloat32.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sensor_msgs\CompressedImage.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sensor_msgs\FluidPressure.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sensor_msgs\Illuminance.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sensor_msgs\Image.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sensor_msgs\Imu.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sensor_msgs\JointState.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sensor_msgs\Joy.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sensor_msgs\JoyFeedback.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sensor_msgs\JoyFeedbackArray.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sensor_msgs\LaserEcho.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sensor_msgs\LaserScan.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sensor_msgs\MagneticField.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sensor_msgs\MultiDOFJointState.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sensor_msgs\MultiEchoLaserScan.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sensor_msgs\NavSatFix.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sensor_msgs\NavSatStatus.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sensor_msgs\PointCloud.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sensor_msgs\PointCloud2.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sensor_msgs\PointField.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sensor_msgs\Range.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sensor_msgs\RegionOfInterest.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sensor_msgs\RelativeHumidity.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sensor_msgs\SetCameraInfo.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sensor_msgs\Temperature.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sensor_msgs\TimeReference.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shape_msgs\Mesh.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shape_msgs\MeshTriangle.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shape_msgs\Plane.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shape_msgs\SolidPrimitive.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="smach_msgs\SmachContainerInitialStatusCmd.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="smach_msgs\SmachContainerStatus.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="smach_msgs\SmachContainerStructure.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\Bool.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\Byte.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\ByteMultiArray.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\Char.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\ColorRGBA.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\Duration.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\Empty.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\Float32.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\Float32MultiArray.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\Float64.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\Float64MultiArray.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\Header.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\Int16.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\Int16MultiArray.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\Int32.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\Int32MultiArray.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\Int64.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\Int64MultiArray.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\Int8.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\Int8MultiArray.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\MultiArrayDimension.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\MultiArrayLayout.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\String.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\Time.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\UInt16.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\UInt16MultiArray.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\UInt32.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\UInt32MultiArray.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\UInt64.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\UInt64MultiArray.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\UInt8.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_msgs\UInt8MultiArray.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_srvs\Empty.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_srvs\SetBool.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="std_srvs\Trigger.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stereo_msgs\DisparityImage.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tf2_msgs\FrameGraph.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tf2_msgs\LookupTransformAction.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tf2_msgs\LookupTransformActionFeedback.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tf2_msgs\LookupTransformActionGoal.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tf2_msgs\LookupTransformActionResult.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tf2_msgs\LookupTransformFeedback.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tf2_msgs\LookupTransformGoal.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tf2_msgs\LookupTransformResult.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tf2_msgs\TF2Error.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tf2_msgs\TFMessage.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tf\FrameGraph.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tf\tf.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tf\tfMessage.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tf\transform_broadcaster.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="theora_image_transport\Packet.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="topic_tools\DemuxAdd.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="topic_tools\DemuxDelete.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="topic_tools\DemuxList.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="topic_tools\DemuxSelect.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="topic_tools\MuxAdd.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="topic_tools\MuxDelete.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="topic_tools\MuxList.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="topic_tools\MuxSelect.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="trajectory_msgs\JointTrajectory.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="trajectory_msgs\JointTrajectoryPoint.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="trajectory_msgs\MultiDOFJointTrajectory.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="trajectory_msgs\MultiDOFJointTrajectoryPoint.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="turtlesim\Color.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="turtlesim\Kill.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="turtlesim\Pose.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="turtlesim\SetPen.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="turtlesim\Spawn.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="turtlesim\TeleportAbsolute.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="turtlesim\TeleportRelative.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="turtle_actionlib\ShapeAction.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="turtle_actionlib\ShapeActionFeedback.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="turtle_actionlib\ShapeActionGoal.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="turtle_actionlib\ShapeActionResult.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="turtle_actionlib\ShapeFeedback.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="turtle_actionlib\ShapeGoal.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="turtle_actionlib\ShapeResult.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="turtle_actionlib\Velocity.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="visualization_msgs\ImageMarker.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="visualization_msgs\InteractiveMarker.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="visualization_msgs\InteractiveMarkerControl.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="visualization_msgs\InteractiveMarkerFeedback.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="visualization_msgs\InteractiveMarkerInit.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="visualization_msgs\InteractiveMarkerPose.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="visualization_msgs\InteractiveMarkerUpdate.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="visualization_msgs\Marker.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="visualization_msgs\MarkerArray.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="visualization_msgs\MenuEntry.h" >
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <Extensions>{12e41556-0348-4bb7-b93c-2eeb2f6b7653}</Extensions>
+    </Filter>
+  </ItemGroup>
+</Project>
