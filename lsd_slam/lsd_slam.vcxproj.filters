@@ -159,7 +159,13 @@
     <ClInclude Include="util\undistorter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="msgs\KeyFrameMessage.h">
+    <ClInclude Include="msgs\keyframeGraphMsg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="msgs\keyframeMsg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="msgs\LSDSLAMViewerParamsConfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

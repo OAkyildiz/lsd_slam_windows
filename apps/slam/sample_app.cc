@@ -19,6 +19,12 @@ using namespace lsd_slam;
 char key;
 //PATH=C:\projects\uni\dissertation\Libraries\g2o\install\bin;C:\projects\uni\dissertation\Libraries\opencv\x86\vc12\bin;%PATH%
 int main() {
+
+	cout << "OpenCV version : " << CV_VERSION << endl;
+	cout << "Major version : " << CV_MAJOR_VERSION << endl;
+	cout << "Minor version : " << CV_MINOR_VERSION << endl;
+	cout << "Subminor version : " << CV_SUBMINOR_VERSION << endl;
+
 	cvNamedWindow("Camera_Output_Undist", 1); //Create window
 
     //TODO: dynamic path, instead of constant

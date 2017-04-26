@@ -54,7 +54,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(BOOST_DIR);$(OPENCV_DIR)include;$(OPENCV_DIR)include\opencv;$(SolutionDir)thirdparty\g2o\source;$(SolutionDir)thirdparty\g2o\source\EXTERNAL\csparse;$(SolutionDir)thirdparty\g2o\vcxproj;E:\dev\eigen;$(SolutionDir)thirdparty\Sophus;$(SolutionDir)thirdparty\openFabMap\include;$(SolutionDir)thirdparty\dirent-1.20.1\include;$(ProjectDir)depth_estimation;$(ProjectDir)global_mapping;$(ProjectDir)io_wrapper;$(ProjectDir)model;$(ProjectDir)tracking;$(ProjectDir)util;E:\dev\opencv\sources\modules\viz;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(BOOST_DIR);$(OPENCV_DIR)include;$(OPENCV_DIR)include\opencv;$(SolutionDir)thirdparty\g2o\source;$(SolutionDir)thirdparty\g2o\source\EXTERNAL\csparse;$(SolutionDir)thirdparty\g2o\vcxproj;E:\dev\eigen;$(SolutionDir)thirdparty\Sophus;$(SolutionDir)thirdparty\openFabMap\include;$(SolutionDir)thirdparty\dirent-1.20.1\include;$(ProjectDir)depth_estimation;$(ProjectDir)global_mapping;$(ProjectDir)io_wrapper;$(ProjectDir)model;$(ProjectDir)tracking;$(ProjectDir)util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -129,7 +129,9 @@
     <ClInclude Include="model\frame.h" />
     <ClInclude Include="model\frame_memory.h" />
     <ClInclude Include="model\frame_pose_struct.h" />
-    <ClInclude Include="msgs\KeyFrameMessage.h" />
+    <ClInclude Include="msgs\keyframeGraphMsg.h" />
+    <ClInclude Include="msgs\keyframeMsg.h" />
+    <ClInclude Include="msgs\LSDSLAMViewerParamsConfig.h" />
     <ClInclude Include="tracking\least_squares.h" />
     <ClInclude Include="tracking\relocalizer.h" />
     <ClInclude Include="tracking\se3_tracker.h" />

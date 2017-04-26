@@ -1,0 +1,360 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="vtk">
+      <UniqueIdentifier>{14399ae1-3a40-4c05-a7a6-4c9fe4cdd787}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vtk\Resource Files">
+      <UniqueIdentifier>{5dcb0453-9927-4408-b9dd-39412df9d5fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vtk\Header Files">
+      <UniqueIdentifier>{22f0005f-6b82-4658-b6a7-c7f86434c8ce}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\clouds.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shapes.cpp" />
+    <ClCompile Include="src\types.cpp" />
+    <ClCompile Include="src\viz3d.cpp" />
+    <ClCompile Include="src\vizcore.cpp" />
+    <ClCompile Include="src\vizimpl.cpp" />
+    <ClCompile Include="src\widget.cpp" />
+    <ClCompile Include="src\clouds.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shapes.cpp" />
+    <ClCompile Include="src\types.cpp" />
+    <ClCompile Include="src\viz3d.cpp" />
+    <ClCompile Include="src\vizcore.cpp" />
+    <ClCompile Include="src\vizimpl.cpp" />
+    <ClCompile Include="src\widget.cpp" />
+    <ClCompile Include="src\clouds.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shapes.cpp" />
+    <ClCompile Include="src\types.cpp" />
+    <ClCompile Include="src\viz3d.cpp" />
+    <ClCompile Include="src\vizcore.cpp" />
+    <ClCompile Include="src\vizimpl.cpp" />
+    <ClCompile Include="src\widget.cpp" />
+    <ClCompile Include="src\clouds.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shapes.cpp" />
+    <ClCompile Include="src\types.cpp" />
+    <ClCompile Include="src\viz3d.cpp" />
+    <ClCompile Include="src\vizcore.cpp" />
+    <ClCompile Include="src\vizimpl.cpp" />
+    <ClCompile Include="src\widget.cpp" />
+    <ClCompile Include="src\clouds.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shapes.cpp" />
+    <ClCompile Include="src\types.cpp" />
+    <ClCompile Include="src\viz3d.cpp" />
+    <ClCompile Include="src\vizcore.cpp" />
+    <ClCompile Include="src\vizimpl.cpp" />
+    <ClCompile Include="src\widget.cpp" />
+    <ClCompile Include="src\clouds.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shapes.cpp" />
+    <ClCompile Include="src\types.cpp" />
+    <ClCompile Include="src\viz3d.cpp" />
+    <ClCompile Include="src\vizcore.cpp" />
+    <ClCompile Include="src\vizimpl.cpp" />
+    <ClCompile Include="src\widget.cpp" />
+    <ClCompile Include="src\clouds.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shapes.cpp" />
+    <ClCompile Include="src\types.cpp" />
+    <ClCompile Include="src\viz3d.cpp" />
+    <ClCompile Include="src\vizcore.cpp" />
+    <ClCompile Include="src\vizimpl.cpp" />
+    <ClCompile Include="src\widget.cpp" />
+    <ClCompile Include="test\tests_simple.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_main.cpp" />
+    <ClCompile Include="test\test_precomp.cpp" />
+    <ClCompile Include="test\test_tutorial2.cpp" />
+    <ClCompile Include="test\test_tutorial3.cpp" />
+    <ClCompile Include="test\test_viz3d.cpp" />
+    <ClCompile Include="test\tests_simple.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_main.cpp" />
+    <ClCompile Include="test\test_precomp.cpp" />
+    <ClCompile Include="test\test_tutorial2.cpp" />
+    <ClCompile Include="test\test_tutorial3.cpp" />
+    <ClCompile Include="test\test_viz3d.cpp" />
+    <ClCompile Include="test\tests_simple.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_main.cpp" />
+    <ClCompile Include="test\test_precomp.cpp" />
+    <ClCompile Include="test\test_tutorial2.cpp" />
+    <ClCompile Include="test\test_tutorial3.cpp" />
+    <ClCompile Include="test\test_viz3d.cpp" />
+    <ClCompile Include="test\tests_simple.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_main.cpp" />
+    <ClCompile Include="test\test_precomp.cpp" />
+    <ClCompile Include="test\test_tutorial2.cpp" />
+    <ClCompile Include="test\test_tutorial3.cpp" />
+    <ClCompile Include="test\test_viz3d.cpp" />
+    <ClCompile Include="test\tests_simple.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_main.cpp" />
+    <ClCompile Include="test\test_precomp.cpp" />
+    <ClCompile Include="test\test_tutorial2.cpp" />
+    <ClCompile Include="test\test_tutorial3.cpp" />
+    <ClCompile Include="test\test_viz3d.cpp" />
+    <ClCompile Include="test\tests_simple.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test\test_main.cpp" />
+    <ClCompile Include="test\test_precomp.cpp" />
+    <ClCompile Include="test\test_tutorial2.cpp" />
+    <ClCompile Include="test\test_tutorial3.cpp" />
+    <ClCompile Include="test\test_viz3d.cpp" />
+    <ClCompile Include="src\vtk\vtkCloudMatSink.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vtk\vtkCloudMatSource.cpp" />
+    <ClCompile Include="src\vtk\vtkImageMatSource.cpp" />
+    <ClCompile Include="src\vtk\vtkOBJWriter.cpp" />
+    <ClCompile Include="src\vtk\vtkTrajectorySource.cpp" />
+    <ClCompile Include="src\vtk\vtkVizInteractorStyle.cpp" />
+    <ClCompile Include="src\vtk\vtkXYZReader.cpp" />
+    <ClCompile Include="src\vtk\vtkXYZWriter.cpp" />
+    <ClCompile Include="src\vtk\vtkCloudMatSink.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vtk\vtkCloudMatSource.cpp" />
+    <ClCompile Include="src\vtk\vtkImageMatSource.cpp" />
+    <ClCompile Include="src\vtk\vtkOBJWriter.cpp" />
+    <ClCompile Include="src\vtk\vtkTrajectorySource.cpp" />
+    <ClCompile Include="src\vtk\vtkVizInteractorStyle.cpp" />
+    <ClCompile Include="src\vtk\vtkXYZReader.cpp" />
+    <ClCompile Include="src\vtk\vtkXYZWriter.cpp" />
+    <ClCompile Include="src\vtk\vtkCloudMatSink.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vtk\vtkCloudMatSource.cpp" />
+    <ClCompile Include="src\vtk\vtkImageMatSource.cpp" />
+    <ClCompile Include="src\vtk\vtkOBJWriter.cpp" />
+    <ClCompile Include="src\vtk\vtkTrajectorySource.cpp" />
+    <ClCompile Include="src\vtk\vtkVizInteractorStyle.cpp" />
+    <ClCompile Include="src\vtk\vtkXYZReader.cpp" />
+    <ClCompile Include="src\vtk\vtkXYZWriter.cpp" />
+    <ClCompile Include="src\vtk\vtkCloudMatSink.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vtk\vtkCloudMatSource.cpp" />
+    <ClCompile Include="src\vtk\vtkImageMatSource.cpp" />
+    <ClCompile Include="src\vtk\vtkOBJWriter.cpp" />
+    <ClCompile Include="src\vtk\vtkTrajectorySource.cpp" />
+    <ClCompile Include="src\vtk\vtkVizInteractorStyle.cpp" />
+    <ClCompile Include="src\vtk\vtkXYZReader.cpp" />
+    <ClCompile Include="src\vtk\vtkXYZWriter.cpp" />
+    <ClCompile Include="src\vtk\vtkCloudMatSink.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vtk\vtkCloudMatSource.cpp" />
+    <ClCompile Include="src\vtk\vtkImageMatSource.cpp" />
+    <ClCompile Include="src\vtk\vtkOBJWriter.cpp" />
+    <ClCompile Include="src\vtk\vtkTrajectorySource.cpp" />
+    <ClCompile Include="src\vtk\vtkVizInteractorStyle.cpp" />
+    <ClCompile Include="src\vtk\vtkXYZReader.cpp" />
+    <ClCompile Include="src\vtk\vtkXYZWriter.cpp" />
+    <ClCompile Include="src\vtk\vtkCloudMatSink.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vtk\vtkCloudMatSource.cpp" />
+    <ClCompile Include="src\vtk\vtkImageMatSource.cpp" />
+    <ClCompile Include="src\vtk\vtkOBJWriter.cpp" />
+    <ClCompile Include="src\vtk\vtkTrajectorySource.cpp" />
+    <ClCompile Include="src\vtk\vtkVizInteractorStyle.cpp" />
+    <ClCompile Include="src\vtk\vtkXYZReader.cpp" />
+    <ClCompile Include="src\vtk\vtkXYZWriter.cpp" />
+    <ClCompile Include="src\vtk\vtkCloudMatSink.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vtk\vtkCloudMatSource.cpp" />
+    <ClCompile Include="src\vtk\vtkImageMatSource.cpp" />
+    <ClCompile Include="src\vtk\vtkOBJWriter.cpp" />
+    <ClCompile Include="src\vtk\vtkTrajectorySource.cpp" />
+    <ClCompile Include="src\vtk\vtkVizInteractorStyle.cpp" />
+    <ClCompile Include="src\vtk\vtkXYZReader.cpp" />
+    <ClCompile Include="src\vtk\vtkXYZWriter.cpp" />
+    <ClCompile Include="src\vtk\vtkCloudMatSink.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vtk\vtkCloudMatSource.cpp" />
+    <ClCompile Include="src\vtk\vtkImageMatSource.cpp" />
+    <ClCompile Include="src\vtk\vtkOBJWriter.cpp" />
+    <ClCompile Include="src\vtk\vtkTrajectorySource.cpp" />
+    <ClCompile Include="src\vtk\vtkVizInteractorStyle.cpp" />
+    <ClCompile Include="src\vtk\vtkXYZReader.cpp" />
+    <ClCompile Include="src\vtk\vtkXYZWriter.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\precomp.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vizimpl.hpp" />
+    <ClInclude Include="src\precomp.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vizimpl.hpp" />
+    <ClInclude Include="test\*.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\opencv2\viz.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\opencv2\viz\types.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\opencv2\viz\viz3d.hpp" />
+    <ClInclude Include="include\opencv2\viz\vizcore.hpp" />
+    <ClInclude Include="include\opencv2\viz\widgets.hpp" />
+    <ClInclude Include="include\opencv2\viz\widget_accessor.hpp" />
+    <ClInclude Include="include\opencv2\viz\types.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\opencv2\viz\viz3d.hpp" />
+    <ClInclude Include="include\opencv2\viz\vizcore.hpp" />
+    <ClInclude Include="include\opencv2\viz\widgets.hpp" />
+    <ClInclude Include="include\opencv2\viz\widget_accessor.hpp" />
+    <ClInclude Include="include\opencv2\viz\types.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\opencv2\viz\viz3d.hpp" />
+    <ClInclude Include="include\opencv2\viz\vizcore.hpp" />
+    <ClInclude Include="include\opencv2\viz\widgets.hpp" />
+    <ClInclude Include="include\opencv2\viz\widget_accessor.hpp" />
+    <ClInclude Include="include\opencv2\viz\types.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\opencv2\viz\viz3d.hpp" />
+    <ClInclude Include="include\opencv2\viz\vizcore.hpp" />
+    <ClInclude Include="include\opencv2\viz\widgets.hpp" />
+    <ClInclude Include="include\opencv2\viz\widget_accessor.hpp" />
+    <ClInclude Include="include\opencv2\viz\types.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\opencv2\viz\viz3d.hpp" />
+    <ClInclude Include="include\opencv2\viz\vizcore.hpp" />
+    <ClInclude Include="include\opencv2\viz\widgets.hpp" />
+    <ClInclude Include="include\opencv2\viz\widget_accessor.hpp" />
+    <ClInclude Include="src\vtk\*.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vtk\vtkCloudMatSink.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vtk\vtkCloudMatSource.h" />
+    <ClInclude Include="src\vtk\vtkImageMatSource.h" />
+    <ClInclude Include="src\vtk\vtkOBJWriter.h" />
+    <ClInclude Include="src\vtk\vtkTrajectorySource.h" />
+    <ClInclude Include="src\vtk\vtkXYZReader.h" />
+    <ClInclude Include="src\vtk\vtkXYZWriter.h" />
+    <ClInclude Include="src\vtk\vtkCloudMatSink.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vtk\vtkCloudMatSource.h" />
+    <ClInclude Include="src\vtk\vtkImageMatSource.h" />
+    <ClInclude Include="src\vtk\vtkOBJWriter.h" />
+    <ClInclude Include="src\vtk\vtkTrajectorySource.h" />
+    <ClInclude Include="src\vtk\vtkXYZReader.h" />
+    <ClInclude Include="src\vtk\vtkXYZWriter.h" />
+    <ClInclude Include="src\vtk\vtkCloudMatSink.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vtk\vtkCloudMatSource.h" />
+    <ClInclude Include="src\vtk\vtkImageMatSource.h" />
+    <ClInclude Include="src\vtk\vtkOBJWriter.h" />
+    <ClInclude Include="src\vtk\vtkTrajectorySource.h" />
+    <ClInclude Include="src\vtk\vtkXYZReader.h" />
+    <ClInclude Include="src\vtk\vtkXYZWriter.h" />
+    <ClInclude Include="src\vtk\vtkCloudMatSink.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vtk\vtkCloudMatSource.h" />
+    <ClInclude Include="src\vtk\vtkImageMatSource.h" />
+    <ClInclude Include="src\vtk\vtkOBJWriter.h" />
+    <ClInclude Include="src\vtk\vtkTrajectorySource.h" />
+    <ClInclude Include="src\vtk\vtkXYZReader.h" />
+    <ClInclude Include="src\vtk\vtkXYZWriter.h" />
+    <ClInclude Include="src\vtk\vtkCloudMatSink.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vtk\vtkCloudMatSource.h" />
+    <ClInclude Include="src\vtk\vtkImageMatSource.h" />
+    <ClInclude Include="src\vtk\vtkOBJWriter.h" />
+    <ClInclude Include="src\vtk\vtkTrajectorySource.h" />
+    <ClInclude Include="src\vtk\vtkXYZReader.h" />
+    <ClInclude Include="src\vtk\vtkXYZWriter.h" />
+    <ClInclude Include="src\vtk\vtkCloudMatSink.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vtk\vtkCloudMatSource.h" />
+    <ClInclude Include="src\vtk\vtkImageMatSource.h" />
+    <ClInclude Include="src\vtk\vtkOBJWriter.h" />
+    <ClInclude Include="src\vtk\vtkTrajectorySource.h" />
+    <ClInclude Include="src\vtk\vtkXYZReader.h" />
+    <ClInclude Include="src\vtk\vtkXYZWriter.h" />
+    <ClInclude Include="src\vtk\vtkCloudMatSink.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vtk\vtkCloudMatSource.h" />
+    <ClInclude Include="src\vtk\vtkImageMatSource.h" />
+    <ClInclude Include="src\vtk\vtkOBJWriter.h" />
+    <ClInclude Include="src\vtk\vtkTrajectorySource.h" />
+    <ClInclude Include="src\vtk\vtkXYZReader.h" />
+    <ClInclude Include="src\vtk\vtkXYZWriter.h" />
+    <ClInclude Include="doc\images\cpw1.png">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="doc\images\cpw2.png" />
+    <ClInclude Include="doc\images\cpw3.png" />
+    <ClInclude Include="doc\images\cube_widget.png" />
+    <ClInclude Include="doc\images\cpw1.png">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="doc\images\cpw2.png" />
+    <ClInclude Include="doc\images\cpw3.png" />
+    <ClInclude Include="doc\images\cube_widget.png" />
+    <ClInclude Include="doc\images\cpw1.png">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="doc\images\cpw2.png" />
+    <ClInclude Include="doc\images\cpw3.png" />
+    <ClInclude Include="doc\images\cube_widget.png" />
+    <ClInclude Include="doc\images\cpw1.png">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="doc\images\cpw2.png" />
+    <ClInclude Include="doc\images\cpw3.png" />
+    <ClInclude Include="doc\images\cube_widget.png" />
+  </ItemGroup>
+</Project>

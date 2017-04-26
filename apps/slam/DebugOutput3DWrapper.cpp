@@ -30,6 +30,10 @@
 #include "sophus/sim3.hpp"
 #include "lsd_slam/global_mapping/g2o_type_sim3_sophus.h"
 
+#include "ros_lib/geometry_msgs/PoseStamped.h"
+#include "ros_lib/ros.h"
+//#include "ros_lib/ros/node_handle.h"
+
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/imgproc.hpp>
@@ -44,6 +48,11 @@ DebugOutput3DWrapper::DebugOutput3DWrapper(int width, int height)
 	this->width = width;
 	this->height = height;
 
+	//!!
+	// Although the code will compile, we don't want the actual subscribers and publishers, or the nodehandle.
+	// Ros Master will not work on Windows (at elast with current config
+	////////
+
 	/*liveframe_channel = nh_.resolveName("lsd_slam/liveframes");
 	liveframe_publisher = nh_.advertise<lsd_slam_viewer::keyframeMsg>(liveframe_channel,1);
 
@@ -56,8 +65,9 @@ DebugOutput3DWrapper::DebugOutput3DWrapper(int width, int height)
 	debugInfo_channel = nh_.resolveName("lsd_slam/debug");
 	debugInfo_publisher = nh_.advertise<std_msgs::Float32MultiArray>(debugInfo_channel,1);
 
-	pose_channel = nh_.resolveName("lsd_slam/pose");
-	pose_publisher = nh_.advertise<geometry_msgs::PoseStamped>(pose_channel,1);*/
+	
+	pose_channel = nh_.resolveName("lsd_slam/pose");*/
+	//pose_publisher = nh_.advertise<geometry_msgs::PoseStamped>(pose_channel,1);
 
 	tracker_display = cv::Mat::ones(640, 480, CV_8UC1);
 	cv::circle(tracker_display, cv::Point(100,100), 20, cv::Scalar(0, 255, 0));
@@ -143,7 +153,7 @@ void DebugOutput3DWrapper::publishTrackedFrame(Frame* kf)
 
 	SE3 camToWorld = se3FromSim3(kf->getScaledCamToWorld());
 
-	/*geometry_msgs::PoseStamped pMsg;
+	geometry_msgs::PoseStamped pMsg;
 
 	pMsg.pose.position.x = camToWorld.translation()[0];
 	pMsg.pose.position.y = camToWorld.translation()[1];
@@ -161,9 +171,9 @@ void DebugOutput3DWrapper::publishTrackedFrame(Frame* kf)
 		pMsg.pose.orientation.w *= -1;
 	}
 
-	pMsg.header.stamp = ros::Time(kf->timestamp());
+	pMsg.header.stamp = ros::Time::now();
 	pMsg.header.frame_id = "world";
-	pose_publisher.publish(pMsg);*/
+	pose_publisher.publish(pMsg);
 
 	
 	cv::circle(tracker_display, cv::Point(320+camToWorld.translation()[0]*640, -240 + camToWorld.translation()[1]*480), 2, cv::Scalar(255, 0, 0),4);

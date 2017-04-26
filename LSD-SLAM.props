@@ -14,5 +14,8 @@
     <BuildMacro Include="OPENCV_DIR">
       <Value>$(OPENCV_DIR)</Value>
     </BuildMacro>
+    <BuildMacro Include="VTK_DIR">
+      <Value>$(VTK_DIR)</Value>
+    </BuildMacro>
   </ItemGroup>
 </Project>
