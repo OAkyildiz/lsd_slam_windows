@@ -24,7 +24,7 @@
 
 //#include "ros_lib/lsd_slam_viewer/keyframeGraphMsg.h"
 //#include "ros_lib/lsd_slam_viewer/keyframeMsg.h"
-//#include "ros_lib/geometry_msgs/PoseStamped.h"
+#include "..\ros_lib\geometry_msgs\PoseStamped.h"
 //#include "ros_lib/ros.h"
 //#include "ros_lib/ros/node_handle.h"
 
@@ -159,7 +159,7 @@ void DebugOutput3DWrapper::publishTrackedFrame(Frame* kf)
 
 	SE3 camToWorld = se3FromSim3(kf->getScaledCamToWorld());
 
-	//geometry_msgs::posestamped pmsg;
+	geometry_msgs::PoseStamped pmsg;
 
 	//pmsg.pose.position.x = camtoworld.translation()[0];
 	//pmsg.pose.position.y = camtoworld.translation()[1];
