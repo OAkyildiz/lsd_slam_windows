@@ -93,9 +93,9 @@
     <Link>
       <AdditionalOptions> /machine:x64 /debug %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>
-        <!--don't forget world/core exchange-->
-        ros_lib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;libboost_system-vc120-mt-gd-1_59.lib;libboost_thread-vc120-mt-gd-1_59.lib;opencv_world300d.lib
-        <!--opencv_core300d.lib;opencv_imgcodecs300d.lib;opencv_imgproc300d.lib;opencv_features2d300d.lib;opencv_videoio300d.lib;opencv_calib3d300d.lib;opencv_highgui300d.lib;opencv_viz300d.lib-->
+        <!--don't forget the world/core change-->
+        ros_lib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;libboost_system-vc120-mt-gd-1_59.lib;libboost_thread-vc120-mt-gd-1_59.lib;
+opencv_core300d.lib;opencv_imgcodecs300d.lib;opencv_imgproc300d.lib;opencv_features2d300d.lib;opencv_videoio300d.lib;opencv_calib3d300d.lib;opencv_highgui300d.lib;opencv_viz300d.lib>
       </AdditionalDependencies>
       <AdditionalLibraryDirectories>$(BOOST_DIR)lib64-msvc-12.0;$(OPENCV_DIR)x64\vc12\lib;$(SolutionDir)build\lib\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -106,14 +106,14 @@
     <ProjectReference />
     <CustomBuildStep>
       <Command>
-        xcopy "$(OPENCV_DIR)x64\vc12\bin\opencv_world300d.dll" "$(OutDir)" /D /Y
+       <!-- xcopy "$(OPENCV_DIR)x64\vc12\bin\opencv_world300d.dll" "$(OutDir)" /D /Y-->
 xcopy "$(BOOST_DIR)lib64-msvc-12.0\boost_system-vc120-mt-gd-1_59.dll" "$(OutDir)" /D /Y
 xcopy "$(BOOST_DIR)lib64-msvc-12.0\boost_thread-vc120-mt-gd-1_59.dll" "$(OutDir)" /D /Y</Command>
     </CustomBuildStep>
     <CustomBuildStep>
       <Message>Copying boost and OpenCV pre-build binaries to output directory</Message>
-      <Outputs>$(OutDir)opencv_world300d.dll;$(OutDir)boost_thread-vc120-mt-gd-1_59.dll;$(OutDir)boost_system-vc120-mt-gd-1_59.dll</Outputs>
-        <!--$(OutDir)boost_thread-vc120-mt-gd-1_59.dll;$(OutDir)boost_system-vc120-mt-gd-1_59.dll</Outputs>-->
+      <!--<Outputs>$(OutDir)opencv_world300d.dll;$(OutDir)boost_thread-vc120-mt-gd-1_59.dll;$(OutDir)boost_system-vc120-mt-gd-1_59.dll</Outputs>-->
+ <Outputs>$(OutDir)boost_thread-vc120-mt-gd-1_59.dll;$(OutDir)boost_system-vc120-mt-gd-1_59.dll</Outputs>
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -152,10 +152,9 @@ xcopy "$(BOOST_DIR)lib64-msvc-12.0\boost_thread-vc120-mt-gd-1_59.dll" "$(OutDir)
       <AdditionalOptions> /machine:x64 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>
         kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;
-        comdlg32.lib;advapi32.lib;libboost_system-vc120-mt-1_59.lib;libboost_thread-vc120-mt-1_59.lib;opencv_world300.lib
-      </AdditionalDependencies>
-        <!--opencv_core300.lib;opencv_imgcodecs300.lib;opencv_imgproc300.lib;opencv_features2d300.lib;
-        opencv_videoio300.lib;opencv_calib3d300.lib;opencv_highgui300.lib;opencv_viz300.lib</AdditionalDependencies>-->
+        comdlg32.lib;advapi32.lib;libboost_system-vc120-mt-1_59.lib;libboost_thread-vc120-mt-1_59.lib;
+        opencv_core300.lib;opencv_imgcodecs300.lib;opencv_imgproc300.lib;opencv_features2d300.lib;
+        opencv_videoio300.lib;opencv_calib3d300.lib;opencv_highgui300.lib;opencv_viz300.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(BOOST_DIR)/lib64-msvc-12.0;$(OPENCV_DIR)\x64\vc12\lib;$(SolutionDir)\build\lib\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -168,11 +167,11 @@ xcopy "$(BOOST_DIR)lib64-msvc-12.0\boost_thread-vc120-mt-gd-1_59.dll" "$(OutDir)
       <Message>Copying boost and OpenCV pre-build binaries to output directory</Message>
       <!-- Swtich to opencv DLLs later-->
       <Command>
-        xcopy "$(OPENCV_DIR)x64\vc12\bin\opencv_world300.dll" "$(OutDir)" /D /Y
+        <!--xcopy "$(OPENCV_DIR)x64\vc12\bin\opencv_world300.dll" "$(OutDir)" /D /Y-->
 xcopy "$(BOOST_DIR)lib64-msvc-12.0\boost_system-vc120-mt-1_59.dll" "$(OutDir)" /D /Y
 xcopy "$(BOOST_DIR)lib64-msvc-12.0\boost_thread-vc120-mt-1_59.dll" "$(OutDir)" /D /Y</Command>
-      <Outputs>$(OutDir)opencv_world300.dll;$(OutDir)boost_thread-vc120-mt-1_59.dll;$(OutDir)boost_system-vc120-mt-1_59.dll</Outputs>
-        <!--$(OutDir)boost_thread-vc120-mt-1_59.dll;$(OutDir)boost_system-vc120-mt-1_59.dll</Outputs-->
+      <!--<Outputs>$(OutDir)opencv_world300.dll;$(OutDir)boost_thread-vc120-mt-1_59.dll;$(OutDir)boost_system-vc120-mt-1_59.dll</Outputs>-->
+      <Outputs>$(OutDir)boost_thread-vc120-mt-1_59.dll;$(OutDir)boost_system-vc120-mt-1_59.dll</Outputs>
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>

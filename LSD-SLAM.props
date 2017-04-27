@@ -3,8 +3,8 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros">
   <BOOST_DIR>E:\dev\boost\</BOOST_DIR>
-    <!-->OPENCV_DIR>E:\dev\opencv\build\install\</OPENCV_DIR-->
-  <OPENCV_DIR>E:\dev\opencv_pcmp\build\</OPENCV_DIR>
+    <OPENCV_DIR>E:\dev\opencv\build\install\</OPENCV_DIR>
+    <!-->OPENCV_DIR>E:\dev\opencv_pcmp\build\</OPENCV_DIR-->
   <OPENCV_LIBS>$(OPENCV_DIR)x64\vc12\lib</OPENCV_LIBS>
   </PropertyGroup>
   <ItemGroup>
