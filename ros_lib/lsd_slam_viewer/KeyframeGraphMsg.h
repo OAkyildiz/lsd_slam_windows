@@ -4,8 +4,10 @@
 #include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
-#include "ros/msg.h"
+#include <vector>
 
+
+#include "ros/msg.h"
 namespace lsd_slam_viewer
 {
 
@@ -14,26 +16,26 @@ namespace lsd_slam_viewer
     public:
       typedef uint32_t _numFrames_type;
       _numFrames_type numFrames;
-      uint32_t frameData_length;
-      typedef uint8_t _frameData_type;
-      _frameData_type st_frameData;
-      _frameData_type * frameData;
+
+      typedef std::vector<uint8_t> _frameData_type;
+      _frameData_type frameData;
+
       typedef uint32_t _numConstraints_type;
       _numConstraints_type numConstraints;
-      uint32_t constraintsData_length;
-      typedef uint8_t _constraintsData_type;
-      _constraintsData_type st_constraintsData;
-      _constraintsData_type * constraintsData;
+
+
+      typedef std::vector<uint8_t> _constraintsData_type;
+      _constraintsData_type constraintsData;
 
     KeyframeGraphMsg():
       numFrames(0),
-      frameData_length(0), frameData(NULL),
+      frameData(NULL),
       numConstraints(0),
-      constraintsData_length(0), constraintsData(NULL)
+      constraintsData(NULL) //does it get its zise from numConstraints?
     {
     }
-
-    virtual int serialize(unsigned char *outbuffer) const
+	// Don't need serialization, don't need serial comms at were we are. Sticking with vectors.
+	/* virtual int serialize(unsigned char *outbuffer) const
     {
       int offset = 0;
       *(outbuffer + offset + 0) = (this->numFrames >> (8 * 0)) & 0xFF;
@@ -65,9 +67,9 @@ namespace lsd_slam_viewer
       offset += sizeof(this->constraintsData[i]);
       }
       return offset;
-    }
+    }*/
 
-    virtual int deserialize(unsigned char *inbuffer)
+   /* virtual int deserialize(unsigned char *inbuffer)
     {
       int offset = 0;
       this->numFrames =  ((uint32_t) (*(inbuffer + offset)));
@@ -107,7 +109,7 @@ namespace lsd_slam_viewer
         memcpy( &(this->constraintsData[i]), &(this->st_constraintsData), sizeof(uint8_t));
       }
      return offset;
-    }
+    }*/
 
     const char * getType(){ return "lsd_slam_viewer/KeyframeGraphMsg"; };
     const char * getMD5(){ return "d23a8a86773b54db7399debf884d0c9e"; };

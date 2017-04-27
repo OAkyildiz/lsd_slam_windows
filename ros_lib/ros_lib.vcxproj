@@ -449,6 +449,8 @@
     <ClInclude Include="visualization_msgs\Marker.h" />
     <ClInclude Include="visualization_msgs\MarkerArray.h" />
     <ClInclude Include="visualization_msgs\MenuEntry.h" />
+    <ClInclude Include="lsd_slam_viewer\KeyframeMsg.h" />
+    <ClInclude Include="lsd_slam_viewer\KeyframeGraphMsg.h" />
     <ClInclude Include="ros.h" />
     <ClInclude Include="WindowsSocket.h" />
     <ClCompile Include="duration.cpp" />

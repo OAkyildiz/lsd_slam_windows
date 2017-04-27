@@ -18,11 +18,18 @@
 * along with LSD-SLAM. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#ifndef _Sample_app_DebugOutput3DWrapper_h
+#define _Sample_app_DebugOutput3DWrapper_h
 
 #include "lsd_slam\io_wrapper\output_3d_wrapper.h"
 #include <vector>
 #include "opencv2/core/core.hpp"
+//
+//#include "ros_lib/lsd_slam_viewer/keyframeGraphMsg.h"
+//#include "ros_lib/lsd_slam_viewer/keyframeMsg.h"
+//#include "ros_lib/geometry_msgs/PoseStamped.h"
+//#include "ros_lib/ros.h"
+
 
 namespace lsd_slam
 {
@@ -133,3 +140,5 @@ private:
 	//ros::NodeHandle nh_;
 };
 }
+
+#endif

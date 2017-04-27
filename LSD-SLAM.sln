@@ -22,10 +22,16 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{A654C9A2-97D6-40E5-84D3-9229363D9194}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lsd_slam", "lsd_slam\lsd_slam.vcxproj", "{6FE4804E-3916-40DA-9E5C-4862FC7E2716}"
+	ProjectSection(ProjectDependencies) = postProject
+		{918E633D-51BD-44A6-B8CB-571C3329B3B7} = {918E633D-51BD-44A6-B8CB-571C3329B3B7}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{714A7FFD-3605-491E-86B2-91B88DF06B6B}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sample_app", "apps\slam\sample_app.vcxproj", "{05852768-DE82-4B3D-96F2-8919F6181F46}"
+	ProjectSection(ProjectDependencies) = postProject
+		{918E633D-51BD-44A6-B8CB-571C3329B3B7} = {918E633D-51BD-44A6-B8CB-571C3329B3B7}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Settings", "Settings", "{5B35DA75-CDEF-4ABB-AD3E-3A0E56B239D0}"
 	ProjectSection(SolutionItems) = preProject
@@ -42,17 +48,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "calibration", "apps\calibration\calibration.vcxproj", "{6B297FA8-D9C8-4DC1-9B9C-82EF0E3F3397}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ros_lib", "ros_lib\ros_lib.vcxproj", "{918E633D-51BD-44A6-B8CB-571C3329B3B7}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opencv_viz", "thirdparty\opencv\modules\viz\opencv_viz.vcxproj", "{B73B6C2D-B63E-4F42-86E6-CE5E9B957239}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "opencv", "opencv", "{018E51EA-EDFC-4F03-BB04-1FDB2B7735CA}"
-	ProjectSection(SolutionItems) = preProject
-		thirdparty\opencv\modules\viz\opencv_viz.vcxproj.filters = thirdparty\opencv\modules\viz\opencv_viz.vcxproj.filters
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ros", "ros", "{58409DF8-9DB2-4010-9805-D47CF77195FC}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opencv_ts", "thirdparty\opencv\modules\ts\opencv_ts.vcxproj", "{4B6AB161-8129-4637-B3F1-D879AFC94827}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -186,30 +181,6 @@ Global
 		{918E633D-51BD-44A6-B8CB-571C3329B3B7}.Release|Win32.ActiveCfg = Release|x64
 		{918E633D-51BD-44A6-B8CB-571C3329B3B7}.Release|x64.ActiveCfg = Release|x64
 		{918E633D-51BD-44A6-B8CB-571C3329B3B7}.Release|x64.Build.0 = Release|x64
-		{B73B6C2D-B63E-4F42-86E6-CE5E9B957239}.Debug|ARM.ActiveCfg = Debug|x64
-		{B73B6C2D-B63E-4F42-86E6-CE5E9B957239}.Debug|Mixed Platforms.ActiveCfg = Debug|x64
-		{B73B6C2D-B63E-4F42-86E6-CE5E9B957239}.Debug|Mixed Platforms.Build.0 = Debug|x64
-		{B73B6C2D-B63E-4F42-86E6-CE5E9B957239}.Debug|Win32.ActiveCfg = Debug|x64
-		{B73B6C2D-B63E-4F42-86E6-CE5E9B957239}.Debug|x64.ActiveCfg = Debug|x64
-		{B73B6C2D-B63E-4F42-86E6-CE5E9B957239}.Debug|x64.Build.0 = Debug|x64
-		{B73B6C2D-B63E-4F42-86E6-CE5E9B957239}.Release|ARM.ActiveCfg = Release|x64
-		{B73B6C2D-B63E-4F42-86E6-CE5E9B957239}.Release|Mixed Platforms.ActiveCfg = Release|x64
-		{B73B6C2D-B63E-4F42-86E6-CE5E9B957239}.Release|Mixed Platforms.Build.0 = Release|x64
-		{B73B6C2D-B63E-4F42-86E6-CE5E9B957239}.Release|Win32.ActiveCfg = Release|x64
-		{B73B6C2D-B63E-4F42-86E6-CE5E9B957239}.Release|x64.ActiveCfg = Release|x64
-		{B73B6C2D-B63E-4F42-86E6-CE5E9B957239}.Release|x64.Build.0 = Release|x64
-		{4B6AB161-8129-4637-B3F1-D879AFC94827}.Debug|ARM.ActiveCfg = Debug|x64
-		{4B6AB161-8129-4637-B3F1-D879AFC94827}.Debug|Mixed Platforms.ActiveCfg = Debug|x64
-		{4B6AB161-8129-4637-B3F1-D879AFC94827}.Debug|Mixed Platforms.Build.0 = Debug|x64
-		{4B6AB161-8129-4637-B3F1-D879AFC94827}.Debug|Win32.ActiveCfg = Debug|x64
-		{4B6AB161-8129-4637-B3F1-D879AFC94827}.Debug|x64.ActiveCfg = Debug|x64
-		{4B6AB161-8129-4637-B3F1-D879AFC94827}.Debug|x64.Build.0 = Debug|x64
-		{4B6AB161-8129-4637-B3F1-D879AFC94827}.Release|ARM.ActiveCfg = Release|x64
-		{4B6AB161-8129-4637-B3F1-D879AFC94827}.Release|Mixed Platforms.ActiveCfg = Release|x64
-		{4B6AB161-8129-4637-B3F1-D879AFC94827}.Release|Mixed Platforms.Build.0 = Release|x64
-		{4B6AB161-8129-4637-B3F1-D879AFC94827}.Release|Win32.ActiveCfg = Release|x64
-		{4B6AB161-8129-4637-B3F1-D879AFC94827}.Release|x64.ActiveCfg = Release|x64
-		{4B6AB161-8129-4637-B3F1-D879AFC94827}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -225,10 +196,6 @@ Global
 		{05852768-DE82-4B3D-96F2-8919F6181F46} = {714A7FFD-3605-491E-86B2-91B88DF06B6B}
 		{E45BDB9F-9880-4970-9F99-68443EC0DE7D} = {A654C9A2-97D6-40E5-84D3-9229363D9194}
 		{6B297FA8-D9C8-4DC1-9B9C-82EF0E3F3397} = {714A7FFD-3605-491E-86B2-91B88DF06B6B}
-		{918E633D-51BD-44A6-B8CB-571C3329B3B7} = {58409DF8-9DB2-4010-9805-D47CF77195FC}
-		{B73B6C2D-B63E-4F42-86E6-CE5E9B957239} = {018E51EA-EDFC-4F03-BB04-1FDB2B7735CA}
-		{018E51EA-EDFC-4F03-BB04-1FDB2B7735CA} = {A654C9A2-97D6-40E5-84D3-9229363D9194}
-		{58409DF8-9DB2-4010-9805-D47CF77195FC} = {A654C9A2-97D6-40E5-84D3-9229363D9194}
-		{4B6AB161-8129-4637-B3F1-D879AFC94827} = {018E51EA-EDFC-4F03-BB04-1FDB2B7735CA}
+		{918E633D-51BD-44A6-B8CB-571C3329B3B7} = {A654C9A2-97D6-40E5-84D3-9229363D9194}
 	EndGlobalSection
 EndGlobal

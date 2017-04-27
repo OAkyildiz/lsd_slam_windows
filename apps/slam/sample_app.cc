@@ -14,16 +14,13 @@
 #include "slam_system.h"
 #include "DebugOutput3DWrapper.h"
 
+//#include "ros_lib\geometry_msgs\Point.h"
+
 using namespace std;
 using namespace lsd_slam;
 char key;
 //PATH=C:\projects\uni\dissertation\Libraries\g2o\install\bin;C:\projects\uni\dissertation\Libraries\opencv\x86\vc12\bin;%PATH%
 int main() {
-
-	cout << "OpenCV version : " << CV_VERSION << endl;
-	cout << "Major version : " << CV_MAJOR_VERSION << endl;
-	cout << "Minor version : " << CV_MINOR_VERSION << endl;
-	cout << "Subminor version : " << CV_SUBMINOR_VERSION << endl;
 
 	cvNamedWindow("Camera_Output_Undist", 1); //Create window
 
@@ -41,7 +38,7 @@ int main() {
 
 	Output3DWrapper* outputWrapper = new DebugOutput3DWrapper(inputStream->width(), inputStream->height());
 	LiveSLAMWrapper slamNode(inputStream, outputWrapper);
-	
+
 	cv::Mat mymat;
 	*capture >> mymat;//Create image frames from capture
 	cv::Mat tracker_display = cv::Mat::ones(640, 480, CV_8UC3);
@@ -56,12 +53,12 @@ int main() {
 	//	IplImage* frame = cvQueryFrame(capture); //Create image frames from capture
 	//	TimestampedMat bufferItem;
 	//	bufferItem.timestamp = Timestamp::now();
-	//	
+	//
 	//	cv::Mat mymat = cv::Mat(frame, true);
 
-	//	
+	//
 	//	undistorter->undistort(frame, mymat);
-	//    
+	//
 	//	cvShowImage("Camera_Output", frame); //Show image frames on created window
 	//	cv::imshow("Camera_Output_Undist", mymat);
 	//	key = cvWaitKey(0); //Capture Keyboard stroke

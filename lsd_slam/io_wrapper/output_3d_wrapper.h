@@ -19,6 +19,7 @@
 */
 
 #pragma once
+
 #include <string>
 #include <vector>
 #include "util/sophus_util.h"

@@ -4,6 +4,8 @@
 #include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
+#include <vector>
+
 #include "ros/msg.h"
 #include "std_msgs/Header.h"
 
@@ -30,10 +32,14 @@ namespace lsd_slam_viewer
       _height_type height;
       typedef uint32_t _width_type;
       _width_type width;
-      uint32_t pointcloud_length;
-      typedef uint8_t _pointcloud_type;
-      _pointcloud_type st_pointcloud;
-      _pointcloud_type * pointcloud;
+
+	  // This is a vector of uint8_s
+	  // With some black magic, each object will put this member through a resize
+	  // and make it pointers for InputPointDense. So, there is o word of that class in this file.
+   
+      typedef std::vector<uint8_t> _pointcloud_type;
+      _pointcloud_type pointcloud;
+      
 
     KeyframeMsg():
       header(),
@@ -45,11 +51,11 @@ namespace lsd_slam_viewer
       cy(0),
       height(0),
       width(0),
-      pointcloud_length(0), pointcloud(NULL)
+      pointcloud(NULL)
     {
     }
-
-    virtual int serialize(unsigned char *outbuffer) const
+// Don't need serialization, don't need serial comms at were we are. Sticking with vectors.
+    /* virtual int serialize(unsigned char *outbuffer) const
     {
       int offset = 0;
       offset += this->header.serialize(outbuffer + offset);
@@ -132,9 +138,9 @@ namespace lsd_slam_viewer
       offset += sizeof(this->pointcloud[i]);
       }
       return offset;
-    }
+    }*/
 
-    virtual int deserialize(unsigned char *inbuffer)
+    /*virtual int deserialize(unsigned char *inbuffer)
     {
       int offset = 0;
       offset += this->header.deserialize(inbuffer + offset);
@@ -227,7 +233,7 @@ namespace lsd_slam_viewer
         memcpy( &(this->pointcloud[i]), &(this->st_pointcloud), sizeof(uint8_t));
       }
      return offset;
-    }
+    }*/
 
     const char * getType(){ return "lsd_slam_viewer/KeyframeMsg"; };
     const char * getMD5(){ return "db0a795065d8e05013b43054a0c4cb01"; };

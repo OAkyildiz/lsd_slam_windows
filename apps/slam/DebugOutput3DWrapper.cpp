@@ -22,17 +22,16 @@
 #include "lsd_slam\util\sophus_util.h"
 #include "lsd_slam\util\settings.h"
 
-#include "lsd_slam/msgs/keyframeGraphMsg.h"
-#include "lsd_slam/msgs/keyframeMsg.h"
+//#include "ros_lib/lsd_slam_viewer/keyframeGraphMsg.h"
+//#include "ros_lib/lsd_slam_viewer/keyframeMsg.h"
+//#include "ros_lib/geometry_msgs/PoseStamped.h"
+//#include "ros_lib/ros.h"
+//#include "ros_lib/ros/node_handle.h"
 
 #include "lsd_slam/model/frame.h"
 #include "lsd_slam/global_mapping/key_frame_graph.h"
 #include "sophus/sim3.hpp"
 #include "lsd_slam/global_mapping/g2o_type_sim3_sophus.h"
-
-#include "ros_lib/geometry_msgs/PoseStamped.h"
-#include "ros_lib/ros.h"
-//#include "ros_lib/ros/node_handle.h"
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgcodecs.hpp>
@@ -44,6 +43,9 @@ namespace lsd_slam
 
 DebugOutput3DWrapper::DebugOutput3DWrapper(int width, int height)
 {
+	//make the vindow part of the class 
+	//actually replace it with cv::viz
+
 	cvNamedWindow("Tracking_output", 1); //Create window
 	this->width = width;
 	this->height = height;
@@ -90,6 +92,10 @@ void DebugOutput3DWrapper::publishKeyframe(Frame* f)
 
 	fMsg.id = f->id();
 	fMsg.time = f->timestamp();
+
+	//fMsg.header.id = f->id();
+	//fMsg.header.time = f->timestamp();\
+
 	fMsg.isKeyframe = true;
 
 	int w = f->width(publishLvl);
@@ -105,23 +111,23 @@ void DebugOutput3DWrapper::publishKeyframe(Frame* f)
 
 	
 
-	//fMsg.pointcloud.resize(w*h*sizeof(InputPointDense));
+	fMsg.pointcloud.resize(w*h*sizeof(InputPointDense));
 
-	//InputPointDense* pc = (InputPointDense*)fMsg.pointcloud.data();
+	InputPointDense* pc = (InputPointDense*)fMsg.pointcloud.data();
 
-	//const float* idepth = f->idepth(publishLvl);
-	//const float* idepthVar = f->idepthVar(publishLvl);
-	//const float* color = f->image(publishLvl);
-	//
-	//for(int idx=0;idx < w*h; idx++)
-	//{
-	//	pc[idx].idepth = idepth[idx];
-	//	pc[idx].idepth_var = idepthVar[idx];
-	//	pc[idx].color[0] = color[idx];
-	//	pc[idx].color[1] = color[idx];
-	//	pc[idx].color[2] = color[idx];
-	//	pc[idx].color[3] = color[idx];
-	//}
+	const float* idepth = f->idepth(publishLvl);
+	const float* idepthvar = f->idepthVar(publishLvl);
+	const float* color = f->image(publishLvl);
+	
+	for(int idx=0;idx < w*h; idx++)
+	{
+		pc[idx].idepth = idepth[idx];
+		pc[idx].idepth_var = idepthvar[idx];
+		pc[idx].color[0] = color[idx];
+		pc[idx].color[1] = color[idx];
+		pc[idx].color[2] = color[idx];
+		pc[idx].color[3] = color[idx];
+	}
 
 	//keyframe_publisher.publish(fMsg);
 
@@ -146,9 +152,9 @@ void DebugOutput3DWrapper::publishTrackedFrame(Frame* kf)
 	fMsg.width = kf->width(publishLvl);
 	fMsg.height = kf->height(publishLvl);
 
-	/*fMsg.pointcloud.clear();
+	fMsg.pointcloud.clear();
 
-	liveframe_publisher.publish(fMsg);*/
+	////liveframe_publisher.publish(fMsg);
 
 
 	SE3 camToWorld = se3FromSim3(kf->getScaledCamToWorld());
@@ -185,11 +191,11 @@ void DebugOutput3DWrapper::publishTrackedFrame(Frame* kf)
 
 void DebugOutput3DWrapper::publishKeyframeGraph(KeyFrameGraph* graph)
 {
-	/*lsd_slam_viewer::keyframeGraphMsg gMsg;
+	/*//lsd_slam_viewer::keyframeGraphMsg gMsg;
 
 	graph->edgesListsMutex.lock();
-	gMsg.numConstraints = graph->edgesAll.size();
-	gMsg.constraintsData.resize(gMsg.numConstraints * sizeof(GraphConstraint));
+	//gMsg.numConstraints = graph->edgesAll.size();
+	//gMsg.constraintsData.resize(gMsg.numConstraints * sizeof(GraphConstraint));
 	GraphConstraint* constraintData = (GraphConstraint*)gMsg.constraintsData.data();
 	for(unsigned int i=0;i<graph->edgesAll.size();i++)
 	{
@@ -210,8 +216,8 @@ void DebugOutput3DWrapper::publishKeyframeGraph(KeyFrameGraph* graph)
 		memcpy(framePoseData[i].camToWorld, graph->keyframesAll[i]->getScaledCamToWorld().cast<float>().data(),sizeof(float)*7);
 	}
 	graph->keyframesAllMutex.unlock_shared();
-
-	graph_publisher.publish(gMsg);*/
+	*/
+	//graph_publisher.publish(gMsg);
 }
 
 void DebugOutput3DWrapper::publishTrajectory(std::vector<Eigen::Vector3f, Eigen::aligned_allocator<Eigen::Vector3f>> trajectory, std::string identifier)
