@@ -64,7 +64,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opencv_world300d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opencv_core300d.lib;opencv_imgcodecs300d.lib;opencv_imgproc300d.lib;opencv_features2d300d.lib;opencv_videoio300d.lib;opencv_calib3d300d.lib;opencv_highgui300d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(OPENCV_DIR)\x64\vc12\lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -85,7 +85,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>opencv_world300.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <!---->
+      <AdditionalDependencies>opencv_core300.lib;opencv_imgcodecs300.lib;opencv_imgproc300.lib;opencv_features2d300.lib;opencv_videoio300.lib;opencv_calib3d300.lib;opencv_highgui300.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(OPENCV_DIR)\x64\vc12\lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>

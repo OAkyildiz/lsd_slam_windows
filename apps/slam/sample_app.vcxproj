@@ -62,7 +62,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)lsd_slam;$(BOOST_DIR);$(OPENCV_DIR)include;$(OPENCV_DIR)include\opencv;$(SolutionDir)thirdparty\g2o\source;$(SolutionDir)thirdparty\g2o\source\EXTERNAL\csparse;$(SolutionDir)thirdparty\g2o\vcxproj;$(SolutionDir)thirdparty\eigen-3.2.5;$(SolutionDir)thirdparty\Sophus;$(SolutionDir)thirdparty\openFabMap\include;$(SolutionDir)thirdparty\dirent-1.20.1\include;$(SolutionDir)thirdparty\videoInput\videoInput</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)ros_lib;$(SolutionDir)lsd_slam;$(BOOST_DIR);$(OPENCV_DIR);$(SolutionDir)thirdparty\g2o\source;$(SolutionDir)thirdparty\g2o\source\EXTERNAL\csparse;$(SolutionDir)thirdparty\g2o\vcxproj;$(SolutionDir)thirdparty\eigen-3.2.5;$(SolutionDir)thirdparty\Sophus;$(SolutionDir)thirdparty\openFabMap\include;$(SolutionDir)thirdparty\dirent-1.20.1\include;$(SolutionDir)thirdparty\videoInput\videoInput</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -79,11 +79,11 @@
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;LsdSlam_DIR=\"C:/GitHub/lsd_slam_noros\";WINDOWS;ENABLE_SSE;NOMINMAX;_USE_MATH_DEFINES;_CRT_SECURE_NO_WARNINGS;EIGEN_DONT_ALIGN_STATICALLY;WIN32_LEAN_AND_MEAN;M_SQRT1_2=0.707106781186547524401;M_PI=3.14159265358979323846;HAVE_SOLVER_CSPARSE;HAVE_SOLVER_EIGEN;HAVE_FABMAP;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\GitHub\lsd_slam_noros;C:\GitHub\lsd_slam_noros\lsd_slam;C:\GitHub\boost_1_59_0;C:\GitHub\opencv\build\include;C:\GitHub\opencv\build\include\opencv;C:\GitHub\g2o\source;C:\GitHub\g2o\source\include\EXTERNAL\csparse;\include\EXTERNAL\csparse;C:\GitHub\lsd_slam_noros\thirdparty\eigen-3.2.1;C:\GitHub\lsd_slam_noros\thirdparty\Sophus;C:\GitHub\lsd_slam_noros\thirdparty\openFabMap\include;C:\GitHub\lsd_slam_noros\thirdparty\dirent-1.20.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;WINDOWS;ENABLE_SSE;NOMINMAX;_USE_MATH_DEFINES;_CRT_SECURE_NO_WARNINGS;EIGEN_DONT_ALIGN_STATICALLY;WIN32_LEAN_AND_MEAN;M_SQRT1_2=0.707106781186547524401;M_PI=3.14159265358979323846;HAVE_SOLVER_CSPARSE;HAVE_SOLVER_EIGEN;HAVE_FABMAP;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\GitHub\lsd_slam_noros;C:\GitHub\lsd_slam_noros\lsd_slam;C:\GitHub\boost_1_59_0;C:\GitHub\opencv\build\include;C:\GitHub\opencv\build\include\opencv;C:\GitHub\g2o\source;C:\GitHub\g2o\source\include\EXTERNAL\csparse;\include\EXTERNAL\csparse;C:\GitHub\lsd_slam_noros\thirdparty\eigen-3.2.1;C:\GitHub\lsd_slam_noros\thirdparty\Sophus;C:\GitHub\lsd_slam_noros\thirdparty\openFabMap\include;C:\GitHub\lsd_slam_noros\thirdparty\dirent-1.20.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -92,7 +92,7 @@
     </Midl>
     <Link>
       <AdditionalOptions> /machine:x64 /debug %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;libboost_system-vc120-mt-gd-1_59.lib;libboost_thread-vc120-mt-gd-1_59.lib;opencv_world300d.lib</AdditionalDependencies>
+      <AdditionalDependencies>ros_lib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;libboost_system-vc120-mt-gd-1_59.lib;libboost_thread-vc120-mt-gd-1_59.lib;opencv_core300d.lib;opencv_imgcodecs300d.lib;opencv_imgproc300d.lib;opencv_features2d300d.lib;opencv_videoio300d.lib;opencv_calib3d300d.lib;opencv_highgui300d.lib;opencv_viz300d.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(BOOST_DIR)lib64-msvc-12.0;$(OPENCV_DIR)x64\vc12\lib;$(SolutionDir)build\lib\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -101,13 +101,15 @@
     </Link>
     <ProjectReference />
     <CustomBuildStep>
-      <Command>xcopy "$(OPENCV_DIR)x64\vc12\bin\opencv_world300d.dll" "$(OutDir)" /D /Y
+      <Command>
+        <!--xcopy "$(OPENCV_DIR)x64\vc12\bin\opencv_world300d.dll" "$(OutDir)" /D /Y-->
 xcopy "$(BOOST_DIR)lib64-msvc-12.0\boost_system-vc120-mt-gd-1_59.dll" "$(OutDir)" /D /Y
 xcopy "$(BOOST_DIR)lib64-msvc-12.0\boost_thread-vc120-mt-gd-1_59.dll" "$(OutDir)" /D /Y</Command>
     </CustomBuildStep>
     <CustomBuildStep>
       <Message>Copying boost and OpenCV pre-build binaries to output directory</Message>
-      <Outputs>$(OutDir)opencv_world300d.dll;$(OutDir)boost_thread-vc120-mt-gd-1_59.dll;$(OutDir)boost_system-vc120-mt-gd-1_59.dll</Outputs>
+      <Outputs>
+        <!--$(OutDir)opencv_world300d.dll;-->$(OutDir)boost_thread-vc120-mt-gd-1_59.dll;$(OutDir)boost_system-vc120-mt-gd-1_59.dll</Outputs>
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -131,11 +133,11 @@ xcopy "$(BOOST_DIR)lib64-msvc-12.0\boost_thread-vc120-mt-gd-1_59.dll" "$(OutDir)
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG%3B;_SECURE_SCL=0;LsdSlam_DIR=\"C:/GitHub/lsd_slam_noros\";WINDOWS;ENABLE_SSE;NOMINMAX;_USE_MATH_DEFINES;_CRT_SECURE_NO_WARNINGS;EIGEN_DONT_ALIGN_STATICALLY;WIN32_LEAN_AND_MEAN;M_SQRT1_2=0.707106781186547524401;M_PI=3.14159265358979323846;HAVE_SOLVER_CSPARSE;HAVE_SOLVER_EIGEN;HAVE_FABMAP;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\GitHub\lsd_slam_noros;C:\GitHub\lsd_slam_noros\lsd_slam;C:\GitHub\boost_1_59_0;C:\GitHub\opencv\build\include;C:\GitHub\opencv\build\include\opencv;C:\GitHub\g2o\source;C:\GitHub\g2o\source\include\EXTERNAL\csparse;\include\EXTERNAL\csparse;C:\GitHub\lsd_slam_noros\thirdparty\eigen-3.2.1;C:\GitHub\lsd_slam_noros\thirdparty\Sophus;C:\GitHub\lsd_slam_noros\thirdparty\openFabMap\include;C:\GitHub\lsd_slam_noros\thirdparty\dirent-1.20.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG%3B;_SECURE_SCL=0;WINDOWS;ENABLE_SSE;NOMINMAX;_USE_MATH_DEFINES;_CRT_SECURE_NO_WARNINGS;EIGEN_DONT_ALIGN_STATICALLY;WIN32_LEAN_AND_MEAN;M_SQRT1_2=0.707106781186547524401;M_PI=3.14159265358979323846;HAVE_SOLVER_CSPARSE;HAVE_SOLVER_EIGEN;HAVE_FABMAP;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\GitHub\lsd_slam_noros;C:\GitHub\lsd_slam_noros\lsd_slam;C:\GitHub\boost_1_59_0;C:\GitHub\opencv\build\include;C:\GitHub\opencv\build\include\opencv;C:\GitHub\g2o\source;C:\GitHub\g2o\source\include\EXTERNAL\csparse;\include\EXTERNAL\csparse;C:\GitHub\lsd_slam_noros\thirdparty\eigen-3.2.1;C:\GitHub\lsd_slam_noros\thirdparty\Sophus;C:\GitHub\lsd_slam_noros\thirdparty\openFabMap\include;C:\GitHub\lsd_slam_noros\thirdparty\dirent-1.20.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -144,7 +146,10 @@ xcopy "$(BOOST_DIR)lib64-msvc-12.0\boost_thread-vc120-mt-gd-1_59.dll" "$(OutDir)
     </Midl>
     <Link>
       <AdditionalOptions> /machine:x64 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;libboost_system-vc120-mt-1_59.lib;libboost_thread-vc120-mt-1_59.lib;opencv_world300.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;
+        comdlg32.lib;advapi32.lib;libboost_system-vc120-mt-1_59.lib;libboost_thread-vc120-mt-1_59.lib;
+        opencv_core300.lib;opencv_imgcodecs300.lib;opencv_imgproc300.lib;opencv_features2d300.lib;
+        opencv_videoio300.lib;opencv_calib3d300.lib;opencv_highgui300.lib;opencv_viz300.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(BOOST_DIR)/lib64-msvc-12.0;$(OPENCV_DIR)\x64\vc12\lib;$(SolutionDir)\build\lib\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -154,10 +159,13 @@ xcopy "$(BOOST_DIR)lib64-msvc-12.0\boost_thread-vc120-mt-gd-1_59.dll" "$(OutDir)
     <ProjectReference />
     <CustomBuildStep>
       <Message>Copying boost and OpenCV pre-build binaries to output directory</Message>
-      <Command>xcopy "$(OPENCV_DIR)x64\vc12\bin\opencv_world300.dll" "$(OutDir)" /D /Y
+      <!-- Swtich to opencv DLLs later-->
+      <Command>
+        <!--xcopy "$(OPENCV_DIR)x64\vc12\bin\opencv_world300.dll" "$(OutDir)" /D /Y-->
 xcopy "$(BOOST_DIR)lib64-msvc-12.0\boost_system-vc120-mt-1_59.dll" "$(OutDir)" /D /Y
 xcopy "$(BOOST_DIR)lib64-msvc-12.0\boost_thread-vc120-mt-1_59.dll" "$(OutDir)" /D /Y</Command>
-      <Outputs>$(OutDir)opencv_world300.dll;$(OutDir)boost_thread-vc120-mt-1_59.dll;$(OutDir)boost_system-vc120-mt-1_59.dll</Outputs>
+      <Outputs>
+        <!--$(OutDir)opencv_world300.dll;-->$(OutDir)boost_thread-vc120-mt-1_59.dll;$(OutDir)boost_system-vc120-mt-1_59.dll</Outputs>
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>

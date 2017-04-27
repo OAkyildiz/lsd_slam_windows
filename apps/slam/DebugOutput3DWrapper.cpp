@@ -22,8 +22,8 @@
 #include "lsd_slam\util\sophus_util.h"
 #include "lsd_slam\util\settings.h"
 
-//#include "lsd_slam_viewer/keyframeGraphMsg.h"
-//#include "lsd_slam_viewer/keyframeMsg.h"
+#include "lsd_slam/msgs/keyframeGraphMsg.h"
+#include "lsd_slam/msgs/keyframeMsg.h"
 
 #include "lsd_slam/model/frame.h"
 #include "lsd_slam/global_mapping/key_frame_graph.h"
@@ -153,27 +153,27 @@ void DebugOutput3DWrapper::publishTrackedFrame(Frame* kf)
 
 	SE3 camToWorld = se3FromSim3(kf->getScaledCamToWorld());
 
-	geometry_msgs::PoseStamped pMsg;
+	//geometry_msgs::posestamped pmsg;
 
-	pMsg.pose.position.x = camToWorld.translation()[0];
-	pMsg.pose.position.y = camToWorld.translation()[1];
-	pMsg.pose.position.z = camToWorld.translation()[2];
-	pMsg.pose.orientation.x = camToWorld.so3().unit_quaternion().x();
-	pMsg.pose.orientation.y = camToWorld.so3().unit_quaternion().y();
-	pMsg.pose.orientation.z = camToWorld.so3().unit_quaternion().z();
-	pMsg.pose.orientation.w = camToWorld.so3().unit_quaternion().w();
+	//pmsg.pose.position.x = camtoworld.translation()[0];
+	//pmsg.pose.position.y = camtoworld.translation()[1];
+	//pmsg.pose.position.z = camtoworld.translation()[2];
+	//pmsg.pose.orientation.x = camtoworld.so3().unit_quaternion().x();
+	//pmsg.pose.orientation.y = camtoworld.so3().unit_quaternion().y();
+	//pmsg.pose.orientation.z = camtoworld.so3().unit_quaternion().z();
+	//pmsg.pose.orientation.w = camtoworld.so3().unit_quaternion().w();
 
-	if (pMsg.pose.orientation.w < 0)
-	{
-		pMsg.pose.orientation.x *= -1;
-		pMsg.pose.orientation.y *= -1;
-		pMsg.pose.orientation.z *= -1;
-		pMsg.pose.orientation.w *= -1;
-	}
+	//if (pmsg.pose.orientation.w < 0)
+	//{
+	//	pmsg.pose.orientation.x *= -1;
+	//	pmsg.pose.orientation.y *= -1;
+	//	pmsg.pose.orientation.z *= -1;
+	//	pmsg.pose.orientation.w *= -1;
+	//}
 
-	pMsg.header.stamp = ros::Time::now();
-	pMsg.header.frame_id = "world";
-	pose_publisher.publish(pMsg);
+//	pMsg.header.stamp = ros::Time::now();
+//	pMsg.header.frame_id = "world";
+	//pose_publisher.publish(pMsg);
 
 	
 	cv::circle(tracker_display, cv::Point(320+camToWorld.translation()[0]*640, -240 + camToWorld.translation()[1]*480), 2, cv::Scalar(255, 0, 0),4);
