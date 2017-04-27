@@ -119,6 +119,8 @@ void OpenCVImageStreamThread::operator()()
 		bufferItem.timestamp = Timestamp::now();
 		cv::Mat mt;
 		*capture >> mt; //get image
+		//printf("streaming");
+
 		if (undistorter != 0)
 		{
 			assert(undistorter->isValid());

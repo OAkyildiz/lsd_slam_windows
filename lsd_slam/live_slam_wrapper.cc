@@ -85,6 +85,7 @@ LiveSLAMWrapper::~LiveSLAMWrapper()
 
 void LiveSLAMWrapper::Loop()
 {
+	printf("Begin loop \n");
 	while (true) {
 		boost::unique_lock<boost::recursive_mutex> waitLock(imageStream->getBuffer()->getMutex());
 		while (!fullResetRequested && !(imageStream->getBuffer()->size() > 0)) {
@@ -103,7 +104,7 @@ void LiveSLAMWrapper::Loop()
 		
 		TimestampedMat image = imageStream->getBuffer()->first();
 		imageStream->getBuffer()->popFront();
-		
+		printf("video\n");
 		// process image
 		Util::displayImage("MyVideo", image.data);
 		newImageCallback(image.data, image.timestamp);
@@ -138,9 +139,12 @@ void LiveSLAMWrapper::newImageCallback(const cv::Mat& img, Timestamp imgTime)
 	{
 		monoOdometry->randomInit(grayImg.data, imgTime.toSec(), 1);
 		isInitialized = true;
+		printf("initialize \n");
+
 	}
 	else if(isInitialized && monoOdometry != nullptr)
 	{
+		printf("tracking \n");
 		monoOdometry->trackFrame(grayImg.data,imageSeqNumber,false,imgTime.toSec());
 	}
 }

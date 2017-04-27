@@ -689,12 +689,12 @@ void SlamSystem::debugDisplayDepthMap()
 			(int)keyFrameGraph->edgesAll.size(),
 			1e-6 * (float)keyFrameGraph->totalPoints);
 
-
+	/*
 	if(onSceenInfoDisplay)
 		printMessageOnCVImage(map->debugImageDepth, buf1, buf2);
 	if (displayDepthMap)
 		Util::displayImage( "DebugWindow DEPTH", map->debugImageDepth, false );
-
+	*/
 	int pressedKey = Util::waitKey(1);
 	handleKey(pressedKey);
 }

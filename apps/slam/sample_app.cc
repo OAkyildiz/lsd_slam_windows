@@ -22,7 +22,6 @@ char key;
 //PATH=C:\projects\uni\dissertation\Libraries\g2o\install\bin;C:\projects\uni\dissertation\Libraries\opencv\x86\vc12\bin;%PATH%
 int main() {
 
-	cvNamedWindow("Camera_Output_Undist", 1); //Create window
 
     //TODO: dynamic path, instead of constant
     std::string calib_fn = "E:/workspaces/lsd_slam_windows/data/out_camera_data.xml";
@@ -39,14 +38,20 @@ int main() {
 	Output3DWrapper* outputWrapper = new DebugOutput3DWrapper(inputStream->width(), inputStream->height());
 	LiveSLAMWrapper slamNode(inputStream, outputWrapper);
 
-	cv::Mat mymat;
-	*capture >> mymat;//Create image frames from capture
-	cv::Mat tracker_display = cv::Mat::ones(640, 480, CV_8UC3);
-	cv::circle(mymat, cv::Point(100, 100), 20, cv::Scalar(255, 1, 0),5);
-	cv::imshow("Camera_Output_Undist", mymat);
 
+	/*
+	// This is not really neccesary but lets keep the existing routine for now
+	cvNamedWindow("Camera_Output_Undist", 1);
+	cv::Mat sample_undistorted;
+	*capture >> sample_undistorted;//Create a sinle frame from capture
+	//cv::Mat tracker_display = cv::Mat::ones(640, 480, CV_8UC3);
+	cv::circle(sample_undistorted, cv::Point(100, 100), 20, cv::Scalar(255, 1, 0),5);
+	cv::imshow("Camera_Output_Undist", sample_undistorted);
+	key = cvWaitKey(0);
+	*/
+	
 	slamNode.Loop();
-
+	//while (1);
 	//Undistorter* undistorter = Undistorter::getUndistorterForFile("out_camera_data.xml");
 
 	//while (1){ //Create infinte loop for live streaming
@@ -61,7 +66,7 @@ int main() {
 	//
 	//	cvShowImage("Camera_Output", frame); //Show image frames on created window
 	//	cv::imshow("Camera_Output_Undist", mymat);
-	//	key = cvWaitKey(0); //Capture Keyboard stroke
+    //key = cvWaitKey(0); //Capture Keyboard stroke
 	//	if (char(key) == 27){
 	//		break; //If you hit ESC key loop will break.
 	//	}
@@ -73,6 +78,6 @@ int main() {
 		delete outputWrapper;
 
 	//cvReleaseCapture(&capture);  the camera will be deinitialized automatically in VideoCapture destructor
-	cvDestroyWindow("Camera_Output"); //Destroy Window
+	cvDestroyAllWindows(); //Destroy Window
 	return 0;
 }
