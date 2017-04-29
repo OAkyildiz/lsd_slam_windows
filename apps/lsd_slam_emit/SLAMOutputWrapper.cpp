@@ -2,7 +2,7 @@
 * This file is part of LSD-SLAM.
 *
 * Copyright 2013 Jakob Engel <engelj at in dot tum dot de> (Technical University of Munich)
-* For more information see <http://vision.in.tum.de/lsdslam> 
+* For more information see <http://vision.in.tum.de/lsdslam>
 *
 * LSD-SLAM is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -18,12 +18,12 @@
 * along with LSD-SLAM. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "DebugOutput3DWrapper.h"
+#include "SLAMOutputWrapper.h"
 #include "lsd_slam\util\sophus_util.h"
 #include "lsd_slam\util\settings.h"
 
-#include "..\ros_lib\lsd_slam_viewer\keyframeGraphMsg.h"
-#include "..\ros_lib\lsd_slam_viewer\keyframeMsg.h"
+//#include "ros_lib/lsd_slam_viewer/keyframeGraphMsg.h"
+#include "ros_lib/lsd_slam_viewer/keyframeMsg.h"
 #include "..\ros_lib\geometry_msgs\PoseStamped.h"
 //#include "ros_lib/ros.h"
 //#include "ros_lib/ros/node_handle.h"
@@ -43,7 +43,7 @@ namespace lsd_slam
 
 DebugOutput3DWrapper::DebugOutput3DWrapper(int width, int height)
 {
-	//make the vindow part of the class 
+	//make the vindow part of the class
 	//actually replace it with cv::viz
 
 	cvNamedWindow("Tracking_output", 1); //Create window
@@ -67,7 +67,7 @@ DebugOutput3DWrapper::DebugOutput3DWrapper(int width, int height)
 	debugInfo_channel = nh_.resolveName("lsd_slam/debug");
 	debugInfo_publisher = nh_.advertise<std_msgs::Float32MultiArray>(debugInfo_channel,1);
 
-	
+
 	pose_channel = nh_.resolveName("lsd_slam/pose");*/
 	//pose_publisher = nh_.advertise<geometry_msgs::PoseStamped>(pose_channel,1);
 
@@ -93,8 +93,8 @@ void DebugOutput3DWrapper::publishKeyframe(Frame* f)
 	fMsg.id = f->id();
 	fMsg.time = f->timestamp();
 
-	fMsg.header.id = f->id();
-	fMsg.header.time = f->timestamp();\
+	//fMsg.header.id = f->id();
+	//fMsg.header.time = f->timestamp();\
 
 	fMsg.isKeyframe = true;
 
@@ -109,7 +109,7 @@ void DebugOutput3DWrapper::publishKeyframe(Frame* f)
 	fMsg.width = w;
 	fMsg.height = h;
 
-	
+
 
 	fMsg.pointcloud.resize(w*h*sizeof(InputPointDense));
 
@@ -118,7 +118,7 @@ void DebugOutput3DWrapper::publishKeyframe(Frame* f)
 	const float* idepth = f->idepth(publishLvl);
 	const float* idepthvar = f->idepthVar(publishLvl);
 	const float* color = f->image(publishLvl);
-	
+
 	for(int idx=0;idx < w*h; idx++)
 	{
 		pc[idx].idepth = idepth[idx];
@@ -181,7 +181,7 @@ void DebugOutput3DWrapper::publishTrackedFrame(Frame* kf)
 //	pMsg.header.frame_id = "world";
 	//pose_publisher.publish(pMsg);
 
-	
+
 	cv::circle(tracker_display, cv::Point(320+camToWorld.translation()[0]*640, -240 + camToWorld.translation()[1]*480), 2, cv::Scalar(255, 0, 0),4);
 	cv::imshow("Tracking_output", tracker_display);
 	std::cout << "PublishTrackedKeyframe: " << camToWorld.translation()[0] << " " << camToWorld.translation()[1] << "  " << camToWorld.translation()[2] << std::endl;
