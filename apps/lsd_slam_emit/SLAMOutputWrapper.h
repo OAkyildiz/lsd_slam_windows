@@ -21,6 +21,7 @@
 #ifndef _LSD_SLAMOutputWrapper_h
 #define _LSD_SLAMOutputWrapper_h
 
+
 #include "lsd_slam\io_wrapper\output_3d_wrapper.h"
 #include <vector>
 #include <string>
@@ -46,6 +47,11 @@ struct InputPointDense
 	unsigned char color[4];
 };
 
+struct Point3DDense{
+	double point[3];
+	unsigned char color[4];
+
+};
 struct KeyFrameMessage
 {
 	int id;
@@ -84,6 +90,19 @@ struct GraphFramePose
 	float camToWorld[7];
 };
 
+struct KeyframeGraphMsg {
+
+	int numFrames;
+
+	std::vector<GraphFramePose>  frameData;
+
+	int numConstraints;
+
+
+	std::vector<unsigned char> constraintsData;
+
+
+};
 
 
 /** Addition to LiveSLAMWrapper for ROS interoperability. */
@@ -95,6 +114,7 @@ public:
 	SLAMOutputWrapper(int width, int height);
 	~SLAMOutputWrapper();
 
+
 	virtual void publishKeyframeGraph(KeyFrameGraph* graph);
 
 	// publishes a keyframe. if that frame already existis, it is overwritten, otherwise it is added.
@@ -102,6 +122,8 @@ public:
 
 	// published a tracked frame that did not become a keyframe (i.e. has no depth data)
 	virtual void publishTrackedFrame(Frame* f);
+
+	Point3DDense* pointFromKF(KeyFrameMessage kFm);
 
 	// publishes graph and all constraints, as well as updated KF poses.
 	virtual void publishTrajectory(std::vector<Eigen::Vector3f, Eigen::aligned_allocator<Eigen::Vector3f>> trajectory, std::string identifier);

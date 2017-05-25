@@ -6,8 +6,8 @@
 #include <stdlib.h>
 #include <vector>
 
-#include "ros/msg.h"
-#include "std_msgs/Header.h"
+#include "../ros_lib/ros/msg.h"
+#include "../ros_lib/std_msgs/Header.h"
 
 namespace lsd_slam_viewer
 {

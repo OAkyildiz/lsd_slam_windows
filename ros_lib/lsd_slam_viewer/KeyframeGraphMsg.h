@@ -7,7 +7,7 @@
 #include <vector>
 
 
-#include "ros/msg.h"
+#include "ros_lib/ros/msg.h"
 namespace lsd_slam_viewer
 {
 

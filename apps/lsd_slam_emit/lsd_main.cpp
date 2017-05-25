@@ -1,4 +1,7 @@
 #include <iostream>
+//#include <sys/socket.h>
+
+
 #include <opencv2/opencv.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/imgproc.hpp>
@@ -12,7 +15,7 @@
 #include "util/Undistorter.h"
 #include "io_wrapper/OpenCVImageStreamThread.h"
 #include "slam_system.h"
-#include "DebugOutput3DWrapper.h"
+#include "SLAMOutputWrapper.h"
 
 //#include "ros_lib\geometry_msgs\Point.h"
 
@@ -23,7 +26,10 @@ char key;
 int main() {
 
 	cvNamedWindow("Camera_Output_Undist", 1); //Create window
-
+	//int s = socket(AF_UNIX, type, protocol);
+	//if ((fd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
+	//	error("cannot create socket");
+	//}
     //TODO: dynamic path, instead of constant
     std::string calib_fn = "E:/workspaces/lsd_slam_windows/data/out_camera_data.xml";
 	//CvCapture* capture = cvCaptureFromCAM(CV_CAP_ANY); //Capture using any camera connected to your system
@@ -36,7 +42,7 @@ int main() {
 	inputStream->setCameraCapture(capture);
 	inputStream->run();
 
-	Output3DWrapper* outputWrapper = new DebugOutput3DWrapper(inputStream->width(), inputStream->height());
+	Output3DWrapper* outputWrapper = new SLAMOutputWrapper(inputStream->width(), inputStream->height());
 	LiveSLAMWrapper slamNode(inputStream, outputWrapper);
 
 	cv::Mat mymat;

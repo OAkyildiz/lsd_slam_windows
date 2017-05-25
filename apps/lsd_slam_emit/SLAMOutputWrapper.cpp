@@ -19,11 +19,12 @@
 */
 
 #include "SLAMOutputWrapper.h"
+#include "pointsFromDepth.h"
 #include "lsd_slam\util\sophus_util.h"
 #include "lsd_slam\util\settings.h"
 
 //#include "ros_lib/lsd_slam_viewer/keyframeGraphMsg.h"
-#include "ros_lib/lsd_slam_viewer/keyframeMsg.h"
+//#include "../ros_lib/lsd_slam_viewer/keyframeMsg.h"
 #include "..\ros_lib\geometry_msgs\PoseStamped.h"
 //#include "ros_lib/ros.h"
 //#include "ros_lib/ros/node_handle.h"
@@ -41,12 +42,12 @@ namespace lsd_slam
 {
 
 
-DebugOutput3DWrapper::DebugOutput3DWrapper(int width, int height)
+	SLAMOutputWrapper::SLAMOutputWrapper(int width, int height)
 {
 	//make the vindow part of the class
 	//actually replace it with cv::viz
 
-	cvNamedWindow("Tracking_output", 1); //Create window
+	//cvNamedWindow("Tracking_output", 1); //Create window
 	this->width = width;
 	this->height = height;
 
@@ -78,12 +79,12 @@ DebugOutput3DWrapper::DebugOutput3DWrapper(int width, int height)
 	publishLvl=0;
 }
 
-DebugOutput3DWrapper::~DebugOutput3DWrapper()
+SLAMOutputWrapper::~SLAMOutputWrapper()
 {
 }
 
 
-void DebugOutput3DWrapper::publishKeyframe(Frame* f)
+void SLAMOutputWrapper::publishKeyframe(Frame* f)
 {
 	KeyFrameMessage fMsg;
 
@@ -118,8 +119,8 @@ void DebugOutput3DWrapper::publishKeyframe(Frame* f)
 	const float* idepth = f->idepth(publishLvl);
 	const float* idepthvar = f->idepthVar(publishLvl);
 	const float* color = f->image(publishLvl);
-
-	for(int idx=0;idx < w*h; idx++)
+	int idx;
+	for(idx =0;idx < w*h; idx++)
 	{
 		pc[idx].idepth = idepth[idx];
 		pc[idx].idepth_var = idepthvar[idx];
@@ -128,19 +129,23 @@ void DebugOutput3DWrapper::publishKeyframe(Frame* f)
 		pc[idx].color[2] = color[idx];
 		pc[idx].color[3] = color[idx];
 	}
-
+	std::cout << idx;
 	//keyframe_publisher.publish(fMsg);
 
 	std::cout << "PublishKeyframe" << std::endl;
 }
 
-void DebugOutput3DWrapper::publishTrackedFrame(Frame* kf)
+void SLAMOutputWrapper::publishTrackedFrame(Frame* kf)
 {
 	KeyFrameMessage fMsg;
+	//lsd_slam_viewer::KeyframeMsg fMsg;
 
 
 	fMsg.id = kf->id();
 	fMsg.time = kf->timestamp();
+
+	//fMsg.header.id = kf->id();
+	//fMsg.stamp = kf->timestamp();
 	fMsg.isKeyframe = false;
 
 
@@ -161,41 +166,169 @@ void DebugOutput3DWrapper::publishTrackedFrame(Frame* kf)
 
 	geometry_msgs::PoseStamped pmsg;
 
-	//pmsg.pose.position.x = camtoworld.translation()[0];
-	//pmsg.pose.position.y = camtoworld.translation()[1];
-	//pmsg.pose.position.z = camtoworld.translation()[2];
-	//pmsg.pose.orientation.x = camtoworld.so3().unit_quaternion().x();
-	//pmsg.pose.orientation.y = camtoworld.so3().unit_quaternion().y();
-	//pmsg.pose.orientation.z = camtoworld.so3().unit_quaternion().z();
-	//pmsg.pose.orientation.w = camtoworld.so3().unit_quaternion().w();
+	pmsg.pose.position.x = camToWorld.translation()[0];
+	pmsg.pose.position.y = camToWorld.translation()[1];
+	pmsg.pose.position.z = camToWorld.translation()[2];
+	pmsg.pose.orientation.x = camToWorld.so3().unit_quaternion().x();
+	pmsg.pose.orientation.y = camToWorld.so3().unit_quaternion().y();
+	pmsg.pose.orientation.z = camToWorld.so3().unit_quaternion().z();
+	pmsg.pose.orientation.w = camToWorld.so3().unit_quaternion().w();
 
-	//if (pmsg.pose.orientation.w < 0)
-	//{
-	//	pmsg.pose.orientation.x *= -1;
-	//	pmsg.pose.orientation.y *= -1;
-	//	pmsg.pose.orientation.z *= -1;
-	//	pmsg.pose.orientation.w *= -1;
-	//}
+	if (pmsg.pose.orientation.w < 0)
+	{
+		pmsg.pose.orientation.x *= -1;
+		pmsg.pose.orientation.y *= -1;
+		pmsg.pose.orientation.z *= -1;
+		pmsg.pose.orientation.w *= -1;
+	}
 
-//	pMsg.header.stamp = ros::Time::now();
-//	pMsg.header.frame_id = "world";
+	//pmsg.header.stamp = ros::Time::now();
+//	pmsg.header.stamp = 0;
+	pmsg.header.frame_id = "world";
 	//pose_publisher.publish(pMsg);
 
-
+	pointFromKF(fMsg);
 	cv::circle(tracker_display, cv::Point(320+camToWorld.translation()[0]*640, -240 + camToWorld.translation()[1]*480), 2, cv::Scalar(255, 0, 0),4);
 	cv::imshow("Tracking_output", tracker_display);
 	std::cout << "PublishTrackedKeyframe: " << camToWorld.translation()[0] << " " << camToWorld.translation()[1] << "  " << camToWorld.translation()[2] << std::endl;
 }
 
-
-
-void DebugOutput3DWrapper::publishKeyframeGraph(KeyFrameGraph* graph)
+Point3DDense* SLAMOutputWrapper::pointFromKF(KeyFrameMessage kFm)
 {
-	/*//lsd_slam_viewer::keyframeGraphMsg gMsg;
+	bool keepInMemory = true;
+	int	minNearSupport = 9;
+	//bool paramsStillGood =  == 
+	double scaledDepthVarTH = -5.2; //scaledDepthVarTH
+	double absDepthVarTH = -2; //absDepthVarTH &&
+	//	my_scale*1.2 > camToWorld.scale() &&
+	//	my_scale < camToWorld.scale()*1.2 &&
+	//	my_minNearSupport == minNearSupport &&
+	int sparsifyFactor = 42;
+	float fyi = kFm.fy;
+	float fxi = kFm.fy;
+	float cxi = kFm.fy;
+	float cyi = kFm.fy;
+
+	int width = kFm.width;
+	int height = kFm.height;
+
+	kFm.pointcloud.resize(width*height*sizeof(InputPointDense));
+	InputPointDense* originalInput = (InputPointDense*)kFm.pointcloud.data();
+
+	//if (glBuffersValid && (paramsStillGood || numRefreshedAlready > 10)) return;
+	//numRefreshedAlready++;
+
+	//glBuffersValid = true;
+
+	//// delete old vertex buffer
+	//if (vertexBufferIdValid)
+	//{
+	//	glDeleteBuffers(1, &vertexBufferId);
+	//	vertexBufferIdValid = false;
+	//}
+
+	//// if there are no vertices, done!
+	if (originalInput == 0)
+		return 0;
+
+
+	//// make data
+	Point3DDense* tmpBuffer = new Point3DDense[width*height];
+
+	double my_scaledTH = scaledDepthVarTH;
+	double my_absTH = absDepthVarTH;
+	double my_scale = kFm.camToWorld.scale();
+	int my_minNearSupport = minNearSupport;
+	int my_sparsifyFactor = sparsifyFactor;
+	//// data is directly in ros message, in correct format.
+	int vertexBufferNumPoints = 0;
+
+	int total = 0, displayed = 0;
+	for (int y = 1; y<height - 1; y++){
+		for (int x = 1; x < width - 1; x++)
+		{
+			if (originalInput[x + y*width].idepth <= 0) continue;
+			total++;
+
+
+			if (my_sparsifyFactor > 1 && rand() % my_sparsifyFactor != 0) continue;
+
+			float depth = 1 / originalInput[x + y*width].idepth;
+			float depth4 = depth*depth; depth4 *= depth4;
+
+
+			if (originalInput[x + y*width].idepth_var * depth4 > my_scaledTH)
+				continue;
+
+			if (originalInput[x + y*width].idepth_var * depth4 * my_scale*my_scale > my_absTH)
+				continue;
+
+			if (my_minNearSupport > 1)
+			{
+				int nearSupport = 0;
+				for (int dx = -1; dx < 2; dx++){
+					for (int dy = -1; dy < 2; dy++)
+					{
+						int idx = x + dx + (y + dy)*width;
+						if (originalInput[idx].idepth > 0)
+						{
+							float diff = originalInput[idx].idepth - 1.0f / depth;
+							if (diff*diff < 2 * originalInput[x + y*width].idepth_var)
+								nearSupport++;
+						}
+					}
+				}
+
+				if (nearSupport < my_minNearSupport)
+					continue;
+			}
+
+
+			tmpBuffer[vertexBufferNumPoints].point[0] = (x*fxi + cxi) * depth;
+			tmpBuffer[vertexBufferNumPoints].point[1] = (y*fyi + cyi) * depth;
+			tmpBuffer[vertexBufferNumPoints].point[2] = depth;
+
+			tmpBuffer[vertexBufferNumPoints].color[3] = 100;
+			tmpBuffer[vertexBufferNumPoints].color[2] = originalInput[x + y*width].color[0];
+			tmpBuffer[vertexBufferNumPoints].color[1] = originalInput[x + y*width].color[1];
+			tmpBuffer[vertexBufferNumPoints].color[0] = originalInput[x + y*width].color[2];
+
+			vertexBufferNumPoints++;
+			displayed++;
+		}
+	}
+
+	//totalPoints = total;
+	//displayedPoints = displayed;
+
+	//// create new ones, static
+	//vertexBufferId = 0;
+	//glGenBuffers(1, &vertexBufferId);
+	//glBindBuffer(GL_ARRAY_BUFFER, vertexBufferId);         // for vertex coordinates
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(MyVertex) * vertexBufferNumPoints, tmpBuffer, GL_STATIC_DRAW);
+	//vertexBufferIdValid = true;
+
+
+
+	if (!keepInMemory)
+	{
+		delete[] originalInput;
+		originalInput = 0;
+	}
+
+
+
+
+	return tmpBuffer;
+}
+
+void SLAMOutputWrapper::publishKeyframeGraph(KeyFrameGraph* graph)
+{
+	KeyframeGraphMsg gMsg;
 
 	graph->edgesListsMutex.lock();
-	//gMsg.numConstraints = graph->edgesAll.size();
-	//gMsg.constraintsData.resize(gMsg.numConstraints * sizeof(GraphConstraint));
+	gMsg.numConstraints = graph->edgesAll.size();
+	gMsg.constraintsData.resize(gMsg.numConstraints * sizeof(GraphConstraint));
 	GraphConstraint* constraintData = (GraphConstraint*)gMsg.constraintsData.data();
 	for(unsigned int i=0;i<graph->edgesAll.size();i++)
 	{
@@ -216,21 +349,21 @@ void DebugOutput3DWrapper::publishKeyframeGraph(KeyFrameGraph* graph)
 		memcpy(framePoseData[i].camToWorld, graph->keyframesAll[i]->getScaledCamToWorld().cast<float>().data(),sizeof(float)*7);
 	}
 	graph->keyframesAllMutex.unlock_shared();
-	*/
+	
 	//graph_publisher.publish(gMsg);
 }
 
-void DebugOutput3DWrapper::publishTrajectory(std::vector<Eigen::Vector3f, Eigen::aligned_allocator<Eigen::Vector3f>> trajectory, std::string identifier)
+void SLAMOutputWrapper::publishTrajectory(std::vector<Eigen::Vector3f, Eigen::aligned_allocator<Eigen::Vector3f>> trajectory, std::string identifier)
 {
 	// unimplemented ... do i need it?
 }
 
-void DebugOutput3DWrapper::publishTrajectoryIncrement(const Eigen::Matrix<float, 3, 1>& pt, std::string identifier)
+void SLAMOutputWrapper::publishTrajectoryIncrement(const Eigen::Matrix<float, 3, 1>& pt, std::string identifier)
 {
 	// unimplemented ... do i need it?
 }
 
-void DebugOutput3DWrapper::publishDebugInfo(const Eigen::Matrix<float, 20, 1>& data)
+void SLAMOutputWrapper::publishDebugInfo(const Eigen::Matrix<float, 20, 1>& data)
 {
 	//std_msgs::Float32MultiArray msg;
 	for(int i=0;i<20;i++)
