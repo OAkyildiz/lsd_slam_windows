@@ -19,7 +19,7 @@
 */
 
 #include "SLAMOutputWrapper.h"
-#include "pointsFromDepth.h"
+#include "depth2Points.h"
 #include "lsd_slam\util\sophus_util.h"
 #include "lsd_slam\util\settings.h"
 

@@ -17,6 +17,7 @@
 #ifndef SNAP_UDP_CLIENT_SERVER_H
 #define SNAP_UDP_CLIENT_SERVER_H
 
+
 #include <sys/types.h>
 #include <winsock2.h>       // For inet_addr()
 #include <windows.h> 
@@ -27,6 +28,9 @@
 
 namespace udp_client_server
 {
+
+	#define DEF_BUFLEN 512  //Max length of buffer
+	#define DEF_PORT 8888   //The port on which to listen for incoming data
 
 	class udp_client_server_runtime_error : public std::runtime_error
 	{

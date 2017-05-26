@@ -22,9 +22,9 @@
 #include "lsd_slam\util\sophus_util.h"
 #include "lsd_slam\util\settings.h"
 
-#include "..\ros_lib\lsd_slam_viewer\keyframeGraphMsg.h"
-#include "..\ros_lib\lsd_slam_viewer\keyframeMsg.h"
-#include "..\ros_lib\geometry_msgs\PoseStamped.h"
+//#include "..\ros_lib\lsd_slam_viewer\keyframegraphmsg.h"
+//#include "..\ros_lib\lsd_slam_viewer\keyframemsg.h"
+//#include "..\ros_lib\geometry_msgs\posestamped.h"
 //#include "ros_lib/ros.h"
 //#include "ros_lib/ros/node_handle.h"
 
@@ -93,8 +93,7 @@ void DebugOutput3DWrapper::publishKeyframe(Frame* f)
 	fMsg.id = f->id();
 	fMsg.time = f->timestamp();
 
-	fMsg.header.id = f->id();
-	fMsg.header.time = f->timestamp();\
+
 
 	fMsg.isKeyframe = true;
 
@@ -159,7 +158,7 @@ void DebugOutput3DWrapper::publishTrackedFrame(Frame* kf)
 
 	SE3 camToWorld = se3FromSim3(kf->getScaledCamToWorld());
 
-	geometry_msgs::PoseStamped pmsg;
+//	geometry_msgs::PoseStamped pmsg;
 
 	//pmsg.pose.position.x = camtoworld.translation()[0];
 	//pmsg.pose.position.y = camtoworld.translation()[1];

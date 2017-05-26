@@ -49,6 +49,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "calibration", "apps\calibra
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ros_lib", "ros_lib\ros_lib.vcxproj", "{918E633D-51BD-44A6-B8CB-571C3329B3B7}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "viewer_client", "apps\viewer_client\viewer_client.vcxproj", "{DB765695-E222-4D1E-98E5-81938DCDB794}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lsd_slam_emit", "apps\lsd_slam_emit\lsd_slam_emit.vcxproj", "{A2EA612E-936C-4EB5-9391-F1103C9B102A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -181,6 +185,30 @@ Global
 		{918E633D-51BD-44A6-B8CB-571C3329B3B7}.Release|Win32.ActiveCfg = Release|x64
 		{918E633D-51BD-44A6-B8CB-571C3329B3B7}.Release|x64.ActiveCfg = Release|x64
 		{918E633D-51BD-44A6-B8CB-571C3329B3B7}.Release|x64.Build.0 = Release|x64
+		{DB765695-E222-4D1E-98E5-81938DCDB794}.Debug|ARM.ActiveCfg = Debug|x64
+		{DB765695-E222-4D1E-98E5-81938DCDB794}.Debug|Mixed Platforms.ActiveCfg = Debug|x64
+		{DB765695-E222-4D1E-98E5-81938DCDB794}.Debug|Mixed Platforms.Build.0 = Debug|x64
+		{DB765695-E222-4D1E-98E5-81938DCDB794}.Debug|Win32.ActiveCfg = Debug|x64
+		{DB765695-E222-4D1E-98E5-81938DCDB794}.Debug|x64.ActiveCfg = Debug|x64
+		{DB765695-E222-4D1E-98E5-81938DCDB794}.Debug|x64.Build.0 = Debug|x64
+		{DB765695-E222-4D1E-98E5-81938DCDB794}.Release|ARM.ActiveCfg = Release|x64
+		{DB765695-E222-4D1E-98E5-81938DCDB794}.Release|Mixed Platforms.ActiveCfg = Release|x64
+		{DB765695-E222-4D1E-98E5-81938DCDB794}.Release|Mixed Platforms.Build.0 = Release|x64
+		{DB765695-E222-4D1E-98E5-81938DCDB794}.Release|Win32.ActiveCfg = Release|x64
+		{DB765695-E222-4D1E-98E5-81938DCDB794}.Release|x64.ActiveCfg = Release|x64
+		{DB765695-E222-4D1E-98E5-81938DCDB794}.Release|x64.Build.0 = Release|x64
+		{A2EA612E-936C-4EB5-9391-F1103C9B102A}.Debug|ARM.ActiveCfg = Debug|x64
+		{A2EA612E-936C-4EB5-9391-F1103C9B102A}.Debug|Mixed Platforms.ActiveCfg = Debug|x64
+		{A2EA612E-936C-4EB5-9391-F1103C9B102A}.Debug|Mixed Platforms.Build.0 = Debug|x64
+		{A2EA612E-936C-4EB5-9391-F1103C9B102A}.Debug|Win32.ActiveCfg = Debug|x64
+		{A2EA612E-936C-4EB5-9391-F1103C9B102A}.Debug|x64.ActiveCfg = Debug|x64
+		{A2EA612E-936C-4EB5-9391-F1103C9B102A}.Debug|x64.Build.0 = Debug|x64
+		{A2EA612E-936C-4EB5-9391-F1103C9B102A}.Release|ARM.ActiveCfg = Release|x64
+		{A2EA612E-936C-4EB5-9391-F1103C9B102A}.Release|Mixed Platforms.ActiveCfg = Release|x64
+		{A2EA612E-936C-4EB5-9391-F1103C9B102A}.Release|Mixed Platforms.Build.0 = Release|x64
+		{A2EA612E-936C-4EB5-9391-F1103C9B102A}.Release|Win32.ActiveCfg = Release|x64
+		{A2EA612E-936C-4EB5-9391-F1103C9B102A}.Release|x64.ActiveCfg = Release|x64
+		{A2EA612E-936C-4EB5-9391-F1103C9B102A}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -197,5 +225,7 @@ Global
 		{E45BDB9F-9880-4970-9F99-68443EC0DE7D} = {A654C9A2-97D6-40E5-84D3-9229363D9194}
 		{6B297FA8-D9C8-4DC1-9B9C-82EF0E3F3397} = {714A7FFD-3605-491E-86B2-91B88DF06B6B}
 		{918E633D-51BD-44A6-B8CB-571C3329B3B7} = {A654C9A2-97D6-40E5-84D3-9229363D9194}
+		{DB765695-E222-4D1E-98E5-81938DCDB794} = {714A7FFD-3605-491E-86B2-91B88DF06B6B}
+		{A2EA612E-936C-4EB5-9391-F1103C9B102A} = {714A7FFD-3605-491E-86B2-91B88DF06B6B}
 	EndGlobalSection
 EndGlobal
