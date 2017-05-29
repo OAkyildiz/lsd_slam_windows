@@ -38,12 +38,17 @@
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
+
+#include "boost\asio\io_service.hpp"  // For UDPSocket and SocketException
+
+#include "UDPClient.h"
+
 namespace lsd_slam
 {
+	boost::asio::io_service io_service;
+	UDPClient client(io_service, "127.0.0.1", "14");
 
-
-	SLAMOutputWrapper::SLAMOutputWrapper(int width, int height)
-{
+	SLAMOutputWrapper::SLAMOutputWrapper(int width, int height){
 	//make the vindow part of the class
 	//actually replace it with cv::viz
 
@@ -53,7 +58,7 @@ namespace lsd_slam
 
 	//!!
 	// Although the code will compile, we don't want the actual subscribers and publishers, or the nodehandle.
-	// Ros Master will not work on Windows (at elast with current config
+	// Ros Master will not work on Windows (at least with current config
 	////////
 
 	/*liveframe_channel = nh_.resolveName("lsd_slam/liveframes");
@@ -72,11 +77,18 @@ namespace lsd_slam
 	pose_channel = nh_.resolveName("lsd_slam/pose");*/
 	//pose_publisher = nh_.advertise<geometry_msgs::PoseStamped>(pose_channel,1);
 
+	//boost::asio::io_service io_service;
+	//UDPClient client(io_service, "0.0.0.0", "1027");
+
 	tracker_display = cv::Mat::ones(640, 480, CV_8UC1);
 	cv::circle(tracker_display, cv::Point(100,100), 20, cv::Scalar(0, 255, 0));
 	cv::imshow("Tracking_output", tracker_display);
 	cvWaitKey(10);
 	publishLvl=0;
+
+	
+
+	//client.send("Hello, World!");
 }
 
 SLAMOutputWrapper::~SLAMOutputWrapper()
@@ -129,10 +141,12 @@ void SLAMOutputWrapper::publishKeyframe(Frame* f)
 		pc[idx].color[2] = color[idx];
 		pc[idx].color[3] = color[idx];
 	}
-	std::cout << idx;
-	//keyframe_publisher.publish(fMsg);
+	std::cout << "Cam_Parametyeres@PKeyF: " << fMsg.fx << ", " << fMsg.fy << ", " << fMsg.cx << ", " << fMsg.cy << std::endl;
 
-	std::cout << "PublishKeyframe" << std::endl;
+	//keyframe_publisher.publish(fMsg);
+	std::cout << "#_KfPoints: " << fMsg.pointcloud.size() << std::endl;
+
+	client.send("Sent Keyframe \n");
 }
 
 void SLAMOutputWrapper::publishTrackedFrame(Frame* kf)
@@ -157,6 +171,8 @@ void SLAMOutputWrapper::publishTrackedFrame(Frame* kf)
 	fMsg.width = kf->width(publishLvl);
 	fMsg.height = kf->height(publishLvl);
 
+	std::cout << "Cam_Parametyeres@PTrackedF: " << fMsg.fx << ", " << fMsg.fy << ", " << fMsg.cx << ", " << fMsg.cy << std::endl;
+	std::cout << "# tf0 Points: " << fMsg.pointcloud.size() << std::endl;
 	fMsg.pointcloud.clear();
 
 	////liveframe_publisher.publish(fMsg);
@@ -173,6 +189,14 @@ void SLAMOutputWrapper::publishTrackedFrame(Frame* kf)
 	pmsg.pose.orientation.y = camToWorld.so3().unit_quaternion().y();
 	pmsg.pose.orientation.z = camToWorld.so3().unit_quaternion().z();
 	pmsg.pose.orientation.w = camToWorld.so3().unit_quaternion().w();
+
+	std::cout << "Camera Pose: " << pmsg.pose.position.x << ", " <<
+		pmsg.pose.position.y << ", " <<
+		pmsg.pose.position.z << ";( " <<
+		pmsg.pose.orientation.x << ", " <<
+		pmsg.pose.orientation.y << ", " <<
+		pmsg.pose.orientation.z << ", " <<
+		pmsg.pose.orientation.w << " )" << std::endl;
 
 	if (pmsg.pose.orientation.w < 0)
 	{
@@ -191,6 +215,10 @@ void SLAMOutputWrapper::publishTrackedFrame(Frame* kf)
 	cv::circle(tracker_display, cv::Point(320+camToWorld.translation()[0]*640, -240 + camToWorld.translation()[1]*480), 2, cv::Scalar(255, 0, 0),4);
 	cv::imshow("Tracking_output", tracker_display);
 	std::cout << "PublishTrackedKeyframe: " << camToWorld.translation()[0] << " " << camToWorld.translation()[1] << "  " << camToWorld.translation()[2] << std::endl;
+
+	std::cout << "# tf Points: " << fMsg.pointcloud.size() << std::endl;
+	client.send("Sent TrackedKeyframe \n");
+
 }
 
 Point3DDense* SLAMOutputWrapper::pointFromKF(KeyFrameMessage kFm)
@@ -295,6 +323,8 @@ Point3DDense* SLAMOutputWrapper::pointFromKF(KeyFrameMessage kFm)
 
 			vertexBufferNumPoints++;
 			displayed++;
+
+
 		}
 	}
 
@@ -349,7 +379,7 @@ void SLAMOutputWrapper::publishKeyframeGraph(KeyFrameGraph* graph)
 		memcpy(framePoseData[i].camToWorld, graph->keyframesAll[i]->getScaledCamToWorld().cast<float>().data(),sizeof(float)*7);
 	}
 	graph->keyframesAllMutex.unlock_shared();
-	
+	std::cout << "Sent KeyframeGraph: " << gMsg.numFrames <<" frames"<<std::endl;
 	//graph_publisher.publish(gMsg);
 }
 
@@ -389,5 +419,57 @@ void SLAMOutputWrapper::publishDebugInfo(const Eigen::Matrix<float, 20, 1>& data
 //	cv::line(rgb_img, cv::Point(point_cam[0], point_cam[1]), cv::Point(pointy_cam[0], pointy_cam[1]), cv::Scalar(0, 255, 0), 3);
 //	cv::line(rgb_img, cv::Point(point_cam[0], point_cam[1]), cv::Point(pointz_cam[0], pointz_cam[1]), cv::Scalar(0, 0, 255), 3);
 //}
+
+
+void  InputPointDense::serialize(char* data){
+	int *q = (int*)data;
+	*q = idepth;       q++;
+	*q = idepth_var;   q++;
+	
+	for (int i = 0; i++; i < 3){
+		*q = color[i];     q++;
+	}
+	int i = 0;
+
+}
+void InputPointDense::deserialize(char *data){
+	int *q = (int*)data;
+	idepth = *q;       q++;
+	idepth_var = *q;   q++;
+	for (int i = 0; i++; i < 4){
+		color[i] = *q;     q++;
+	}
+
+	char *p = (char*)q;
+	
+}
+
+
+void  Point3DDense::serialize(char* data){
+	double *q = (double*)data;
+	
+	for (int j = 0; j++; j < 3){
+		*q = color[j];     q++;
+	}
+
+	for (int i = 0; i++; i < 4){
+		*q = color[i];     q++;
+	}
+
+}
+
+
+void Point3DDense::deserialize(char *data)
+{
+	double *q = (double*)data;
+
+	for (int j = 0; j++; j < 3){
+		point[j] = *q;     q++;
+	}
+
+	for (int i = 0; i++; i < 4){
+		color[i] = *q;     q++;
+	}
+}
 
 }

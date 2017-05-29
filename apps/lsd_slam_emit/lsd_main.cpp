@@ -17,13 +17,28 @@
 #include "slam_system.h"
 #include "SLAMOutputWrapper.h"
 
+#include <ctime>
+#include <iostream>
+#include <string>
+#include <boost/array.hpp>
+#include <boost/bind.hpp>
+#include <boost/shared_ptr.hpp>
+#include <boost/asio.hpp>
+
+
+#define _WIN32_WINNT		0x0A00  
+#define _WIN32_WINNT_WIN10	0x0A00 // Windows 10  
+
 //#include "ros_lib\geometry_msgs\Point.h"
 
+using boost::asio::ip::udp;
 using namespace std;
 using namespace lsd_slam;
+
 char key;
+
 //PATH=C:\projects\uni\dissertation\Libraries\g2o\install\bin;C:\projects\uni\dissertation\Libraries\opencv\x86\vc12\bin;%PATH%
-int main() {
+int main(int argc, char* argv[]){
 
 	cvNamedWindow("Camera_Output_Undist", 1); //Create window
 	//int s = socket(AF_UNIX, type, protocol);
@@ -53,7 +68,6 @@ int main() {
 
 	slamNode.Loop();
 
-
 	if (inputStream != nullptr)
 		delete inputStream;
 	if (outputWrapper != nullptr)
@@ -61,5 +75,6 @@ int main() {
 
 	//cvReleaseCapture(&capture);  the camera will be deinitialized automatically in VideoCapture destructor
 	cvDestroyAllWindows(); //Destroy Window
+
 	return 0;
 }

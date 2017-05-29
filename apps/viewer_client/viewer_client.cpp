@@ -1,85 +1,59 @@
 /*
-Simple UDP Server
-*/
+ *   C++ sockets on Unix and Windows
+ *   Copyright (C) 2002
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License, or
+ *   (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program; if not, write to the Free Software
+ *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
 
-#include <stdlib.h>
-#include<stdio.h>
-#include<winsock2.h>
+#include <iostream>           // For cout and cerr
+#include <cstdlib>            // For atoi()
 
-#pragma comment(lib,"ws2_32.lib") //Winsock Library
+#ifdef WIN32
+#include <windows.h>          // For ::Sleep()
+void sleep(unsigned int seconds) {::Sleep(seconds * 1000);}
 
-#define BUFLEN 512  //Max length of buffer
-#define PORT 8888   //The port on which to listen for incoming data
+#define WINVER				0x0A00  
+#define _WIN32_WINNT		0x0A00  
+#define _WIN32_WINNT_WIN10	0x0A00 // Windows 10  
 
-int main()
+#else
+#include <unistd.h>           // For sleep()
+#endif
+
+#include "UDPServer.h"
+
+using namespace std;
+
+int main(int argc, char* argv[])
 {
-	SOCKET s;
-	struct sockaddr_in server, si_other;
-	int slen, recv_len;
-	char buf[BUFLEN];
-	WSADATA wsa;
-
-	slen = sizeof(si_other);
-
-	//Initialise winsock
-	printf("\nInitialising Winsock...");
-	if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0)
+	try
 	{
-		printf("Failed. Error Code : %d", WSAGetLastError());
-		exit(EXIT_FAILURE);
-	}
-	printf("Initialised.\n");
-
-	//Create a socket
-	if ((s = socket(AF_INET, SOCK_DGRAM, 0)) == INVALID_SOCKET)
-	{
-		printf("Could not create socket : %d", WSAGetLastError());
-	}
-	printf("Socket created.\n");
-
-	//Prepare the sockaddr_in structure
-	server.sin_family = AF_INET;
-	server.sin_addr.s_addr = INADDR_ANY;
-	server.sin_port = htons(PORT);
-
-	//Bind
-	if (bind(s, (struct sockaddr *)&server, sizeof(server)) == SOCKET_ERROR)
-	{
-		printf("Bind failed with error code : %d", WSAGetLastError());
-		exit(EXIT_FAILURE);
-	}
-	puts("Bind done");
-
-	//keep listening for data
-	while (1)
-	{
-		printf("Waiting for data...");
-		fflush(stdout);
-
-		//clear the buffer by filling null, it might have previously received data
-		memset(buf, '\0', BUFLEN);
-
-		//try to receive some data, this is a blocking call
-		if ((recv_len = recvfrom(s, buf, BUFLEN, 0, (struct sockaddr *) &si_other, &slen)) == SOCKET_ERROR)
-		{
-			printf("recvfrom() failed with error code : %d", WSAGetLastError());
-			exit(EXIT_FAILURE);
+		/*if (argc != 2){
+			std::cerr << "Usage: client <host>" << std::endl;
+			return 1;
 		}
-
-		//print details of the client/peer and the data received
-		printf("Received packet from %s:%d\n", inet_ntoa(si_other.sin_addr), ntohs(si_other.sin_port));
-		printf("Data: %s\n", buf);
-
-		//now reply the client with the same data
-		if (sendto(s, buf, recv_len, 0, (struct sockaddr*) &si_other, slen) == SOCKET_ERROR)
-		{
-			printf("sendto() failed with error code : %d", WSAGetLastError());
-			exit(EXIT_FAILURE);
-		}
+		else*/
+			std::cout << "Listening" << std::endl;;
+		boost::asio::io_service io_service;
+		UDPServer server(io_service);
+		io_service.run();
 	}
-
-	closesocket(s);
-	WSACleanup();
+	catch (std::exception& e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
 
 	return 0;
 }

@@ -43,6 +43,9 @@ struct InputPointDense
 	float idepth;
 	float idepth_var;
 	unsigned char color[4];
+
+	void serialize(char *data);
+
 };
 
 struct KeyFrameMessage
