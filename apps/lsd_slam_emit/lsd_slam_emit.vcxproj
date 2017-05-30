@@ -62,7 +62,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)ros_lib;$(SolutionDir)lsd_slam;$(BOOST_DIR);$(OPENCV_DIR)include;$(SolutionDir)thirdparty\g2o\source;$(SolutionDir)thirdparty\g2o\source\EXTERNAL\csparse;$(SolutionDir)thirdparty\g2o\vcxproj;$(SolutionDir)thirdparty\eigen-3.2.5;$(SolutionDir)thirdparty\Sophus;$(SolutionDir)thirdparty\openFabMap\include;$(SolutionDir)thirdparty\dirent-1.20.1\include;$(SolutionDir)thirdparty\videoInput\videoInput</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)ros_lib;$(SolutionDir)lsd_slam;$(BOOST_DIR);$(OPENCV_DIR)include;$(SolutionDir)thirdparty\g2o\source;$(SolutionDir)thirdparty\g2o\source\EXTERNAL\csparse;$(SolutionDir)thirdparty\g2o\vcxproj;E:\dev\eigen;$(SolutionDir)thirdparty\Sophus;$(SolutionDir)thirdparty\openFabMap\include;$(SolutionDir)thirdparty\dirent-1.20.1\include;$(SolutionDir)thirdparty\videoInput\videoInput</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -117,7 +117,7 @@ xcopy "$(BOOST_DIR)lib64-msvc-12.0\boost_thread-vc120-mt-gd-1_59.dll" "$(OutDir)
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)lsd_slam;$(BOOST_DIR);$(OPENCV_DIR)include;$(OPENCV_DIR)include\opencv;$(SolutionDir)thirdparty\g2o\source;$(SolutionDir)thirdparty\g2o\source\EXTERNAL\csparse;$(SolutionDir)thirdparty\g2o\vcxproj;$(SolutionDir)thirdparty\eigen-3.2.5;$(SolutionDir)thirdparty\Sophus;$(SolutionDir)thirdparty\openFabMap\include;$(SolutionDir)thirdparty\dirent-1.20.1\include;$(SolutionDir)thirdparty\videoInput\videoInput</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)lsd_slam;$(BOOST_DIR);$(OPENCV_DIR)include;$(OPENCV_DIR)include\opencv;$(SolutionDir)thirdparty\g2o\source;$(SolutionDir)thirdparty\g2o\source\EXTERNAL\csparse;$(SolutionDir)thirdparty\g2o\vcxproj;E:\dev\eigen;$(SolutionDir)thirdparty\Sophus;$(SolutionDir)thirdparty\openFabMap\include;$(SolutionDir)thirdparty\dirent-1.20.1\include;$(SolutionDir)thirdparty\videoInput\videoInput</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
       <FloatingPointModel>Fast</FloatingPointModel>

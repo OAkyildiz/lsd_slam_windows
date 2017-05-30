@@ -6,14 +6,13 @@
 #include "pcl\point_types.h"
 
 struct Camera{
-	public:
-		void setCameraParams(double fx, double fy, double cx, double cy);
+		void setCameraParams(double Fx, double Fy, double Cx, double Cy);
 		void updateCamTraj(geometry_msgs::PoseStamped pose);
 		geometry_msgs::PoseStamped get_lastCamPose();
 
-	private:
 		double fx, fy;
 		double cx, cy;
+		int height; int weight;
 
 		std::vector<geometry_msgs::PoseStamped> cameraTraj;
 

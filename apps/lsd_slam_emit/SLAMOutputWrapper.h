@@ -1,4 +1,4 @@
-/**
+      /**
 * This file is part of LSD-SLAM.
 *
 * Copyright 2013 Jakob Engel <engelj at in dot tum dot de> (Technical University of Munich)
@@ -80,6 +80,7 @@ struct KeyFrameMessage
 	// may be empty, in that case no associated pointcloud is ever shown.
 	std::vector<InputPointDense> pointcloud;
 
+
 };
 
 struct GraphConstraint
@@ -118,7 +119,7 @@ public:
 	// initializes cam-calib independent stuff
 	SLAMOutputWrapper(int width, int height);
 	~SLAMOutputWrapper();
-
+	bool first; //or id=1
 
 	virtual void publishKeyframeGraph(KeyFrameGraph* graph);
 
@@ -137,6 +138,14 @@ public:
 
 	virtual void publishDebugInfo(const Eigen::Matrix<float, 20, 1>& data);
 
+	// these should be in Frame, but there is no point in modifying or extending 
+	// that class and make organization complex
+	void serializeHeader(char *data, Frame *f);
+	void serializeCameraParams(char *data, Frame *f);
+
+	void serializeCameraPose(char *data, SE3 camToWorld);
+	void serializeCloud(Frame *f);
+	void serializePoint(char *data, const float idepth, const float idepthvar, const float color);
 
 	int publishLvl;
 

@@ -49,13 +49,13 @@ namespace lsd_slam
 	UDPClient client(io_service, "127.0.0.1", "14");
 
 	SLAMOutputWrapper::SLAMOutputWrapper(int width, int height){
-	//make the vindow part of the class
+	//make the window part of the class
 	//actually replace it with cv::viz
 
 	//cvNamedWindow("Tracking_output", 1); //Create window
 	this->width = width;
 	this->height = height;
-
+	this->first = true;
 	//!!
 	// Although the code will compile, we don't want the actual subscribers and publishers, or the nodehandle.
 	// Ros Master will not work on Windows (at least with current config
@@ -86,8 +86,6 @@ namespace lsd_slam
 	cvWaitKey(10);
 	publishLvl=0;
 
-	
-
 	//client.send("Hello, World!");
 }
 
@@ -99,127 +97,146 @@ SLAMOutputWrapper::~SLAMOutputWrapper()
 void SLAMOutputWrapper::publishKeyframe(Frame* f)
 {
 	KeyFrameMessage fMsg;
-
-
 	boost::shared_lock<boost::shared_mutex> lock = f->getActiveLock();
 
-	fMsg.id = f->id();
-	fMsg.time = f->timestamp();
-
+	// with ros mesasages
 	//fMsg.header.id = f->id();
 	//fMsg.header.time = f->timestamp();\
 
-	fMsg.isKeyframe = true;
-
 	int w = f->width(publishLvl);
 	int h = f->height(publishLvl);
-
-	memcpy(fMsg.camToWorld.data(), f->getScaledCamToWorld().cast<float>().data(), sizeof(float)*7);
-	fMsg.fx = f->fx(publishLvl);
-	fMsg.fy = f->fy(publishLvl);
-	fMsg.cx = f->cx(publishLvl);
-	fMsg.cy = f->cy(publishLvl);
-	fMsg.width = w;
-	fMsg.height = h;
-
-
-
-	fMsg.pointcloud.resize(w*h*sizeof(InputPointDense));
-
-	InputPointDense* pc = (InputPointDense*)fMsg.pointcloud.data();
-
-	const float* idepth = f->idepth(publishLvl);
-	const float* idepthvar = f->idepthVar(publishLvl);
-	const float* color = f->image(publishLvl);
-	int idx;
-	for(idx =0;idx < w*h; idx++)
-	{
-		pc[idx].idepth = idepth[idx];
-		pc[idx].idepth_var = idepthvar[idx];
-		pc[idx].color[0] = color[idx];
-		pc[idx].color[1] = color[idx];
-		pc[idx].color[2] = color[idx];
-		pc[idx].color[3] = color[idx];
+	
+	fMsg.isKeyframe = true;
+	if (this->first){
+		char* data;
+		serializeCameraParams(data, f);
+		this->first = false;
 	}
-	std::cout << "Cam_Parametyeres@PKeyF: " << fMsg.fx << ", " << fMsg.fy << ", " << fMsg.cx << ", " << fMsg.cy << std::endl;
+
+	//fMsg.pointcloud.resize(w*h*sizeof(InputPointDense));
+	//std::cout << "#_KFPoints: " << w*h<< std::endl;
+
+	//InputPointDense* pc = (InputPointDense*)fMsg.pointcloud.data();
+	serializeCloud(f, w*h);
+
+	//pc[idx].idepth = idepth[idx]; //old method example
+
+	//std::cout << "Cam_Parametyeres@PKeyF: " << fMsg.fx << ", " << fMsg.fy << ", " << fMsg.cx << ", " << fMsg.cy << std::endl;
 
 	//keyframe_publisher.publish(fMsg);
-	std::cout << "#_KfPoints: " << fMsg.pointcloud.size() << std::endl;
+	//std::cout << "#_KfPoints: " << fMsg.pointcloud.size() << std::endl;
 
+	//pointFromKF(fMsg); //this is going to be on server side
 	client.send("Sent Keyframe \n");
 }
 
 void SLAMOutputWrapper::publishTrackedFrame(Frame* kf)
 {
-	KeyFrameMessage fMsg;
-	//lsd_slam_viewer::KeyframeMsg fMsg;
+	KeyFrameMessage fMsg; //lsd_slam_viewer::KeyframeMsg fMsg;
 
+	char* headerData;
+	serializeHeader(headerData, kf);
 
-	fMsg.id = kf->id();
-	fMsg.time = kf->timestamp();
-
-	//fMsg.header.id = kf->id();
-	//fMsg.stamp = kf->timestamp();
 	fMsg.isKeyframe = false;
+	//std::cout << "ID"<< fMsg.id << std::endl;
 
+//	memcpy(fMsg.camToWorld.data(), kf->getScaledCamToWorld().cast<float>().data(), sizeof(float) * 7);
 
-	memcpy(fMsg.camToWorld.data(),kf->getScaledCamToWorld().cast<float>().data(),sizeof(float)*7);
-	fMsg.fx = kf->fx(publishLvl);
-	fMsg.fy = kf->fy(publishLvl);
-	fMsg.cx = kf->cx(publishLvl);
-	fMsg.cy = kf->cy(publishLvl);
-	fMsg.width = kf->width(publishLvl);
-	fMsg.height = kf->height(publishLvl);
+	if (this->first){
+		char* data;
+		serializeCameraParams(data, kf);
+		this->first = false;
+	}
 
-	std::cout << "Cam_Parametyeres@PTrackedF: " << fMsg.fx << ", " << fMsg.fy << ", " << fMsg.cx << ", " << fMsg.cy << std::endl;
-	std::cout << "# tf0 Points: " << fMsg.pointcloud.size() << std::endl;
-	fMsg.pointcloud.clear();
+	//keyframe_publisher.publish(fMsg);
+
+	//std::cout << "#_TfPoints: " << fMsg.pointcloud.size() << std::endl;
+	// fMsg.pointcloud.clear();
 
 	////liveframe_publisher.publish(fMsg);
 
-
 	SE3 camToWorld = se3FromSim3(kf->getScaledCamToWorld());
-
-	geometry_msgs::PoseStamped pmsg;
-
-	pmsg.pose.position.x = camToWorld.translation()[0];
-	pmsg.pose.position.y = camToWorld.translation()[1];
-	pmsg.pose.position.z = camToWorld.translation()[2];
-	pmsg.pose.orientation.x = camToWorld.so3().unit_quaternion().x();
-	pmsg.pose.orientation.y = camToWorld.so3().unit_quaternion().y();
-	pmsg.pose.orientation.z = camToWorld.so3().unit_quaternion().z();
-	pmsg.pose.orientation.w = camToWorld.so3().unit_quaternion().w();
-
-	std::cout << "Camera Pose: " << pmsg.pose.position.x << ", " <<
-		pmsg.pose.position.y << ", " <<
-		pmsg.pose.position.z << ";( " <<
-		pmsg.pose.orientation.x << ", " <<
-		pmsg.pose.orientation.y << ", " <<
-		pmsg.pose.orientation.z << ", " <<
-		pmsg.pose.orientation.w << " )" << std::endl;
-
-	if (pmsg.pose.orientation.w < 0)
+	if (camToWorld.so3().unit_quaternion().w() < 0)
 	{
-		pmsg.pose.orientation.x *= -1;
-		pmsg.pose.orientation.y *= -1;
-		pmsg.pose.orientation.z *= -1;
-		pmsg.pose.orientation.w *= -1;
+		camToWorld.so3().unit_quaternion().x *= -1;
+		camToWorld.so3().unit_quaternion().y *= -1;
+		camToWorld.so3().unit_quaternion().z *= -1;
+		camToWorld.so3().unit_quaternion().w *= -1;
 	}
+	char* poseData;
+	serializeCameraPose(poseData, camToWorld);
 
-	//pmsg.header.stamp = ros::Time::now();
-//	pmsg.header.stamp = 0;
-	pmsg.header.frame_id = "world";
-	//pose_publisher.publish(pMsg);
 
-	pointFromKF(fMsg);
+	/*std::cout << "Camera Pose: " << pmsg.pose.position.x << ", " << pmsg.pose.position.y << ", " << pmsg.pose.position.z << ";( " <<
+	pmsg.pose.orientation.x << ", " << pmsg.pose.orientation.y << ", " << pmsg.pose.orientation.z << ", " << pmsg.pose.orientation.w << " )" << std::endl;*/
+
+	// pmsg.header.stamp = ros::Time::now(); // pmsg.header.stamp = 0; // pmsg.header.frame_id = "world"; // pose_publisher.publish(pMsg);
+
 	cv::circle(tracker_display, cv::Point(320+camToWorld.translation()[0]*640, -240 + camToWorld.translation()[1]*480), 2, cv::Scalar(255, 0, 0),4);
 	cv::imshow("Tracking_output", tracker_display);
 	std::cout << "PublishTrackedKeyframe: " << camToWorld.translation()[0] << " " << camToWorld.translation()[1] << "  " << camToWorld.translation()[2] << std::endl;
 
-	std::cout << "# tf Points: " << fMsg.pointcloud.size() << std::endl;
+	//std::cout << "# tf Points: " << fMsg.pointcloud.size() << std::endl;
 	client.send("Sent TrackedKeyframe \n");
 
 }
+
+void SLAMOutputWrapper::serializeHeader(char *data, Frame *f){
+	double *q = (double*)data;
+
+	*q = f->id(); q++;
+	*q = f->timestamp(); q++;
+
+}
+void SLAMOutputWrapper::serializeCameraParams(char *data, Frame *f){
+	double *q = (double*)data;
+
+	//serializeCamera;
+	*q = f->fx(publishLvl); q++;
+	*q = f->fy(publishLvl); q++;
+	*q = f->cx(publishLvl); q++;
+	*q = f->cy(publishLvl); q++;
+	*q = f->height(publishLvl); q++;
+	*q = f->width(publishLvl);
+	
+}
+
+void SLAMOutputWrapper::serializeCameraPose(char *data, SE3 camToWorld){
+	double *q = (double*)data;
+
+	*q = camToWorld.translation()[0]; q++;
+	*q = camToWorld.translation()[1]; q++;
+	*q = camToWorld.translation()[2]; q++;
+	*q = camToWorld.so3().unit_quaternion().x(); q++;
+	*q = camToWorld.so3().unit_quaternion().y(); q++;
+	*q = camToWorld.so3().unit_quaternion().z(); q++;
+	*q = camToWorld.so3().unit_quaternion().w(); q++;
+}
+void SLAMOutputWrapper::serializeCloud( Frame *f, int size){
+	char* headerData;
+	serializeHeader(headerData, f);
+
+	const float* idepth = f->idepth(publishLvl);  //check size of that
+	const float* idepthvar = f->idepthVar(publishLvl);
+	const float* color = f->image(publishLvl);
+	for (int idx = 0; idx < size; idx++) {
+		char* pointData;
+		serializePoint(pointData, idepth[idx], idepthvar[idx], color[idx]);
+	}
+
+}
+void SLAMOutputWrapper::serializePoint(char *data, const float idepth, const float idepthvar, const float color){
+
+	double *q = (double*)data;
+
+	*q = idepth; q++;
+	*q = idepthvar; q++;
+	*q = color; q++;
+	*q = color; q++;
+	*q = color; q++;
+	*q = color;
+}
+
 
 Point3DDense* SLAMOutputWrapper::pointFromKF(KeyFrameMessage kFm)
 {
@@ -421,10 +438,11 @@ void SLAMOutputWrapper::publishDebugInfo(const Eigen::Matrix<float, 20, 1>& data
 //}
 
 
+
 void  InputPointDense::serialize(char* data){
 	int *q = (int*)data;
-	*q = idepth;       q++;
-	*q = idepth_var;   q++;
+	*q = this->idepth;       q++;
+	*q = this->idepth_var;   q++;
 	
 	for (int i = 0; i++; i < 3){
 		*q = color[i];     q++;
@@ -434,10 +452,10 @@ void  InputPointDense::serialize(char* data){
 }
 void InputPointDense::deserialize(char *data){
 	int *q = (int*)data;
-	idepth = *q;       q++;
-	idepth_var = *q;   q++;
+	this->idepth = *q;       q++;
+	this->idepth_var = *q;   q++;
 	for (int i = 0; i++; i < 4){
-		color[i] = *q;     q++;
+		this->color[i] = *q;     q++;
 	}
 
 	char *p = (char*)q;
@@ -449,11 +467,11 @@ void  Point3DDense::serialize(char* data){
 	double *q = (double*)data;
 	
 	for (int j = 0; j++; j < 3){
-		*q = color[j];     q++;
+		*q = this->point[j];     q++;
 	}
 
 	for (int i = 0; i++; i < 4){
-		*q = color[i];     q++;
+		*q = this->color[i];     q++;
 	}
 
 }
@@ -464,11 +482,11 @@ void Point3DDense::deserialize(char *data)
 	double *q = (double*)data;
 
 	for (int j = 0; j++; j < 3){
-		point[j] = *q;     q++;
+		this->point[j] = *q;     q++;
 	}
 
 	for (int i = 0; i++; i < 4){
-		color[i] = *q;     q++;
+		this->color[i] = *q;     q++;
 	}
 }
 

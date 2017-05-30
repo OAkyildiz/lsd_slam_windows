@@ -19,6 +19,7 @@
 
 #include <iostream>           // For cout and cerr
 #include <cstdlib>            // For atoi()
+//#include "pcl/visualization/cloud_viewer.h"
 
 #ifdef WIN32
 #include <windows.h>          // For ::Sleep()
@@ -45,10 +46,11 @@ int main(int argc, char* argv[])
 			return 1;
 		}
 		else*/
-			std::cout << "Listening" << std::endl;;
 		boost::asio::io_service io_service;
 		UDPServer server(io_service);
 		io_service.run();
+		//pcl::visualization::CloudViewer viewer("Cloud Viewer");
+		std::cout << "IO Service is runninng" << std::endl;
 	}
 	catch (std::exception& e)
 	{

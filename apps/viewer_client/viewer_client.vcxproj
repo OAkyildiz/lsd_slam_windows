@@ -62,7 +62,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(BOOST_DIR);E:\dev\pcl\install\include\pcl-1.8;$;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(BOOST_DIR);E:\dev\pcl\install\include\pcl-1.8;E:\dev\vtk\install\include\vtk-7.0;E:\dev\eigen;$(SolutionDir)ros_lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -92,8 +92,8 @@
     </Midl>
     <Link>
       <AdditionalOptions> /machine:x64 /debug %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;pcl_common_debug.lib;libboost_iostreams-vc120-mt-1_59-gd.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(BOOST_DIR)lib64-msvc-12.0;E:\dev\pcl\install\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>ros_lib.lib;Ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;pcl_common_debug.lib;libboost_iostreams-vc120-mt-1_59-gd.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\build\lib\$(Platform)\$(Configuration)\;$(BOOST_DIR)lib64-msvc-12.0;E:\dev\pcl\install\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <Version>
@@ -114,7 +114,6 @@ xcopy "$(BOOST_DIR)lib64-msvc-12.0\boost_thread-vc120-mt-gd-1_59.dll" "$(OutDir)
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)ros_lib;E:\dev\pcl\install\include\pcl-1.8;$(BOOST_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
       <FloatingPointModel>Fast</FloatingPointModel>
@@ -131,6 +130,7 @@ xcopy "$(BOOST_DIR)lib64-msvc-12.0\boost_thread-vc120-mt-gd-1_59.dll" "$(OutDir)
       </DebugInformationFormat>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>$(BOOST_DIR);$(SolutionDir)ros_lib;E:\dev\vtk\install\include\vtk-7.0;E:\dev\eigen;E:\dev\pcl\install\include\pcl-1.8;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG%3B;_SECURE_SCL=0;WINDOWS;ENABLE_SSE;NOMINMAX;_USE_MATH_DEFINES;_CRT_SECURE_NO_WARNINGS;EIGEN_DONT_ALIGN_STATICALLY;WIN32_LEAN_AND_MEAN;M_SQRT1_2=0.707106781186547524401;M_PI=3.14159265358979323846;HAVE_SOLVER_CSPARSE;HAVE_SOLVER_EIGEN;HAVE_FABMAP;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -146,10 +146,10 @@ xcopy "$(BOOST_DIR)lib64-msvc-12.0\boost_thread-vc120-mt-gd-1_59.dll" "$(OutDir)
     </Midl>
     <Link>
       <AdditionalOptions> /machine:x64 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>Ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;libboost_iostreams-vc120-mt-1_59.lib;pcl_common_release.dll</AdditionalDependencies>
+      <AdditionalDependencies>ros_lib.lib;Ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;libboost_iostreams-vc120-mt-1_59.lib;pcl_common_release.lib</AdditionalDependencies>
       <!--opencv_core300.lib;opencv_imgcodecs300.lib;opencv_imgproc300.lib;opencv_features2d300.lib;
         opencv_videoio300.lib;opencv_calib3d300.lib;opencv_highgui300.lib;opencv_viz300.lib</AdditionalDependencies>-->
-      <AdditionalLibraryDirectories>$(BOOST_DIR)lib64-msvc-12.0;$E:\dev\pcl\install\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\build\lib\$(Platform)\$(Configuration)\;$(BOOST_DIR)lib64-msvc-12.0;E:\dev\pcl\install\lib;E:\dev\vtk\install\include\vtk-7.0\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <Version>
