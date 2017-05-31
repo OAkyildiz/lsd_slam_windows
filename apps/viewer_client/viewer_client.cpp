@@ -33,12 +33,18 @@ void sleep(unsigned int seconds) {::Sleep(seconds * 1000);}
 #include <unistd.h>           // For sleep()
 #endif
 
+#include "boost/thread.hpp"
+#include <boost/bind.hpp>
 #include "UDPServer.h"
+#include "SLAMData.h"
+#include <pcl/visualization/cloud_viewer.h>
 
-using namespace std;
+using namespace viewer_client;
 
 int main(int argc, char* argv[])
 {
+	viewer_client::SLAMData* slam_instance = new viewer_client::SLAMData();
+	boost::asio::io_service io_service;
 	try
 	{
 		/*if (argc != 2){
@@ -46,16 +52,24 @@ int main(int argc, char* argv[])
 			return 1;
 		}
 		else*/
-		boost::asio::io_service io_service;
-		UDPServer server(io_service);
-		io_service.run();
-		//pcl::visualization::CloudViewer viewer("Cloud Viewer");
+
+		UDPServer _camera_params_server(io_service, PORT_CAM_PARAMS, 6, slam_instance->camParamsHandle);
+		UDPServer _camera_pose_server(io_service, PORT_CAM_POSE, 9, slam_instance->camPoseHandle);
+		UDPServer _keyframe_server(io_service, PORT_KEYFRAME, 7, slam_instance->keyFramHandle);
+
+		boost::thread _udp_thread((boost::bind(&boost::asio::io_service::run, &io_service)));
+		//io_service.run();
+		//_udp_thread.join();
+		pcl::visualization::CloudViewer viewer("Cloud Viewer");
+		
 		std::cout << "IO Service is runninng" << std::endl;
+		while (1);
 	}
 	catch (std::exception& e)
 	{
 		std::cerr << e.what() << std::endl;
 	}
 
+	io_service.stop();
 	return 0;
 }

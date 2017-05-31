@@ -10,8 +10,8 @@ void addr::printAddrInfo(std::string msg){
 	std::cout << msg << ip << ":" << port << " ..." << std::endl;
 }
 
-UDPClient::UDPClient(boost::asio::io_service& io_service, const std::string& host, const std::string& port) :
-	io_service_(io_service), socket_(io_service, udp::endpoint(udp::v4(), 16)) {
+UDPClient::UDPClient(boost::asio::io_service& io_service, unsigned short localport, const std::string& host, const std::string& port) :
+io_service_(io_service), socket_(io_service, udp::endpoint(udp::v4(), localport)){
 		
 	addr local{ socket_.local_endpoint().address().to_string(), socket_.local_endpoint().port() };
 	local.printAddrInfo("UDP Client is starting at: ");
@@ -39,5 +39,9 @@ void UDPClient::send(const std::string& msg) {
 	socket_.send_to(boost::asio::buffer(msg, msg.size()), endpoint_);
 
 }
+void UDPClient::send(std::vector<double> msg) {
 
+	socket_.send_to(boost::asio::buffer((char*)&msg.front(), sizeof(msg)), endpoint_);
+
+}
 

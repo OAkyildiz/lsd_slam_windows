@@ -26,6 +26,9 @@
 #include <vector>
 #include <string>
 #include "opencv2/core/core.hpp"
+#include "boost\asio\io_service.hpp"  // For UDPSocket and SocketException
+
+#include "UDPClient.h"
 //
 //#include "ros_lib/lsd_slam_viewer/keyframeGraphMsg.h"
 //#include "ros_lib/lsd_slam_viewer/keyframeMsg.h"
@@ -140,16 +143,23 @@ public:
 
 	// these should be in Frame, but there is no point in modifying or extending 
 	// that class and make organization complex
-	void serializeHeader(char *data, Frame *f);
-	void serializeCameraParams(char *data, Frame *f);
+	std::vector<double> serializeHeader(Frame *f);
+	std::vector<double> serializeCameraParams(Frame *f);
 
-	void serializeCameraPose(char *data, SE3 camToWorld);
-	void serializeCloud(Frame *f);
-	void serializePoint(char *data, const float idepth, const float idepthvar, const float color);
+	std::vector<double> serializeCameraPose(Frame *kf);
+	std::vector<double> serializePoint(const float idepth, const float idepthvar, const float color);
+	void serializeCloud(Frame *f, int size);
 
 	int publishLvl;
 
 private:
+	boost::asio::io_service io_service;
+
+	UDPClient _camera_params_client;
+	UDPClient _camera_pose_client;
+	UDPClient _keyframe_client;
+
+
 	int width, height;
 
 	std::string liveframe_channel;

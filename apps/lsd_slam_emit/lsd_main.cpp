@@ -76,5 +76,6 @@ int main(int argc, char* argv[]){
 	//cvReleaseCapture(&capture);  the camera will be deinitialized automatically in VideoCapture destructor
 	cvDestroyAllWindows(); //Destroy Window
 
+	
 	return 0;
 }
