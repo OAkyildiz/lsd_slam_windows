@@ -98,11 +98,11 @@ void SLAMOutputWrapper::publishKeyframe(Frame* f)
 	fMsg.isKeyframe = true;
 	if (this->first){
 		std::vector<double> paramsData = serializeCameraParams(f);
-		//std::cout << "pdata " << paramsData << std::endl;
+		std::cout << "Sent camera params"<< std::endl;
 
 		_camera_params_client.send(paramsData);
 
-		//this->first = false;
+		this->first = false;
 	}
 
 	//fMsg.pointcloud.resize(w*h*sizeof(InputPointDense));
@@ -124,14 +124,16 @@ void SLAMOutputWrapper::publishTrackedFrame(Frame* kf)
 	KeyFrameMessage fMsg; //lsd_slam_viewer::KeyframeMsg fMsg;
 	fMsg.isKeyframe = false;
 	//std::cout << "ID"<< fMsg.id << std::endl;
-	std::cout << "stamp: " << kf->timestamp() << std::endl;
+	//std::cout << "stamp: " << kf->timestamp() << std::endl;
 
 //	memcpy(fMsg.camToWorld.data(), kf->getScaledCamToWorld().cast<float>().data(), sizeof(float) * 7);
 
 	if (this->first){
 		std::vector<double> paramsData = serializeCameraParams(kf);
+		std::cout << "Sent camera params" << std::endl;
+
 		_camera_params_client.send(paramsData);
-		//this->first = false;
+		this->first = false;
 	}
 
 	//keyframe_publisher.publish(fMsg);
@@ -142,6 +144,8 @@ void SLAMOutputWrapper::publishTrackedFrame(Frame* kf)
 
 
 	std::vector<double> poseData = serializeCameraPose(kf);
+	_camera_pose_client.send(poseData);
+	//std::cout << "Sent camera pose" << std::endl;
 
 	/*std::cout << "Camera Pose: " << pmsg.pose.position.x << ", " << pmsg.pose.position.y << ", " << pmsg.pose.position.z << ";( " <<
 	pmsg.pose.orientation.x << ", " << pmsg.pose.orientation.y << ", " << pmsg.pose.orientation.z << ", " << pmsg.pose.orientation.w << " )" << std::endl;*/
@@ -150,7 +154,7 @@ void SLAMOutputWrapper::publishTrackedFrame(Frame* kf)
 	SE3 camToWorld = se3FromSim3(kf->getScaledCamToWorld()); //here for now
 	cv::circle(tracker_display, cv::Point(320+camToWorld.translation()[0]*640, -240 + camToWorld.translation()[1]*480), 2, cv::Scalar(255, 0, 0),4);
 	cv::imshow("Tracking_output", tracker_display);
-	std::cout << "PublishTrackedframe: " << camToWorld.translation()[0] << " " << camToWorld.translation()[1] << "  " << camToWorld.translation()[2] << std::endl;
+	std::cout << "Published Tracked frame: " << camToWorld.translation()[0] << " " << camToWorld.translation()[1] << "  " << camToWorld.translation()[2] << std::endl;
 
 	//std::cout << "# tf Points: " << fMsg.pointcloud.size() << std::endl;
 	//_camera_pose_client.send("Sent Trackedframe \n");

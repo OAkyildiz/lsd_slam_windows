@@ -53,9 +53,9 @@ int main(int argc, char* argv[])
 		}
 		else*/
 
-		UDPServer _camera_params_server(io_service, PORT_CAM_PARAMS, 6, slam_instance->camParamsHandle);
-		UDPServer _camera_pose_server(io_service, PORT_CAM_POSE, 9, slam_instance->camPoseHandle);
-		UDPServer _keyframe_server(io_service, PORT_KEYFRAME, 7, slam_instance->keyFramHandle);
+		camParamsServer _camera_params_server(io_service, slam_instance);
+		camPoseServer _camera_pose_server(io_service, slam_instance);
+		keyFrameServer _keyframe_server(io_service, slam_instance);
 
 		boost::thread _udp_thread((boost::bind(&boost::asio::io_service::run, &io_service)));
 		//io_service.run();

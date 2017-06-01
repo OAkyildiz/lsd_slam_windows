@@ -75,7 +75,7 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <WarningLevel>TurnOffAllWarnings</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;WINDOWS;ENABLE_SSE;NOMINMAX;_USE_MATH_DEFINES;_CRT_SECURE_NO_WARNINGS;EIGEN_DONT_ALIGN_STATICALLY;WIN32_LEAN_AND_MEAN;M_SQRT1_2=0.707106781186547524401;M_PI=3.14159265358979323846;HAVE_SOLVER_CSPARSE;HAVE_SOLVER_EIGEN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;WINDOWS;_WIN32_WINNT=0x0A00;ENABLE_SSE;NOMINMAX;_USE_MATH_DEFINES;_CRT_SECURE_NO_WARNINGS;EIGEN_DONT_ALIGN_STATICALLY;WIN32_LEAN_AND_MEAN;M_SQRT1_2=0.707106781186547524401;M_PI=3.14159265358979323846;HAVE_SOLVER_CSPARSE;HAVE_SOLVER_EIGEN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <ResourceCompile>
@@ -92,7 +92,7 @@
     </Midl>
     <Link>
       <AdditionalOptions> /machine:x64 /debug %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>ros_lib.lib;Ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;pcl_common_debug.lib;pcl_visualization_debug.lib;libboost_iostreams-vc120-mt-1_59-gd.lib</AdditionalDependencies>
+      <AdditionalDependencies>ros_lib.lib;Ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;pcl_common_debug.lib;pcl_visualization_debug.lib;libboost_iostreams-vc120-mt-gd-1_59.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)\build\lib\$(Platform)\$(Configuration)\;$(BOOST_DIR)lib64-msvc-12.0;E:\dev\pcl\install\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>

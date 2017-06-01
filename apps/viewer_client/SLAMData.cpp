@@ -46,30 +46,30 @@ void SLAMData::camParamsHandle(std::vector<double> data){
 	this->camera.cy = data[q]; q++;
 	this->camera.height = data[q]; q++;
 	this->camera.width = data[q]; q++;
-	this->camera.scae = 1;
+	this->camera.scale = 1;
 
 
 }
 
 void SLAMData::camPoseHandle(std::vector<double> data){
-	this->updateCamTraj(helpers::readCameraPose(data));
+	this->updateCamTraj(SLAMData::readCameraPose(data));
 }
 
 void SLAMData::keyFramHandle(std::vector<double> data){
 
 }
 
-using namespace helpers;
+
 		//Camera readCameraParams(std::vector<double> data){  }
 
-		geometry_msgs::PoseStamped readCameraPose(std::vector<double> data){
+geometry_msgs::PoseStamped  SLAMData::readCameraPose(std::vector<double> data){
 		//extra is for scale in this case.
 		//geometry_msgs::PoseStamped  readCameraPose(char *data, double* extra){
-		geometry_msgs::PoseStamped cameraPose = geometry_msgs::PoseStamped();
+		geometry_msgs::PoseStamped cameraPose;
 		//maybe use SE3? depends on pcl	
 
 		int q = 0;
-		cameraPose.header = helpers::readHeader(data);
+		cameraPose.header = SLAMData::readHeader(data);
 		q += 2;
 
 		cameraPose.pose.position.x = data[q]; q++;
@@ -85,10 +85,10 @@ using namespace helpers;
 		return cameraPose;
 	}
 
-	std_msgs::Header readHeader(std::vector<double> data){
+std_msgs::Header  SLAMData::readHeader(std::vector<double> data){
 		int q = 0;
 
-		std_msgs::Header header = std_msgs::Header();
+		std_msgs::Header header;
 
 		header.seq = data[0];
 		header.stamp.fromSec(data[1]);
@@ -96,7 +96,7 @@ using namespace helpers;
 		return header;
 	}
 
-	pcl::PointXYZRGBA readPoint(std::vector<double> data){
+pcl::PointXYZRGBA  SLAMData::readPoint(std::vector<double> data){
 		int q = 0;
 		pcl::PointXYZRGBA point;
 		double idepth = data[q]; q++;
@@ -110,6 +110,4 @@ using namespace helpers;
 	}
 
 
-	void pointFromDepth(){
-
-	}
+//void  SLAMData::pointFromDepth()}
