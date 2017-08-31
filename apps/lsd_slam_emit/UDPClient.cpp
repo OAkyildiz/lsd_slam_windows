@@ -35,13 +35,21 @@ UDPClient::~UDPClient()
 }
 
 void UDPClient::send(const std::string& msg) {
-	
-	socket_.send_to(boost::asio::buffer(msg, msg.size()), endpoint_);
+
+	int bt = socket_.send_to(boost::asio::buffer(msg, msg.size()), endpoint_);
+	std::cout << "Bytes sent:" << bt << std::endl;
 
 }
 void UDPClient::send(std::vector<double> msg) {
-
-	socket_.send_to(boost::asio::buffer((char*)&msg.front(), sizeof(msg)), endpoint_);
+	int bt = socket_.send_to(boost::asio::buffer((char*)&msg.front(), msg.size()*sizeof(double)), endpoint_);
+	std::cout << "Bytes sent:" << bt << std::endl;
 
 }
 
+void UDPClient::send(std::vector<float> msg) {
+
+
+	int bt = socket_.send_to(boost::asio::buffer((char*)&msg.front(), msg.size()*sizeof(float)), endpoint_);
+	std::cout << "Bytes sent:"<< bt << std::endl;
+
+}

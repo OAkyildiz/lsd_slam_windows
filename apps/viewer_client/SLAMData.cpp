@@ -2,9 +2,9 @@
 
 using namespace viewer_client;
 
-void SLAMData::setCameraParams(double Fx, double Fy, double Cx, double Cy, int h, int w){
+/*void SLAMData::setCameraParams(double Fx, double Fy, double Cx, double Cy, int h, int w){
 	this->camera=Camera{ Fx, Fy, Cx, Cy, h, w, 1 }; //dunno what do do for scale yet
-}
+}*/
 
 
 
@@ -38,16 +38,17 @@ void SLAMData::updateCamTraj(geometry_msgs::PoseStamped pose){
 	this->camera.updateCamTraj(pose);
 }
 
-void SLAMData::camParamsHandle(std::vector<double> data){
+void SLAMData::camParamsHandle(std::vector<float> data){
 	int q = 0;
 	this->camera.fx = data[q]; q++;
 	this->camera.fy = data[q]; q++;
 	this->camera.cx = data[q]; q++;
 	this->camera.cy = data[q]; q++;
-	this->camera.height = data[q]; q++;
-	this->camera.width = data[q]; q++;
+	this->camera.height =(int) data[q]; q++;
+	this->camera.width =(int) data[q];
 	this->camera.scale = 1;
-
+	this->pixsize = this->camera.height * this->camera.width;
+	std::cout << pixsize << std::endl;
 
 }
 
@@ -55,8 +56,9 @@ void SLAMData::camPoseHandle(std::vector<double> data){
 	this->updateCamTraj(SLAMData::readCameraPose(data));
 }
 
-void SLAMData::keyFramHandle(std::vector<double> data){
-
+void SLAMData::keyFramHandle(std::vector<float> data){
+	this->keyframes.push_back(readKeyrame(data));
+	
 }
 
 
@@ -69,8 +71,8 @@ geometry_msgs::PoseStamped  SLAMData::readCameraPose(std::vector<double> data){
 		//maybe use SE3? depends on pcl	
 
 		int q = 0;
-		cameraPose.header = SLAMData::readHeader(data);
-		q += 2;
+		cameraPose.header.seq = data[q]; q++;
+		cameraPose.header.stamp.fromSec(data[q]); q++;
 
 		cameraPose.pose.position.x = data[q]; q++;
 		cameraPose.pose.position.y = data[q]; q++;
@@ -85,18 +87,36 @@ geometry_msgs::PoseStamped  SLAMData::readCameraPose(std::vector<double> data){
 		return cameraPose;
 	}
 
-std_msgs::Header  SLAMData::readHeader(std::vector<double> data){
-		int q = 0;
 
-		std_msgs::Header header;
 
-		header.seq = data[0];
-		header.stamp.fromSec(data[1]);
+InputCloud  SLAMData::readKeyrame(std::vector<float> data){
+	InputCloud kfm;
+	const float tstmp_f[2] = { data[1], data[2] }; // combine 4byte-wrods into double
 
-		return header;
+	int q = 0;
+	kfm.header.seq = data[0]; q++;
+	kfm.header.stamp.fromSec(*reinterpret_cast<const double*>(tstmp_f)); q++;
+	std::cout << "point_100:" << data[100 + 3] << ", " << data[pixsize+100 + 3] << std::endl;
+
+	for (int i = 3; i < pixsize + 3; i++){
+		InputPointDense ipt;
+		ipt.idepth = data[i];
+		ipt.idepth_var = data[pixsize + i];
+		ipt.color.hex = data[2 * pixsize + i];
+	
+	
+
+		int b = sizeof(ipt.color);
+		int c = sizeof(unsigned char);
+		std::cout << "color size test(4?): "<<  b/c  << std::endl;
+		kfm.input_points.push_back(ipt);
 	}
+	std::cout << "point_c_100:" << kfm.input_points[100].idepth << ", " << kfm.input_points[100].idepth_var<< std::endl;
 
-pcl::PointXYZRGBA  SLAMData::readPoint(std::vector<double> data){
+	return kfm;
+}
+
+/*pcl::PointXYZRGBA  SLAMData::readPoint(std::vector<double> data){
 		int q = 0;
 		pcl::PointXYZRGBA point;
 		double idepth = data[q]; q++;
@@ -107,7 +127,7 @@ pcl::PointXYZRGBA  SLAMData::readPoint(std::vector<double> data){
 		point.b = data[q]; q++;
 
 		return point;
-	}
+	}*/
 
 
 //void  SLAMData::pointFromDepth()}

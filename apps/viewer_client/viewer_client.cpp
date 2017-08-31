@@ -52,10 +52,10 @@ int main(int argc, char* argv[])
 			return 1;
 		}
 		else*/
-
+		std::vector<float> input_buffer(PCL_SIZE, 0);
 		camParamsServer _camera_params_server(io_service, slam_instance);
 		camPoseServer _camera_pose_server(io_service, slam_instance);
-		keyFrameServer _keyframe_server(io_service, slam_instance);
+		keyFrameServer _keyframe_server(io_service, slam_instance, &input_buffer);
 
 		boost::thread _udp_thread((boost::bind(&boost::asio::io_service::run, &io_service)));
 		//io_service.run();

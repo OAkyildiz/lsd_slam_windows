@@ -39,19 +39,28 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
+#include "boost/thread.hpp"
+#include <fstream>
+#include <iostream>
 
 #define PACKETSIZE 512
+#define POINT_QUOTA 5000
 namespace lsd_slam
 {
 	std::string localhost = "127.0.0.1";
-
-
-	SLAMOutputWrapper::SLAMOutputWrapper(int width, int height):
+	
+	
+	//SLAMOutputWrapper::SLAMOutputWrapper(int width, int height, std::ostream &):
+	SLAMOutputWrapper::SLAMOutputWrapper(int width, int height) :
 	io_service(),
+	//_log(),
 	_camera_params_client(io_service, LOCAL_PORT_CAM_PARAMS, localhost, std::to_string(PORT_CAM_PARAMS)),
 	_camera_pose_client(io_service, LOCAL_PORT_CAM_POSE, localhost, std::to_string(PORT_CAM_POSE)),
 	_keyframe_client(io_service, LOCAL_PORT_KEYFRAME, localhost, std::to_string(PORT_KEYFRAME))
 	{
+	boost::thread _udp_thread((boost::bind(&boost::asio::io_service::run, &io_service)));
+	//_log = std::ofstream();
+	//_log.open("slam_log_1.txt");
 	//make the window part of the class
 	//actually replace it with cv::viz
 
@@ -71,14 +80,13 @@ namespace lsd_slam
 	tracker_display = cv::Mat::ones(640, 480, CV_8UC1);
 	cv::circle(tracker_display, cv::Point(100,100), 20, cv::Scalar(0, 255, 0));
 	cv::imshow("Tracking_output", tracker_display);
-	cvWaitKey(10);
+	cvWaitKey(20);
 	publishLvl=0;
-
-	//client.send("Hello, World!");
 }
 
 SLAMOutputWrapper::~SLAMOutputWrapper()
 {
+	//_log.close();
 	io_service.stop();
 
 }
@@ -86,164 +94,84 @@ SLAMOutputWrapper::~SLAMOutputWrapper()
 
 void SLAMOutputWrapper::publishKeyframe(Frame* f)
 {
-	KeyFrameMessage fMsg;
+	//	KeyFrameMessage fMsg;
 	boost::shared_lock<boost::shared_mutex> lock = f->getActiveLock();
 
 	// with ros mesasages
 	//fMsg.header.id = f->id(); //fMsg.header.time = f->timestamp();\
 
-	int w = f->width(publishLvl);
-	int h = f->height(publishLvl);
-
-	fMsg.isKeyframe = true;
+	bool isKeyframe = true;
 	if (this->first){
-		std::vector<double> paramsData = serializeCameraParams(f);
+		std::vector<float> paramsData = serializeCameraParams(f);
 		std::cout << "Sent camera params"<< std::endl;
-
 		_camera_params_client.send(paramsData);
-
+		pixsize = f->width(publishLvl)* f->height(publishLvl);
 		this->first = false;
 	}
 
-	//fMsg.pointcloud.resize(w*h*sizeof(InputPointDense));
-	//std::cout << "#_KFPoints: " << w*h<< std::endl;
-
-	//InputPointDense* pc = (InputPointDense*)fMsg.pointcloud.data();
-	//serializeCloud(f, w*h);
-
-	//pc[idx].idepth = idepth[idx]; //old method example
 	//std::cout << "Cam_Parametyeres@PKeyF: " << fMsg.fx << ", " << fMsg.fy << ", " << fMsg.cx << ", " << fMsg.cy << std::endl;
 	//keyframe_publisher.publish(fMsg);
+	std::vector<float> input_cloud = serializeCloud(f);
+	//_log << "Writing pcl...\n";
+	//_log << input_cloud;
+	std::cout << "["<< f->timestamp()<<"] "<< "KF #" <<f->id() << " was sent: "<< input_cloud.size()<< " px"<< std::endl;
 
-	//pointFromKF(fMsg); //this is going to be on server side
-	//_keyframe_client.send("Sent Keyframe \n");
+	_keyframe_client.send(input_cloud);//try throttling by factors with a button
+									//find package numbers needed, but do visualizng with less points first
 }
 
-void SLAMOutputWrapper::publishTrackedFrame(Frame* kf)
+void SLAMOutputWrapper::publishTrackedFrame(Frame* tf)
 {
-	KeyFrameMessage fMsg; //lsd_slam_viewer::KeyframeMsg fMsg;
-	fMsg.isKeyframe = false;
+	boost::shared_lock<boost::shared_mutex> lock = tf->getActiveLock();
+
+	//KeyFrameMessage fMsg; //lsd_slam_viewer::KeyframeMsg fMsg;
+	bool isKeyframe = false;
 	//std::cout << "ID"<< fMsg.id << std::endl;
 	//std::cout << "stamp: " << kf->timestamp() << std::endl;
 
-//	memcpy(fMsg.camToWorld.data(), kf->getScaledCamToWorld().cast<float>().data(), sizeof(float) * 7);
+	//	memcpy(fMsg.camToWorld.data(), kf->getScaledCamToWorld().cast<float>().data(), sizeof(float) * 7);
 
 	if (this->first){
-		std::vector<double> paramsData = serializeCameraParams(kf);
+		std::vector<float> paramsData = serializeCameraParams(tf);
 		std::cout << "Sent camera params" << std::endl;
-
+		pixsize = tf->width(publishLvl)* tf->height(publishLvl);
 		_camera_params_client.send(paramsData);
 		this->first = false;
 	}
+	if (tf->hasIDepthBeenSet()){
+		std::cout << "IDepth was set" << std::endl;
 
+		std::vector<float> input_cloud = serializeCloud(tf);
+		std::cout << "[" << tf->timestamp() << "] " << "TF #" << tf->id() << " was sent: " << input_cloud.size() << " px" << std::endl;
+		_keyframe_client.send(input_cloud);
+	}
 	//keyframe_publisher.publish(fMsg);
 
 	//std::cout << "#_TfPoints: " << fMsg.pointcloud.size() << std::endl;
-	 fMsg.pointcloud.clear();
+	//fMsg.pointcloud.clear();
 	// liveframe_publisher.publish(fMsg);
 
 
-	std::vector<double> poseData = serializeCameraPose(kf);
-	_camera_pose_client.send(poseData);
+
 	//std::cout << "Sent camera pose" << std::endl;
 
 	/*std::cout << "Camera Pose: " << pmsg.pose.position.x << ", " << pmsg.pose.position.y << ", " << pmsg.pose.position.z << ";( " <<
 	pmsg.pose.orientation.x << ", " << pmsg.pose.orientation.y << ", " << pmsg.pose.orientation.z << ", " << pmsg.pose.orientation.w << " )" << std::endl;*/
 
 	// pmsg.header.stamp = ros::Time::now(); // pmsg.header.stamp = 0; // pmsg.header.frame_id = "world"; // pose_publisher.publish(pMsg);
-	SE3 camToWorld = se3FromSim3(kf->getScaledCamToWorld()); //here for now
+	SE3 camToWorld = se3FromSim3(tf->getScaledCamToWorld()); //here for now
 	cv::circle(tracker_display, cv::Point(320+camToWorld.translation()[0]*640, -240 + camToWorld.translation()[1]*480), 2, cv::Scalar(255, 0, 0),4);
 	cv::imshow("Tracking_output", tracker_display);
-	std::cout << "Published Tracked frame: " << camToWorld.translation()[0] << " " << camToWorld.translation()[1] << "  " << camToWorld.translation()[2] << std::endl;
-
+	//cv::waitKey(20);
+	std::cout << "Published camera pose: " << camToWorld.translation()[0] << " " << camToWorld.translation()[1] << "  " << camToWorld.translation()[2] << std::endl;
+	std::vector<double> poseData = serializeCameraPose(tf);
+	_camera_pose_client.send(poseData);
 	//std::cout << "# tf Points: " << fMsg.pointcloud.size() << std::endl;
 	//_camera_pose_client.send("Sent Trackedframe \n");
 
 }
 // TODO: add htons() to these
 
-std::vector<double> SLAMOutputWrapper::serializeHeader(Frame *f){
-	std::vector<double> data(2, 0);
-
-
-	data[0] = f->id(); 
-	data[1] = f->timestamp();
-	
-	return data;
-}
-std::vector<double> SLAMOutputWrapper::serializeCameraParams(Frame *f){
-	std::vector<double> data(6, 0);
-
-	int q = 0;
-
-
-	//serializeCamera;
-	data[q] = f->fx(publishLvl); q++;
-	data[q] = f->fy(publishLvl); q++;
-	data[q] = f->cx(publishLvl); q++;
-	data[q] = f->cy(publishLvl); q++;
-	data[q] = f->height(publishLvl); q++;
-	data[q] = f->width(publishLvl);
-	
-	return data;
-
-
-}
-// we sould hsare serializeHeader() fcn but phose always accompanies a header, so lets keep it simple
-std::vector<double> SLAMOutputWrapper::serializeCameraPose(Frame *kf){
-
-	SE3 camToWorld = se3FromSim3(kf->getScaledCamToWorld());
-	std::vector<double> data(9, 0);
-	std::vector<double> headerData = serializeHeader(kf);
-
-	int q = 0;
-
-	data[q] = headerData[q]; q ++;
-	data[q] = headerData[q]; q ++;
-
-	data[q] = camToWorld.translation()[0]; q++;
-	data[q] = camToWorld.translation()[1]; q++;
-	data[q] = camToWorld.translation()[2]; q++;
-	int c = 1;
-	if (camToWorld.so3().unit_quaternion().w() < 0)
-		c = -1;
-	data[q] = c * camToWorld.so3().unit_quaternion().x(); q++;
-	data[q] = c * camToWorld.so3().unit_quaternion().y(); q++;
-	data[q] = c * camToWorld.so3().unit_quaternion().z(); q++;
-	data[q] = c * camToWorld.so3().unit_quaternion().w(); q++;
-	//data[q] = camToWorld.scale(); already scaled?
-
-	return data;
-
-}
-
-std::vector<double> SLAMOutputWrapper::serializePoint(const float idepth, const float idepthvar, const float color){
-	std::vector<double> data(6, 0);
-	int q = 0;
-
-	data[q] = idepth; q++;
-	data[q] = idepthvar; q++;
-	data[q] = color; q++;
-	data[q] = color; q++;
-	data[q] = color; q++;
-	data[q] = color;
-
-	return data;
-}
-
-
-
-void SLAMOutputWrapper::serializeCloud(Frame *f, int size){
-	std::vector<double> headerData = serializeHeader(f);
-
-	const float* idepth = f->idepth(publishLvl);  //check size of that
-	const float* idepthvar = f->idepthVar(publishLvl);
-	const float* color = f->image(publishLvl);
-	for (int idx = 0; idx < size; idx++) {
-		std::vector<double> pointData = serializePoint(idepth[idx], idepthvar[idx], color[idx]);
-	}
-
-}
 
 
 Point3DDense* SLAMOutputWrapper::pointFromKF(KeyFrameMessage kFm)
@@ -349,7 +277,6 @@ Point3DDense* SLAMOutputWrapper::pointFromKF(KeyFrameMessage kFm)
 			vertexBufferNumPoints++;
 			displayed++;
 
-
 		}
 	}
 
@@ -363,16 +290,11 @@ Point3DDense* SLAMOutputWrapper::pointFromKF(KeyFrameMessage kFm)
 	//glBufferData(GL_ARRAY_BUFFER, sizeof(MyVertex) * vertexBufferNumPoints, tmpBuffer, GL_STATIC_DRAW);
 	//vertexBufferIdValid = true;
 
-
-
 	if (!keepInMemory)
 	{
 		delete[] originalInput;
 		originalInput = 0;
 	}
-
-
-
 
 	return tmpBuffer;
 }
@@ -446,19 +368,127 @@ void SLAMOutputWrapper::publishDebugInfo(const Eigen::Matrix<float, 20, 1>& data
 //}
 
 
+/*std::vector<double> SLAMOutputWrapper::serializeHeader(Frame *f){
+	std::vector<double> data(2, 0);
 
-void  InputPointDense::serialize(char* data){
-	int *q = (int*)data;
-	*q = this->idepth;       q++;
-	*q = this->idepth_var;   q++;
-	
-	for (int i = 0; i++; i < 3){
-		*q = color[i];     q++;
-	}
-	int i = 0;
+
+	data[0] = f->id();
+	data[1] = f->timestamp();
+
+	return data;
+}*/
+
+std::vector<float> SLAMOutputWrapper::serializeCameraParams(Frame *f){
+ 	std::vector<float> data(6, 0);
+
+	int q = 0;
+
+	//serializeCamera;
+	data[q] = f->fx(publishLvl); q++;
+	data[q] = f->fy(publishLvl); q++;
+	data[q] = f->cx(publishLvl); q++;
+	data[q] = f->cy(publishLvl); q++;
+	data[q] = f->height(publishLvl); q++;
+	data[q] = f->width(publishLvl);
+	std::cout << " Params Size:" << data.size() << std::endl;
+
+	return data;
+
 
 }
-void InputPointDense::deserialize(char *data){
+// we sould hsare serializeHeader() fcn but phose always accompanies a header, so lets keep it simple
+std::vector<double> SLAMOutputWrapper::serializeCameraPose(Frame *kf){
+	std::vector<double> data(9,0);
+	SE3 camToWorld = se3FromSim3(kf->getScaledCamToWorld());
+	int q = 0;
+
+
+	data[q] = kf->id(); q++;
+	data[q] = kf->timestamp(); q++;
+	//obv. this can also be done at once with a pointer to ctw.translation()
+	data[q] = camToWorld.translation()[0]; q++;
+	data[q] = camToWorld.translation()[1]; q++;
+	data[q] = camToWorld.translation()[2]; q++;
+	int c = 1;
+	if (camToWorld.so3().unit_quaternion().w() < 0)
+		c = -1;
+	data[q] = c * camToWorld.so3().unit_quaternion().x(); q++;
+	data[q] = c * camToWorld.so3().unit_quaternion().y(); q++;
+	data[q] = c * camToWorld.so3().unit_quaternion().z(); q++;
+	data[q] = c * camToWorld.so3().unit_quaternion().w(); q++;
+	//data[q] = camToWorld.scale(); already scaled?
+	//std::cout << " Pose Size:" << data.size() << std::endl;
+
+	return data;
+
+}
+
+std::vector<float> SLAMOutputWrapper::serializePoint(const float idepth, const float idepth_var, const float color){
+	std::vector<float> data(2, 0);
+	int q = 0;
+
+	data[q] = idepth; q++;
+	data[q] = idepth_var; q++;
+	data[q] = color; // this is conveniently packed as floats
+					// which is 4 u_chars, will be deserialized at the endpoint
+
+
+	return data;
+
+
+}
+
+
+
+std::vector<float> SLAMOutputWrapper::serializeCloud(Frame *f){
+	
+	//int pixsize = this->pixsize;
+	int pixsize = POINT_QUOTA;
+	double tstmp_d = f->timestamp();
+	const float* tstmp_f = reinterpret_cast<const float*>(&tstmp_d); // split double into 4byte-words
+	
+
+	const float* idepth = f->idepth(publishLvl);  //check size of that
+	const float* idepthvar = f->idepthVar(publishLvl);
+	const float* color = f->image(publishLvl);
+
+	//t_size size = pixsize * 3 + 3
+	std::vector<float> data; // header+ pointcloud
+
+	data.push_back(f->id());
+	data.push_back(tstmp_f[0]);
+	data.push_back(tstmp_f[1]);
+
+	std::ofstream log;
+	log.open("slam_log.txt");
+	data.insert(data.end(), idepth, idepth + POINT_QUOTA);
+	data.insert(data.end(), idepthvar, idepthvar + POINT_QUOTA);
+	data.insert(data.end(), color, color + POINT_QUOTA);
+	/*for (int idx = 0; idx < pixsize; idx++) {
+		std::vector<float> pointData = serializePoint(idepth[idx], idepthvar[idx], color[idx]);
+	}*/
+	std::cout << "point_100:" << data[100 + 3] << ", " << data[pixsize + 100 + 3] << std::endl;
+	std::cout << "Size: " << data.size() << std::endl;
+
+	return data;
+}
+
+std::vector<float>  InputPointDense::serialize(){
+	std::vector<float> data(3, 0);
+	int q = 0;
+	
+	data[q] = idepth; q++;
+	data[q] = idepth_var; q++;
+	data[q] = color[0];
+	data[q] = color[1];
+	data[q] = color[2];
+	data[q] = color[3];
+
+	return data;
+
+}
+
+/*void InputPointDense::deserialize(char *data){
 	int *q = (int*)data;
 	this->idepth = *q;       q++;
 	this->idepth_var = *q;   q++;
@@ -468,7 +498,7 @@ void InputPointDense::deserialize(char *data){
 
 	char *p = (char*)q;
 	
-}
+}*/
 
 
 void  Point3DDense::serialize(char* data){
