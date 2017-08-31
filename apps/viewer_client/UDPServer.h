@@ -20,6 +20,8 @@
 
 using boost::asio::ip::udp;
 
+
+
 struct addr{
 	std::string ip;
 	unsigned int port;
@@ -33,15 +35,18 @@ class UDPServer
 {
 public:
 	UDPServer(boost::asio::io_service& io_service, viewer_client::SLAMData* slam, unsigned short port, unsigned short size);
+	UDPServer(boost::asio::io_service& io_service, viewer_client::SLAMData* slam, unsigned short port, std::vector<float>* buffer);
+
 	virtual ~UDPServer(){}
+	void setSize(int sz){ this->size = sz;}
 
 protected:
 	
-	unsigned short size;
+	int size;
 	udp::socket socket_;
 	udp::endpoint remote_endpoint_;
 	
-	std::vector<double> data_buffer_;
+	std::vector<float> float_buffer_;
 	
 	viewer_client::SLAMData* slam;
 
@@ -62,36 +67,39 @@ private:
 };
 // For reasons of precticality, instead of using reference by func. poitners for handlers we are using polymorphism
 class camParamsServer : public UDPServer{
+	public:
+		camParamsServer(boost::asio::io_service& io_service, viewer_client::SLAMData* slam);
+		virtual ~camParamsServer(){}
 
-public:
-	camParamsServer(boost::asio::io_service& io_service, viewer_client::SLAMData* slam);
-	virtual ~camParamsServer(){}
 
-	//@override
-protected:
-	void handle_receive(const boost::system::error_code& error,
-		std::size_t bytes_transferred);
-	//void start_receive();
+	protected:
+		void handle_receive(const boost::system::error_code& error,
+			std::size_t bytes_transferred);
+
 
 };
 class camPoseServer : public UDPServer{
+	public:
+		std::vector<double> double_buffer_;
 
-public:
-	camPoseServer(boost::asio::io_service& io_service, viewer_client::SLAMData* slam);
-	virtual ~camPoseServer(){}
+		camPoseServer(boost::asio::io_service& io_service, viewer_client::SLAMData* slam);
+		virtual ~camPoseServer(){}
 	
-	//@override
-	void handle_receive(const boost::system::error_code& error,
-		std::size_t bytes_transferred);
-//	void start_receive();
+		void handle_receive(const boost::system::error_code& error,
+			std::size_t bytes_transferred);
+		void start_receive();
+
 };
 class keyFrameServer : public UDPServer{
+	public:
+		keyFrameServer(boost::asio::io_service& io_service, viewer_client::SLAMData* slam);
+		keyFrameServer(boost::asio::io_service& io_service, viewer_client::SLAMData* slam, std::vector<float>* buffer);
 
-public:
-	keyFrameServer(boost::asio::io_service& io_service, viewer_client::SLAMData* slam);
-	virtual ~keyFrameServer(){}
+		virtual ~keyFrameServer(){}
 
-	//@override
-	void handle_receive(const boost::system::error_code& error,
-		std::size_t bytes_transferred);
+
+		
+
+		void handle_receive(const boost::system::error_code& error,
+			std::size_t bytes_transferred);
 };

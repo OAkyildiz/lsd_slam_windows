@@ -49,8 +49,8 @@ struct InputPointDense
 	float idepth_var;
 	unsigned char color[4];
 
-	void serialize(char *data);
-	void deserialize(char *data);
+	std::vector<float> serialize();
+	//void deserialize(char *data);
 };
 
 struct Point3DDense{
@@ -120,6 +120,7 @@ class SLAMOutputWrapper : public Output3DWrapper
 public:
 
 	// initializes cam-calib independent stuff
+	//SLAMOutputWrapper(int width, int height, std::ostream &);
 	SLAMOutputWrapper(int width, int height);
 	~SLAMOutputWrapper();
 	bool first; //or id=1
@@ -143,12 +144,17 @@ public:
 
 	// these should be in Frame, but there is no point in modifying or extending 
 	// that class and make organization complex
-	std::vector<double> serializeHeader(Frame *f);
-	std::vector<double> serializeCameraParams(Frame *f);
+	//std::vector<double> serializeHeader(Frame *f);
+	std::vector<float> serializeCameraParams(Frame *f);
 
 	std::vector<double> serializeCameraPose(Frame *kf);
-	std::vector<double> serializePoint(const float idepth, const float idepthvar, const float color);
-	void serializeCloud(Frame *f, int size);
+	std::vector<float> serializePoint(const float idepth, const float idepthvar, const float  color);
+	std::vector<float> serializeCloud(Frame *f);
+
+
+	//std::ofstream & _log;
+	//no need to reaccess there
+	int pixsize;
 
 	int publishLvl;
 

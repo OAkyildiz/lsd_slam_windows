@@ -27,6 +27,7 @@ public:
 
 	void UDPClient::send(const std::string& msg);
 	void UDPClient::send(std::vector<double> msg);
+	void UDPClient::send(std::vector<float> msg);
 
 private:
 	boost::asio::io_service& io_service_;

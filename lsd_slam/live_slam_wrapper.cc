@@ -105,7 +105,7 @@ void LiveSLAMWrapper::Loop()
 		imageStream->getBuffer()->popFront();
 		
 		// process image
-		Util::displayImage("MyVideo", image.data);
+		Util::displayImage("Input Stream", image.data);
 		newImageCallback(image.data, image.timestamp);
 		auto key = cvWaitKey(10); //Capture Keyboard stroke
 		if (char(key) == 27){
