@@ -1,6 +1,3 @@
-#include <iostream>
-//#include <sys/socket.h>
-
 
 #include <opencv2/opencv.hpp>
 #include <opencv2/imgcodecs.hpp>
@@ -20,6 +17,11 @@
 #include <ctime>
 #include <iostream>
 #include <string>
+
+#include <errno.h>   // for errno
+#include <limits.h>  // for INT_MAX
+#include <stdlib.h>  // for strtol
+
 #include <boost/array.hpp>
 #include <boost/bind.hpp>
 #include <boost/shared_ptr.hpp>
@@ -45,19 +47,50 @@ int main(int argc, char* argv[]){
 	//if ((fd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
 	//	error("cannot create socket");
 	//}
-    //TODO: dynamic path, instead of constant
-    std::string calib_fn = "E:/workspaces/lsd_slam_windows/data/out_camera_data.xml";
+	//TODO: dynamic path, instead of constant
+	std::string calib_fn = "E:/workspaces/lsd_slam_windows/data/out_camera_data.xml";
 	//CvCapture* capture = cvCaptureFromCAM(CV_CAP_ANY); //Capture using any camera connected to your system
-	cv::VideoCapture* capture= new cv::VideoCapture(0); // open the default camera
+	int pt_qt = 0;
+	char *p;
+
+	cv::VideoCapture* capture;
+	if (argc > 1){
+		errno = 0;
+		long conv = strtol(argv[1], &p, 10);
+
+		// Check for errors: e.g., the string does not represent an integer
+		// or the integer is larger than int
+		if (errno != 0 || *p != '\0' || conv > INT_MAX) {
+			std::cout << "Couldn't read the arg " << argv[1] << std::endl;
+
+		}
+		else {
+			// No error
+			pt_qt = conv;
+		}
+	}
+	if (argc > 2){
+		//if (strcmp(argv[1] ,'0') || argv[1] == '1')
+		//capture = new cv::VideoCapture(argv[1]);
+		std::cout << "Source: " << argv[2] << std::endl;
+	}
+	else
+		capture = new cv::VideoCapture(1); // open the default camera
+
+	std::cout << "Point Quota: " << pt_qt << std::endl;
+	
 	if (!capture->isOpened())  // check if we succeeded
 	  return -1;
+
+	
+
 	OpenCVImageStreamThread* inputStream = new OpenCVImageStreamThread();
     inputStream->setCalibration(calib_fn);
 
 	inputStream->setCameraCapture(capture);
 	inputStream->run();
 
-	Output3DWrapper* outputWrapper = new SLAMOutputWrapper(inputStream->width(), inputStream->height());
+	Output3DWrapper* outputWrapper = new SLAMOutputWrapper(inputStream->width(), inputStream->height(), pt_qt);
 	LiveSLAMWrapper slamNode(inputStream, outputWrapper);
 
 	cv::Mat mymat;

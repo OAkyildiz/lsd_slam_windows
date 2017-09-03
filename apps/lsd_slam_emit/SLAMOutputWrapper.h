@@ -121,9 +121,10 @@ public:
 
 	// initializes cam-calib independent stuff
 	//SLAMOutputWrapper(int width, int height, std::ostream &);
-	SLAMOutputWrapper(int width, int height);
+	SLAMOutputWrapper(int width, int height, int _pt_quota);
 	~SLAMOutputWrapper();
 	bool first; //or id=1
+
 
 	virtual void publishKeyframeGraph(KeyFrameGraph* graph);
 
@@ -155,6 +156,7 @@ public:
 	//std::ofstream & _log;
 	//no need to reaccess there
 	int pixsize;
+	int _pt_quota;
 
 	int publishLvl;
 

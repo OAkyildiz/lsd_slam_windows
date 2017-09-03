@@ -118,7 +118,8 @@ public:
 
 
 	int publishLvl;
-	
+
+
 private:
 	int width, height;
 
