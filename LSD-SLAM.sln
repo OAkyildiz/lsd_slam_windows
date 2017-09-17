@@ -53,6 +53,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "viewer_client", "apps\viewe
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lsd_slam_emit", "apps\lsd_slam_emit\lsd_slam_emit.vcxproj", "{A2EA612E-936C-4EB5-9391-F1103C9B102A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lsd_slam_viewer", "apps\lsd_slam_viewer\lsd_slam_viewer.vcxproj", "{57D4E9CB-7C0C-4089-988E-595435203E4E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -209,6 +211,18 @@ Global
 		{A2EA612E-936C-4EB5-9391-F1103C9B102A}.Release|Win32.ActiveCfg = Release|x64
 		{A2EA612E-936C-4EB5-9391-F1103C9B102A}.Release|x64.ActiveCfg = Release|x64
 		{A2EA612E-936C-4EB5-9391-F1103C9B102A}.Release|x64.Build.0 = Release|x64
+		{57D4E9CB-7C0C-4089-988E-595435203E4E}.Debug|ARM.ActiveCfg = Debug|x64
+		{57D4E9CB-7C0C-4089-988E-595435203E4E}.Debug|Mixed Platforms.ActiveCfg = Debug|x64
+		{57D4E9CB-7C0C-4089-988E-595435203E4E}.Debug|Mixed Platforms.Build.0 = Debug|x64
+		{57D4E9CB-7C0C-4089-988E-595435203E4E}.Debug|Win32.ActiveCfg = Debug|x64
+		{57D4E9CB-7C0C-4089-988E-595435203E4E}.Debug|x64.ActiveCfg = Debug|x64
+		{57D4E9CB-7C0C-4089-988E-595435203E4E}.Debug|x64.Build.0 = Debug|x64
+		{57D4E9CB-7C0C-4089-988E-595435203E4E}.Release|ARM.ActiveCfg = Release|x64
+		{57D4E9CB-7C0C-4089-988E-595435203E4E}.Release|Mixed Platforms.ActiveCfg = Release|x64
+		{57D4E9CB-7C0C-4089-988E-595435203E4E}.Release|Mixed Platforms.Build.0 = Release|x64
+		{57D4E9CB-7C0C-4089-988E-595435203E4E}.Release|Win32.ActiveCfg = Release|x64
+		{57D4E9CB-7C0C-4089-988E-595435203E4E}.Release|x64.ActiveCfg = Release|x64
+		{57D4E9CB-7C0C-4089-988E-595435203E4E}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -227,5 +241,6 @@ Global
 		{918E633D-51BD-44A6-B8CB-571C3329B3B7} = {A654C9A2-97D6-40E5-84D3-9229363D9194}
 		{DB765695-E222-4D1E-98E5-81938DCDB794} = {714A7FFD-3605-491E-86B2-91B88DF06B6B}
 		{A2EA612E-936C-4EB5-9391-F1103C9B102A} = {714A7FFD-3605-491E-86B2-91B88DF06B6B}
+		{57D4E9CB-7C0C-4089-988E-595435203E4E} = {714A7FFD-3605-491E-86B2-91B88DF06B6B}
 	EndGlobalSection
 EndGlobal

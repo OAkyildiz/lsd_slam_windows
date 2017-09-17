@@ -26,7 +26,10 @@
 #include <boost/bind.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/asio.hpp>
+#include <boost/serialization/split_free.hpp>
 
+#include <boost/serialization/vector.hpp>
+//#include <pcl/visualization/cloud_viewer.h>
 
 #define _WIN32_WINNT		0x0A00  
 #define _WIN32_WINNT_WIN10	0x0A00 // Windows 10  
@@ -41,7 +44,7 @@ char key;
 
 //PATH=C:\projects\uni\dissertation\Libraries\g2o\install\bin;C:\projects\uni\dissertation\Libraries\opencv\x86\vc12\bin;%PATH%
 int main(int argc, char* argv[]){
-
+	//pcl::visualization::CloudViewer viewer("Cloud Viewer");
 	cvNamedWindow("Camera_Output_Undist", 1); //Create window
 	//int s = socket(AF_UNIX, type, protocol);
 	//if ((fd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
@@ -92,7 +95,6 @@ int main(int argc, char* argv[]){
 
 	Output3DWrapper* outputWrapper = new SLAMOutputWrapper(inputStream->width(), inputStream->height(), pt_qt);
 	LiveSLAMWrapper slamNode(inputStream, outputWrapper);
-
 	cv::Mat mymat;
 	*capture >> mymat;//Create image frames from capture
 	cv::Mat tracker_display = cv::Mat::ones(640, 480, CV_8UC3);

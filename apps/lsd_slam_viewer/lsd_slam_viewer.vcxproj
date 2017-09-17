@@ -11,10 +11,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{A2EA612E-936C-4EB5-9391-F1103C9B102A}</ProjectGUID>
+    <ProjectGUID>{57D4E9CB-7C0C-4089-988E-595435203E4E}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>x64</Platform>
-    <ProjectName>lsd_slam_emit</ProjectName>
+    <ProjectName>lsd_slam_viewer</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -47,13 +47,13 @@
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)build\bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)build\obj\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">lsd_slam_emit</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">lsd_slam_viewer</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)build\bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)build\obj\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">lsd_slam_emit</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">lsd_slam_viewer</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
@@ -117,7 +117,7 @@ xcopy "$(BOOST_DIR)lib64-msvc-12.0\boost_thread-vc120-mt-gd-1_59.dll" "$(OutDir)
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)lsd_slam;$(BOOST_DIR);$(OPENCV_DIR)include;$(OPENCV_DIR)include\opencv;$(SolutionDir)thirdparty\g2o\source;$(SolutionDir)thirdparty\g2o\source\EXTERNAL\csparse;$(SolutionDir)thirdparty\g2o\vcxproj;E:\dev\eigen;$(SolutionDir)thirdparty\Sophus;$(SolutionDir)thirdparty\openFabMap\include;$(SolutionDir)thirdparty\dirent-1.20.1\include;$(SolutionDir)thirdparty\videoInput\videoInput;E:\dev\vtk\install\include\vtk-7.0;E:\dev\pcl\install\include\pcl-1.8</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)lsd_slam;$(BOOST_DIR);$(OPENCV_DIR)include;$(OPENCV_DIR)include\opencv;$(SolutionDir)thirdparty\g2o\source;$(SolutionDir)thirdparty\g2o\source\EXTERNAL\csparse;$(SolutionDir)thirdparty\g2o\vcxproj;E:\dev\eigen;$(SolutionDir)thirdparty\Sophus;$(SolutionDir)thirdparty\openFabMap\include;$(SolutionDir)thirdparty\dirent-1.20.1\include;$(SolutionDir)thirdparty\videoInput\videoInput;E:\dev\vtk\install\include\vtk-7.0;E:\dev\pcl\install\include\pcl-1.8;$(QTDIR)\include</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
       <FloatingPointModel>Fast</FloatingPointModel>
@@ -145,11 +145,11 @@ xcopy "$(BOOST_DIR)lib64-msvc-12.0\boost_thread-vc120-mt-gd-1_59.dll" "$(OutDir)
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
       <InterfaceIdentifierFileName>%(Filename)_i.cpp</InterfaceIdentifierFileName>
-      <ProxyFileName>%(Filename)_p.cpp</ProxyFileName>
+      <ProxyFileName>S%(Filename)_p.cpp</ProxyFileName>
     </Midl>
     <Link>
       <AdditionalOptions> /machine:x64 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;libboost_system-vc120-mt-1_59.lib;libboost_thread-vc120-mt-1_59.lib;opencv_world300.lib;pcl_common_release.lib;pcl_visualization_release.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;libboost_system-vc120-mt-1_59.lib;libboost_thread-vc120-mt-1_59.lib;opencv_world300.lib;pcl_common_release.lib;pcl_visualization_release.lib;Qt5Gui.lib;Qt5Core.lib;Qt5OpenGL.lib\</AdditionalDependencies>
       <!--opencv_core300.lib;opencv_imgcodecs300.lib;opencv_imgproc300.lib;opencv_features2d300.lib;
         opencv_videoio300.lib;opencv_calib3d300.lib;opencv_highgui300.lib;opencv_viz300.lib</AdditionalDependencies>-->
       <AdditionalLibraryDirectories>$(BOOST_DIR)/lib64-msvc-12.0;$(OPENCV_DIR)\x64\vc12\lib;$(SolutionDir)\build\lib\$(Platform)\$(Configuration)\;E:\dev\vtk\install\lib;E:\dev\pcl\install\lib;E:\dev\pcl\install\include\pcl-1.8;$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -171,13 +171,17 @@ xcopy "$(BOOST_DIR)lib64-msvc-12.0\boost_thread-vc120-mt-1_59.dll" "$(OutDir)" /
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="UDPClient.cpp" />
-    <ClInclude Include="SLAMOutputWrapper.h" />
-    <ClCompile Include="SLAMOutputWrapper.cpp" />
-    <ClCompile Include="lsd_main.cpp" />
-    <ClInclude Include="depth2Points.h" />
-    <ClCompile Include="depth2Points.cpp" />
-    <ClInclude Include="UDPClient.h" />
+    <ClCompile Include="src/KeyFrameDisplay.cpp" />
+    <ClInclude Include="src/KeyFrameDisplay.h" />
+    <ClCompile Include="src/KeyFrameGraphDisplay.cpp" />
+    <ClInclude Include="src/KeyFrameGraphDisplay.h" />
+    <ClCompile Include="src/PointCloudViewer.cpp" />
+    <ClInclude Include="src/keyframeGraphMsg.h" />
+    <ClInclude Include="src/keyframeMsg.h" />
+    <ClInclude Include="src/PointCloudViewer.h" />
+    <ClCompile Include="src/main_viewer.cpp" />
+    <ClCompile Include="src/settings.cpp" />
+    <ClInclude Include="src/settings.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\lsd_slam\lsd_slam.vcxproj">

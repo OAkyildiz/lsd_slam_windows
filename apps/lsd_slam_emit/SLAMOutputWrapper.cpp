@@ -34,6 +34,7 @@
 #include "sophus/sim3.hpp"
 #include "lsd_slam/global_mapping/g2o_type_sim3_sophus.h"
 
+
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/imgproc.hpp>
@@ -77,11 +78,12 @@ namespace lsd_slam
 	// "lsd_slam/debug" debugInfo_publisher, Float32MultiArray
 	// "lsd_slam/pose";  pose_publisher, PoseStamped
 	
-
+	/*
 	tracker_display = cv::Mat::ones(640, 480, CV_8UC1);
 	cv::circle(tracker_display, cv::Point(100,100), 20, cv::Scalar(0, 255, 0));
 	cv::imshow("Tracking_output", tracker_display);
-	cvWaitKey(40);
+	cvWaitKey(0);
+	*/
 	publishLvl=0;
 }
 
@@ -149,7 +151,7 @@ void SLAMOutputWrapper::publishTrackedFrame(Frame* tf)
 
 		std::vector<float> input_cloud = serializeCloud(tf);
 		std::cout << "[" << tf->timestamp() << "] " << "TF #" << tf->id() << " was sent: " << input_cloud.size() << " px" << std::endl;
-		_keyframe_client.send(input_cloud);
+		//_keyframe_client.send(input_cloud);
 	}
 	//keyframe_publisher.publish(fMsg);
 
@@ -460,9 +462,9 @@ std::vector<float> SLAMOutputWrapper::serializeCloud(Frame *f){
 
 	//t_size size = pixsize * 3 + 3
 	
-	std::vector<float> data(this->_pt_quota*3+3, 0.0);
+	//std::vector<float> data(this->_pt_quota*3+3, 0.0);
 
-	/*std::vector<float> data; // header+ pointcloud
+	std::vector<float> data; // header+ pointcloud
 
 	data.push_back(f->id());
 	data.push_back(tstmp_f[0]);
@@ -476,7 +478,7 @@ std::vector<float> SLAMOutputWrapper::serializeCloud(Frame *f){
 	/*for (int idx = 0; idx < pixsize; idx++) {
 		std::vector<float> pointData = serializePoint(idepth[idx], idepthvar[idx], color[idx]);
 	}*/
-	
+	/*this to check from the other end*/
 	std::cout << "point_100:" << data[100 + 3] << ", " << data[pixsize + 100 + 3] << std::endl;
 	std::cout << "Size: " << data.size() << std::endl;
 
